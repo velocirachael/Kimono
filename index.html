@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Florida Kimono Delegation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #F7F2E7;
+    --ivory-soft: #EFE8D8;
+    --indigo-deep: #16324A;
+    --indigo: #2C5A78;
+    --vermillion: #C1502E;
+    --charcoal: #2A2622;
+    --gold-thread: #B8893B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--charcoal);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--indigo-deep);
+    font-weight: 700;
+  }
+
+  /* ---------- Seigaiha wave pattern (signature element) ---------- */
+  .wave-band {
+    width: 100%;
+    height: 28px;
+    background-image: radial-gradient(circle at 50% -50%, transparent 0, transparent 18px, var(--indigo) 19px, var(--indigo) 20px, transparent 21px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 0;
+    opacity: 0.85;
+  }
+  .wave-band.flip { transform: scaleY(-1); }
+
+  /* ---------- Header ---------- */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 6vw;
+    background: rgba(247, 242, 231, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(22, 50, 74, 0.12);
+  }
+
+  .wordmark {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    color: var(--indigo-deep);
+    text-decoration: none;
+  }
+  .wordmark span { color: var(--vermillion); }
+
+  .social-links {
+    display: flex;
+    gap: 22px;
+  }
+  .social-links a {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--indigo-deep);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.25s ease;
+  }
+  .social-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 1px;
+    background: var(--vermillion);
+    transition: width 0.25s ease;
+  }
+  .social-links a:hover { color: var(--vermillion); }
+  .social-links a:hover::after { width: 100%; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 6vw 80px;
+    position: relative;
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--vermillion);
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 5.2rem);
+    line-height: 1.08;
+    max-width: 16ch;
+    margin-bottom: 24px;
+  }
+
+  .hero .tagline {
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    color: var(--indigo);
+    max-width: 42ch;
+    font-weight: 300;
+  }
+
+  .hero .location {
+    margin-top: 28px;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    opacity: 0.6;
+  }
+
+  /* ---------- Mission ---------- */
+  .mission {
+    padding: 100px 6vw;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .mission .divider {
+    background: linear-gradient(to bottom, transparent, var(--gold-thread), transparent);
+    width: 1px;
+    height: 100%;
+  }
+  .mission h2 {
+    font-size: 1.9rem;
+    margin-bottom: 18px;
+  }
+  .mission p {
+    font-size: 1.02rem;
+    color: var(--charcoal);
+    opacity: 0.85;
+  }
+  .mission .edit-note {
+    display: block;
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: var(--vermillion);
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  /* ---------- Signup ---------- */
+  .signup {
+    background: var(--indigo-deep);
+    color: var(--ivory);
+    padding: 110px 6vw;
+    text-align: center;
+  }
+  .signup h2 {
+    color: var(--ivory);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: 14px;
+  }
+  .signup p {
+    color: var(--ivory-soft);
+    max-width: 46ch;
+    margin: 0 auto 42px;
+    font-weight: 300;
+  }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  form input {
+    flex: 1 1 220px;
+    padding: 14px 18px;
+    border: 1px solid rgba(247, 242, 231, 0.35);
+    background: rgba(247, 242, 231, 0.06);
+    color: var(--ivory);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.95rem;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  form input::placeholder { color: rgba(247, 242, 231, 0.55); }
+  form input:focus {
+    border-color: var(--vermillion);
+    background: rgba(247, 242, 231, 0.1);
+  }
+  form button {
+    flex: 0 0 auto;
+    padding: 14px 30px;
+    background: var(--vermillion);
+    color: var(--ivory);
+    border: none;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  form button:hover { background: #a8431f; }
+  form button:active { transform: scale(0.98); }
+  form button:focus-visible, form input:focus-visible {
+    outline: 2px solid var(--ivory);
+    outline-offset: 2px;
+  }
+
+  .form-message {
+    margin-top: 18px;
+    font-size: 0.9rem;
+    color: var(--ivory-soft);
+    min-height: 1.4em;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 50px 6vw 40px;
+    text-align: center;
+    background: var(--ivory);
+  }
+  footer .social-links {
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  footer .copyright {
+    font-size: 0.8rem;
+    color: var(--charcoal);
+    opacity: 0.55;
+  }
+
+  @media (max-width: 720px) {
+    header { padding: 14px 5vw; }
+    .social-links { gap: 14px; }
+    .social-links a { font-size: 0.7rem; }
+    .mission {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .mission .divider { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="wordmark">Florida Kimono <span>Delegation</span></a>
+  <!-- EDIT: replace # with your real social links -->
+  <nav class="social-links">
+    <a href="#" target="_blank">Instagram</a>
+    <a href="#" target="_blank">Facebook</a>
+    <a href="#" target="_blank">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Coming to Florida</div>
+  <h1>The art of kimono, gathered together.</h1>
+  <p class="tagline">A community dedicated to the history, craft, and wearing of kimono — open to anyone curious, and built by those who love it.</p>
+  <p class="location">Florida, USA</p>
+</section>
+
+<div class="wave-band"></div>
+
+<section class="mission">
+  <div>
+    <h2>Our purpose</h2>
+    <p>
+      <!-- EDIT: replace with your real purpose statement -->
+      Florida Kimono Delegation exists to share the beauty and tradition of kimono with our community — through events, education, and hands-on experience for people of all backgrounds.
+    </p>
+    <span class="edit-note">Replace this paragraph with your purpose statement.</span>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <h2>Our mission</h2>
+    <p>
+      <!-- EDIT: replace with your real mission statement -->
+      We bring together enthusiasts, collectors, and newcomers to celebrate kimono culture, support one another's craft, and keep these traditions alive for the next generation.
+    </p>
+    <span class="edit-note">Replace this paragraph with your mission statement.</span>
+  </div>
+</section>
+
+<div class="wave-band flip"></div>
+
+<section class="signup">
+  <h2>Stay in the loop</h2>
+  <p>Sign up to hear about upcoming events, news, and what's next for the delegation.</p>
+  <form id="signup-form">
+    <input type="text" id="name" placeholder="Your name" required>
+    <input type="email" id="email" placeholder="Your email" required>
+    <button type="submit">Join the list</button>
+  </form>
+  <p class="form-message" id="form-message"></p>
+</section>
+
+<footer>
+  <nav class="social-links">
+    <a href="#" target="_blank">Instagram</a>
+    <a href="#" target="_blank">Facebook</a>
+    <a href="#" target="_blank">Contact</a>
+  </nav>
+  <p class="copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
+</footer>
+
+<script>
+  // NOTE: this form does not actually send data anywhere yet.
+  // Once you have hosting, connect it to a real service (e.g. Formspree, Mailchimp, or a simple backend)
+  // to actually collect and store signups.
+  const form = document.getElementById('signup-form');
+  const message = document.getElementById('form-message');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    message.textContent = `Thanks, ${name.split(' ')[0]}! You're on the list.`;
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
