@@ -244,6 +244,12 @@
     min-height: 1.4em;
   }
 
+  /* ---------- Tally Form Styling ---------- */
+  .tally-form-container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
   /* ---------- Footer ---------- */
   footer {
     padding: 50px 6vw 40px;
@@ -292,7 +298,7 @@
 <section class="hero">
   <div class="eyebrow">Coming soon to Florida kimono enthusiasts</div>
   <h1>Florida's kimono community, connected at last.</h1>
-  <p class="tagline">Building a community dedicated to the history, craft, and wearing of kimono — while living in Florida — open to anyone curious or seasoned and built by those who love it.</p>
+  <p class="tagline">Building a community dedicated to the history, craft, and wearing of kimono — while living in Florida — open to anyone curious or seasoned and built by those who love it.[...]
   <p class="location">Florida, USA</p>
 </section>
 
@@ -306,7 +312,7 @@
 Florida Kimono: The living directory, archive, and community network for kimono culture in Florida.
 Florida Kimono is attempting to build a statewide kimono network that includes both sellers and enthusiasts, rather than a single local club, school, or business. 
     </p>
-    <span class="edit-note">It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and celebrate kimono culture.</span>
+    <span class="edit-note">It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and ce[...]
   </div>
   <div class="divider"></div>
   <div>
@@ -324,12 +330,20 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
 <section class="signup">
   <h2>Stay in the loop</h2>
   <p>Sign up to hear about upcoming events, news, and what's next for the delegation.</p>
+  
+  <!-- Tally Form Embed -->
+  <div class="tally-form-container">
+    <iframe data-tally-src="https://tally.so/embed/NpQRD0" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Florida Kimono Signup"></iframe>
+  </div>
+
+  <!-- ARCHIVED: Original form code (hidden for later use)
   <form id="signup-form">
     <input type="text" id="name" placeholder="Your name" required>
     <input type="email" id="email" placeholder="Your email" required>
     <button type="submit">Join the list</button>
   </form>
   <p class="form-message" id="form-message"></p>
+  -->
 </section>
 
 <footer>
@@ -341,6 +355,10 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
   <p class="copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
 </footer>
 
+<!-- Tally Embed Script -->
+<script src="https://tally.so/widgets/embed.js"></script>
+
+<!-- ARCHIVED: Original form script (hidden for later use)
 <script>
   // NOTE: this form does not actually send data anywhere yet.
   // Once you have hosting, connect it to a real service (e.g. Formspree, Mailchimp, or a simple backend)
@@ -355,6 +373,7 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
     form.reset();
   });
 </script>
+-->
 
 </body>
 </html>
