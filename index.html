@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +36,6 @@
     font-weight: 700;
   }
 
-  /* ---------- Seigaiha wave pattern (signature element) ---------- */
   .wave-band {
     width: 100%;
     height: 28px;
@@ -46,7 +46,6 @@
   }
   .wave-band.flip { transform: scaleY(-1); }
 
-  /* ---------- Header ---------- */
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -93,6 +92,76 @@
   }
   .social-links a:hover { color: var(--vermillion); }
   .social-links a:hover::after { width: 100%; }
+
+  /* ---------- Hamburger Menu ---------- */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+  }
+  .hamburger-line {
+    width: 24px;
+    height: 2px;
+    background: var(--indigo-deep);
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+  }
+  .hamburger:hover .hamburger-line { background: var(--vermillion); }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 6vw;
+    right: 6vw;
+    display: flex;
+    flex-direction: column;
+    background: var(--ivory);
+    border: 1px solid rgba(22, 50, 74, 0.12);
+    border-top: none;
+    box-shadow: 0 14px 28px rgba(22, 50, 74, 0.14);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+  }
+  .mobile-nav.open {
+    max-height: 320px;
+    opacity: 1;
+  }
+  .mobile-nav a {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--indigo-deep);
+    text-decoration: none;
+    padding: 16px 22px;
+    border-bottom: 1px solid rgba(22, 50, 74, 0.08);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover {
+    background: var(--ivory-soft);
+    color: var(--vermillion);
+  }
 
   /* ---------- Hero ---------- */
   .hero {
@@ -204,7 +273,6 @@
     line-height: 1.6;
   }
 
-  /* View toggle — vermillion is the section's signature accent */
   .view-toggle {
     display: inline-flex;
     border: 1px solid var(--vermillion);
@@ -233,7 +301,6 @@
     outline-offset: -2px;
   }
 
-  /* List view */
   #list-view {
     display: flex;
     flex-direction: column;
@@ -300,7 +367,6 @@
   }
   .event-link:hover { border-bottom-color: var(--vermillion); }
 
-  /* Calendar (grid) view */
   #grid-view { display: none; }
   #grid-view.active { display: block; }
   #list-view.hidden { display: none; }
@@ -496,8 +562,6 @@
 
   @media (max-width: 720px) {
     header { padding: 14px 5vw; }
-    .social-links { gap: 14px; }
-    .social-links a { font-size: 0.7rem; }
     .mission {
       grid-template-columns: 1fr;
       gap: 36px;
@@ -512,9 +576,9 @@
 </style>
 </head>
 <body>
-  <header>
+<header>
   <a href="#" class="wordmark">Florida Kimono <span>Club</span></a>
-  
+
   <!-- Hamburger Button -->
   <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
     <span class="hamburger-line"></span>
@@ -522,7 +586,7 @@
     <span class="hamburger-line"></span>
   </button>
 
-  <!-- Dropdown Menu (Add Phase 2 links here later) -->
+  <!-- Dropdown Menu -->
   <nav class="mobile-nav" id="mobileNav">
     <a href="#events">Calendar</a>
     <a href="https://www.instagram.com/floridakimono?igsh=bzM0aGx1cmR6M29v" target="_blank">Instagram</a>
@@ -545,9 +609,8 @@
   <div>
     <h2>Our purpose</h2>
     <p>
-      <!-- EDIT: replace with your real purpose statement -->
 Florida Kimono: The living directory, archive, and community network for kimono culture in Florida.
-Florida Kimono is attempting to build a statewide kimono network that includes both sellers and enthusiasts, rather than a single local club, school, or business. 
+Florida Kimono is attempting to build a statewide kimono network that includes both sellers and enthusiasts, rather than a single local club, school, or business.
     </p>
     <span class="edit-note">It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and celebrate kimono culture.</span>
   </div>
@@ -555,7 +618,6 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
   <div>
     <h2>Our mission</h2>
     <p>
-      <!-- EDIT: replace with your real mission statement -->
       We bring together enthusiasts, collectors, and newcomers to celebrate kimono culture, support one another's craft, and keep these traditions alive for the next generation.
     </p>
     <span class="edit-note">Replace this paragraph with your mission statement.</span>
@@ -616,9 +678,6 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
 </footer>
 
 <script>
-  // NOTE: this form does not actually send data anywhere yet.
-  // Once you have hosting, connect it to a real service (e.g. Formspree, Mailchimp, or a simple backend)
-  // to actually collect and store signups.
   const form = document.getElementById('signup-form');
   const message = document.getElementById('form-message');
 
@@ -630,12 +689,44 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
   });
 </script>
 
+<!-- ---------- Hamburger menu toggle ---------- -->
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', function () {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  mobileNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
 <!-- Events data lives in events.js — that's the only file you need to
      touch to add, edit, or remove events. This tag just loads it. -->
 <script src="events.js"></script>
 <script>
   let currentView = 'list';
-  let calDate = new Date(); // month currently shown in grid view
+  let calDate = new Date();
 
   function fmtMonthDay(dateStr) {
     const d = new Date(dateStr + 'T00:00:00');
