@@ -16,11 +16,11 @@
     --charcoal: #2A2622;
     --gold-thread: #B8893B;
   }
- 
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
   html { scroll-behavior: smooth; }
- 
+
   body {
     background: var(--ivory);
     color: var(--charcoal);
@@ -28,13 +28,13 @@
     line-height: 1.6;
     overflow-x: hidden;
   }
- 
+
   h1, h2, h3 {
     font-family: 'Shippori Mincho', serif;
     color: var(--indigo-deep);
     font-weight: 700;
   }
- 
+
   /* ---------- Seigaiha wave pattern (signature element) ---------- */
   .wave-band {
     width: 100%;
@@ -45,7 +45,7 @@
     opacity: 0.85;
   }
   .wave-band.flip { transform: scaleY(-1); }
- 
+
   /* ---------- Header ---------- */
   header {
     position: fixed;
@@ -59,7 +59,7 @@
     backdrop-filter: blur(6px);
     border-bottom: 1px solid rgba(22, 50, 74, 0.12);
   }
- 
+
   .wordmark {
     font-family: 'Shippori Mincho', serif;
     font-size: 1.25rem;
@@ -68,7 +68,7 @@
     text-decoration: none;
   }
   .wordmark span { color: var(--vermillion); }
- 
+
   .social-links {
     display: flex;
     gap: 22px;
@@ -93,7 +93,7 @@
   }
   .social-links a:hover { color: var(--vermillion); }
   .social-links a:hover::after { width: 100%; }
- 
+
   /* ---------- Hero ---------- */
   .hero {
     min-height: 100vh;
@@ -105,7 +105,7 @@
     padding: 120px 6vw 80px;
     position: relative;
   }
- 
+
   .eyebrow {
     font-size: 0.8rem;
     letter-spacing: 0.22em;
@@ -114,21 +114,21 @@
     margin-bottom: 22px;
     font-weight: 500;
   }
- 
+
   .hero h1 {
     font-size: clamp(2.6rem, 7vw, 5.2rem);
     line-height: 1.08;
     max-width: 16ch;
     margin-bottom: 24px;
   }
- 
+
   .hero .tagline {
     font-size: clamp(1rem, 1.6vw, 1.25rem);
     color: var(--indigo);
     max-width: 42ch;
     font-weight: 300;
   }
- 
+
   .hero .location {
     margin-top: 28px;
     font-size: 0.85rem;
@@ -137,7 +137,7 @@
     color: var(--charcoal);
     opacity: 0.6;
   }
- 
+
   /* ---------- Mission ---------- */
   .mission {
     padding: 100px 6vw;
@@ -170,14 +170,14 @@
     font-style: italic;
     opacity: 0.8;
   }
- 
+
   /* ---------- Events / Calendar ---------- */
   section#events {
     max-width: 1040px;
     margin: 0 auto;
     padding: 90px 6vw 70px;
   }
- 
+
   .events-eyebrow {
     font-size: 0.8rem;
     font-weight: 500;
@@ -186,7 +186,7 @@
     color: var(--vermillion);
     margin: 0 0 10px;
   }
- 
+
   .events-title {
     font-family: 'Shippori Mincho', serif;
     font-weight: 700;
@@ -194,7 +194,7 @@
     color: var(--indigo-deep);
     margin: 0 0 10px;
   }
- 
+
   .events-sub {
     font-size: 1rem;
     color: var(--charcoal);
@@ -203,7 +203,7 @@
     margin: 0 0 34px;
     line-height: 1.6;
   }
- 
+
   /* View toggle — vermillion is the section's signature accent */
   .view-toggle {
     display: inline-flex;
@@ -232,14 +232,14 @@
     outline: 2px solid var(--indigo-deep);
     outline-offset: -2px;
   }
- 
+
   /* List view */
   #list-view {
     display: flex;
     flex-direction: column;
     gap: 18px;
   }
- 
+
   .event-card {
     display: grid;
     grid-template-columns: 92px 1fr;
@@ -250,7 +250,7 @@
     border-radius: 6px;
     padding: 20px 22px;
   }
- 
+
   .event-date { text-align: center; }
   .event-date .month {
     font-size: 0.75rem;
@@ -266,7 +266,7 @@
     color: var(--indigo-deep);
     line-height: 1.1;
   }
- 
+
   .event-title {
     font-family: 'Shippori Mincho', serif;
     font-size: 1.25rem;
@@ -299,12 +299,12 @@
     border-bottom: 1px solid transparent;
   }
   .event-link:hover { border-bottom-color: var(--vermillion); }
- 
+
   /* Calendar (grid) view */
   #grid-view { display: none; }
   #grid-view.active { display: block; }
   #list-view.hidden { display: none; }
- 
+
   .cal-header {
     display: flex;
     align-items: center;
@@ -330,7 +330,7 @@
     transition: background 0.2s ease, color 0.2s ease;
   }
   .cal-nav button:hover { background: var(--vermillion); color: var(--ivory); }
- 
+
   .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -384,9 +384,9 @@
     margin-top: 2px;
     line-height: 1.3;
   }
- 
+
   .cal-detail { margin-top: 20px; }
- 
+
   .empty-state {
     text-align: center;
     padding: 40px 20px;
@@ -397,14 +397,14 @@
     border: 1px dashed rgba(22, 50, 74, 0.2);
     border-radius: 6px;
   }
- 
+
   @media (max-width: 560px) {
     .event-card { grid-template-columns: 1fr; }
     .event-date { display: flex; align-items: baseline; gap: 8px; text-align: left; }
     .cal-cell { min-height: 56px; font-size: 0.7rem; }
     .cal-event-label { display: none; }
   }
- 
+
   /* ---------- Signup ---------- */
   .signup {
     background: var(--indigo-deep);
@@ -423,7 +423,7 @@
     margin: 0 auto 42px;
     font-weight: 300;
   }
- 
+
   form {
     display: flex;
     flex-wrap: wrap;
@@ -470,14 +470,14 @@
     outline: 2px solid var(--ivory);
     outline-offset: 2px;
   }
- 
+
   .form-message {
     margin-top: 18px;
     font-size: 0.9rem;
     color: var(--ivory-soft);
     min-height: 1.4em;
   }
- 
+
   /* ---------- Footer ---------- */
   footer {
     padding: 50px 6vw 40px;
@@ -493,7 +493,7 @@
     color: var(--charcoal);
     opacity: 0.55;
   }
- 
+
   @media (max-width: 720px) {
     header { padding: 14px 5vw; }
     .social-links { gap: 14px; }
@@ -504,7 +504,7 @@
     }
     .mission .divider { display: none; }
   }
- 
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
@@ -520,16 +520,16 @@
     <a href="#events">Calendar</a>
   </nav>
 </header>
- 
+
 <section class="hero">
   <div class="eyebrow">Coming soon to Florida kimono enthusiasts</div>
   <h1>Florida's kimono community, connected at last.</h1>
   <p class="tagline">Building a community dedicated to the history, craft, and wearing of kimono — while living in Florida — open to anyone curious or seasoned and built by those who love it.</p>
   <p class="location">Florida, USA</p>
 </section>
- 
+
 <div class="wave-band"></div>
- 
+
 <section class="mission">
   <div>
     <h2>Our purpose</h2>
@@ -550,9 +550,9 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
     <span class="edit-note">Replace this paragraph with your mission statement.</span>
   </div>
 </section>
- 
+
 <div class="wave-band flip"></div>
- 
+
 <section id="events" aria-labelledby="events-title">
   <p class="events-eyebrow">Gather Together</p>
   <h2 class="events-title" id="events-title">Events Around Florida</h2>
@@ -560,14 +560,14 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
     Kimono gatherings, festivals, and meetups happening across the state — hosted by our community and our partners.
     Find where to go next and connect directly with the organizer.
   </p>
- 
+
   <div class="view-toggle" role="group" aria-label="Choose event view">
     <button id="btn-list" class="active" onclick="setView('list')">List</button>
     <button id="btn-grid" onclick="setView('grid')">Calendar</button>
   </div>
- 
+
   <div id="list-view"></div>
- 
+
   <div id="grid-view">
     <div class="cal-header">
       <h3 id="cal-month-label"></h3>
@@ -581,9 +581,9 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
     <div class="cal-detail" id="cal-detail"></div>
   </div>
 </section>
- 
+
 <div class="wave-band"></div>
- 
+
 <section class="signup">
   <h2>Stay in the loop</h2>
   <p>Sign up to hear about upcoming events, news, and what's next for the delegation.</p>
@@ -594,7 +594,7 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
   </form>
   <p class="form-message" id="form-message"></p>
 </section>
- 
+
 <footer>
   <nav class="social-links">
     <a href="https://www.instagram.com/floridakimono" target="_blank">Instagram</a>
@@ -603,14 +603,14 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
   </nav>
   <p class="copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
 </footer>
- 
+
 <script>
   // NOTE: this form does not actually send data anywhere yet.
   // Once you have hosting, connect it to a real service (e.g. Formspree, Mailchimp, or a simple backend)
   // to actually collect and store signups.
   const form = document.getElementById('signup-form');
   const message = document.getElementById('form-message');
- 
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
@@ -618,46 +618,14 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
     form.reset();
   });
 </script>
- 
+
+<!-- Events data lives in events.js — that's the only file you need to
+     touch to add, edit, or remove events. This tag just loads it. -->
+<script src="events.js"></script>
 <script>
-  /* ============================================================
-     EDIT EVENTS HERE.
-     Each event needs: date (YYYY-MM-DD), title, host, location,
-     description (1-2 sentences), and link (organizer's original
-     listing — their site, Instagram post, Eventbrite, etc).
-     Add or remove objects from this array as events come in.
-     ============================================================ */
-  const EVENTS = [
-    {
-      date: "2026-08-15",
-      title: "Morikami Summer Yukata Stroll",
-      host: "Morikami Museum & Japanese Gardens",
-      location: "Delray Beach, FL",
-      description: "An evening walk through the gardens in yukata, followed by a short tea demonstration. Casual and beginner-friendly — no kimono required to attend.",
-      link: "https://morikami.org"
-    },
-    {
-      date: "2026-09-05",
-      title: "Orlando Japan Festival — Kimono Meetup",
-      host: "Japan Association of Orlando",
-      location: "Orlando, FL",
-      description: "FKD members are gathering at the festival grounds before the main event for photos and a group walk-through. Look for the vermillion banner.",
-      link: "https://www.jorlando.org/orlando-japan-festival"
-    },
-    {
-      date: "2026-09-20",
-      title: "Beginner's Obi Tying Workshop",
-      host: "Florida Kimono Club",
-      location: "Tampa, FL",
-      description: "Hands-on workshop covering basic obi musubi for warm-weather kimono. Bring your own kimono or borrow one on-site; limited spots.",
-      link: "https://www.facebook.com/groups/floridakimonoclub"
-    }
-  ];
-  /* ============================================================ */
- 
   let currentView = 'list';
   let calDate = new Date(); // month currently shown in grid view
- 
+
   function fmtMonthDay(dateStr) {
     const d = new Date(dateStr + 'T00:00:00');
     return {
@@ -669,7 +637,7 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
     const d = new Date(dateStr + 'T00:00:00');
     return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   }
- 
+
   function renderList() {
     const el = document.getElementById('list-view');
     if (EVENTS.length === 0) {
@@ -695,30 +663,30 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
       `;
     }).join('');
   }
- 
+
   function renderGrid() {
     const dowRow = document.getElementById('cal-dow-row');
     const body = document.getElementById('cal-grid-body');
     const label = document.getElementById('cal-month-label');
     const detail = document.getElementById('cal-detail');
     detail.innerHTML = '';
- 
+
     const dows = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     dowRow.innerHTML = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
- 
+
     label.textContent = calDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
- 
+
     const year = calDate.getFullYear();
     const month = calDate.getMonth();
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
- 
+
     const eventsByDate = {};
     EVENTS.forEach(ev => {
       if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
       eventsByDate[ev.date].push(ev);
     });
- 
+
     let cells = '';
     for (let i = 0; i < firstDay; i++) {
       cells += '<div class="cal-cell empty"></div>';
@@ -739,7 +707,7 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
     }
     body.innerHTML = cells;
   }
- 
+
   function showDay(dateStr) {
     const dayEvents = EVENTS.filter(ev => ev.date === dateStr);
     const detail = document.getElementById('cal-detail');
@@ -758,12 +726,12 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
       </div>
     `).join('');
   }
- 
+
   function shiftMonth(delta) {
     calDate.setMonth(calDate.getMonth() + delta);
     renderGrid();
   }
- 
+
   function setView(view) {
     currentView = view;
     document.getElementById('list-view').classList.toggle('hidden', view !== 'list');
@@ -772,9 +740,9 @@ Florida Kimono is attempting to build a statewide kimono network that includes b
     document.getElementById('btn-grid').classList.toggle('active', view === 'grid');
     if (view === 'grid') renderGrid();
   }
- 
+
   renderList();
 </script>
- 
+
 </body>
 </html>
