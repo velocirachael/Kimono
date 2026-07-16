@@ -16,8 +16,28 @@
    add a comma after the previous entry's closing brace.
    To remove an event: delete its whole { ... } block (and its comma).
    ============================================================ */
-
+/* ============================================================
+FLORIDA KIMONO CLUB — EVENTS DATA
+This is the ONLY file you need to edit to update the calendar.
+index.html loads this file automatically — no other changes needed.
+============================================================ */
 const EVENTS = [
+  {
+    date: "2026-02-17",
+    title: "Taiko Drums of Japan with Tampa Taiko",
+    host: "Tampa Taiko / New Tampa Arts Center",
+    location: "Tampa, FL",
+    description: "A cultural performance and event showcasing the powerful, traditional rhythms of Japanese taiko drumming by a dedicated South Florida ensemble.",
+    link: "https://www.newtampaartscenter.org/events/taiko-drums-of-japan-with-tampa-taiko"
+  },
+  {
+    date: "2026-03-28",
+    title: "Japan Festival Eustis",
+    host: "Arching Oaks Japanese Art and Culture Center",
+    location: "Eustis, FL",
+    description: "An immersive, free celebration of traditional Japanese culture in Historic Downtown Eustis, featuring taiko drums, tea ceremony demonstrations, and traditional arts.",
+    link: "https://www.eustis.org/Residents/Events/Japan-Festival"
+  },
   {
     date: "2026-08-15",
     title: "Morikami Summer Yukata Stroll",
@@ -28,11 +48,27 @@ const EVENTS = [
   },
   {
     date: "2026-08-16",
-    title: "SWFL Anime-Fest",
-    host: "SWFL Anime-Fest",
-    location: "Fort Myers, FL",
-    description: "A one-day anime and pop-culture convention at the Hilton DoubleTree, with a cosplay contest, vendors, and a strong fandom crowd on Florida's southwest coast.",
-    link: "http://www.swflanimefest.com/"
+    title: "Ikebana Chabana Japanese Flower Arrangement Class",
+    host: "Harry P. Leu Gardens",
+    location: "Orlando, FL",
+    description: "A specialized workshop focusing on Chabana, the traditional Japanese art of flower arrangement designed for the tea ceremony.",
+    link: "https://www.eventbrite.com/e/ikebana-chabana-japanese-flower-arrangement-class-tickets-1992285336071"
+  },
+  {
+    date: "2026-09-09",
+    title: "Ikebana International Naples Chapter Programs",
+    host: "Ikebana International Naples Chapter #160",
+    location: "Naples, FL",
+    description: "Ongoing 2026-2027 season of Ikebana demonstrations, workshops, and exhibitions at the Naples Botanical Garden.",
+    link: "https://www.ikebananaples.com/programs-and-events"
+  },
+  {
+    date: "2026-09-20",
+    title: "Beginner's Obi Tying Workshop",
+    host: "Florida Kimono Club",
+    location: "Tampa, FL",
+    description: "Hands-on workshop covering basic obi musubi for warm-weather kimono. Bring your own kimono or borrow one on-site; limited spots.",
+    link: "https://www.facebook.com/groups/floridakimonoclub"
   },
   {
     date: "2026-09-26",
@@ -52,10 +88,10 @@ const EVENTS = [
   },
   {
     date: "2026-11-08",
-    title: "Orlando Japan Festival",
+    title: "Orlando Japan Festival — Kimono Meetup",
     host: "Japan Association of Orlando",
     location: "Kissimmee, FL",
-    description: "Central Florida's largest annual Japan festival at Kissimmee Lakefront Park — taiko drumming, traditional dance, martial arts demos, and a cosplay contest.",
+    description: "Central Florida's largest annual Japan festival at Kissimmee Lakefront Park — taiko drumming, traditional dance, martial arts demos, and a cosplay contest. FKD members are gathering at the festival grounds for photos and a group walk-through. Look for the vermillion banner.",
     link: "https://www.jorlando.org/orlando-japan-festival"
   },
   {
@@ -65,13 +101,5 @@ const EVENTS = [
     location: "Miami, FL",
     description: "The second JAPAN Fes Florida date of the year, again in Miami — food, performances, and cultural exhibits over three days.",
     link: "https://www.japanfes.com/florida/2026"
-  },
-  {
-    date: "2026-12-18",
-    title: "Holiday Matsuri",
-    host: "Holiday Matsuri",
-    location: "Orlando, FL",
-    description: "Florida's largest anime convention, drawing 50,000+ fans to the Orange County Convention Center for a holiday-themed weekend of cosplay, gaming, and panels (Dec 18–20).",
-    link: "https://holidaymatsuri.com/"
   }
 ];
