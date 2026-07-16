@@ -19,14 +19,6 @@
 
 const EVENTS = [
   {
-    date: "2026-07-31",
-    title: "Metrocon",
-    host: "Metrocon",
-    location: "Tampa, FL",
-    description: "Florida's premier anime convention — three days of anime, gaming, and cosplay at the Tampa Convention Center (Jul 31–Aug 2). A high-energy chance to spot kimono and yukata in the wild.",
-    link: "https://metroconventions.com/"
-  },
-  {
     date: "2026-08-15",
     title: "Morikami Summer Yukata Stroll",
     host: "Morikami Museum & Japanese Gardens",
@@ -41,14 +33,6 @@ const EVENTS = [
     location: "Fort Myers, FL",
     description: "A one-day anime and pop-culture convention at the Hilton DoubleTree, with a cosplay contest, vendors, and a strong fandom crowd on Florida's southwest coast.",
     link: "http://www.swflanimefest.com/"
-  },
-  {
-    date: "2026-09-20",
-    title: "Beginner's Obi Tying Workshop",
-    host: "Florida Kimono Club",
-    location: "Tampa, FL",
-    description: "Hands-on workshop covering basic obi musubi for warm-weather kimono. Bring your own kimono or borrow one on-site; limited spots.",
-    link: "https://www.facebook.com/groups/floridakimonoclub"
   },
   {
     date: "2026-09-26",
@@ -68,10 +52,10 @@ const EVENTS = [
   },
   {
     date: "2026-11-08",
-    title: "Orlando Japan Festival — Kimono Meetup",
+    title: "Orlando Japan Festival",
     host: "Japan Association of Orlando",
     location: "Kissimmee, FL",
-    description: "Central Florida's largest annual Japan festival at Kissimmee Lakefront Park — taiko drumming, traditional dance, martial arts demos, and a cosplay contest. FKD members are gathering at the festival grounds for photos and a group walk-through. Look for the vermillion banner.",
+    description: "Central Florida's largest annual Japan festival at Kissimmee Lakefront Park — taiko drumming, traditional dance, martial arts demos, and a cosplay contest.",
     link: "https://www.jorlando.org/orlando-japan-festival"
   },
   {
