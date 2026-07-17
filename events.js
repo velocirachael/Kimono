@@ -40,6 +40,14 @@ const EVENTS = [
     description: "An evening walk through the gardens in yukata, followed by a short tea demonstration. Casual and beginner-friendly — no kimono required to attend.",
     link: "https://morikami.org"
   },
+   {
+    date: "2026-07-23",
+    title: "Katsura Sunshine's World Tour: ORLANDO",
+    host: "Orlando Family Theater",
+    location: "Orlando, FL",
+    description: "Performer Katsura Sunshine, originally from Canada, trained under a traditional master and now performs globally, including runs on Broadway in New York and in London's West End. His style delivers Japanese humor and cultural context in clear English, making it highly accessible for those experiencing the art form for the first time.This event offers a wonderful opportunity for community members to experience Japanese heritage. For more details and to register for tickets, please visit the official website.",
+    link: "https://pretix.eu/rakugo/orlando/"
+  },
 {
     date: "2026-07-25",
     title: "Katsura Sunshine's Raukugo!",
@@ -47,6 +55,14 @@ const EVENTS = [
     location: "Boca Raton, FL",
     description: "Rakugo is traditional Japanese sit-down storytelling comedy — one performer on a cushion, bringing multiple characters to life through voice and timing.Sunshine is one of the only English-speaking masters of the art form and is now in his 7th year on Broadway in NYC, splitting his time between New York and Tokyo stages. This tour features Sunshine and his apprentices performing classic Rakugo stories. A show of hilarity and culture in equal doses! Katsura Sunshine completed his grueling traditional apprenticeship in Rakugo comic storytelling under the great Rakugo Master Katsura Bunshi VI in 2011. His performances have delighted audiences throughout the world as well as all over Japan. Sunshine has graced the Broadway stage with a different delightful Japanese story each month since 2019, at the famous New World Stages in Manhattan. Come for an hour of laughter and leave with a piece of Japan in you heart!",
     link: "https://www.bocablackbox.com/events/Katsura-Sunshines-Raukugo-"
+   },
+{
+    date: "2026-07-27",
+    title: "Katsura Sunshine's Rakugo (Japanese Comedic Storytelling) Live in Naples, Florida!",
+    host: "location or organization",
+    location: "Naples, FL",
+    description: "A show of hilarity and culture in equal doses! Katsura Sunshine completed his grueling traditional apprenticeship in Rakugo comic storytelling under the great Rakugo Master Katsura Bunshi VI in 2011. His performances have delighted audiences throughout the world as well as all over Japan.Sunshine has graced the Broadway stage with a different delightful Japanese story each month since 2019, at the famous New World Stages in Manhattan. Come for an hour of laughter and leave with a piece of Japan in you heart!",
+    link: "https://www.offthehookcomedy.com/shows/377193"
   },
   {
     date: "2026-08-16",
