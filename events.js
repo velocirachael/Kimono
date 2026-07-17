@@ -22,14 +22,7 @@ This is the ONLY file you need to edit to update the calendar.
 index.html loads this file automatically — no other changes needed.
 ============================================================ */
 const EVENTS = [
-  {
-    date: "2026-07-25",
-    title: "Katsura Sunshine's Raukugo!",
-    host: "Boca Black Box",
-    location: "Boca Raton, FL",
-    description: "Rakugo is traditional Japanese sit-down storytelling comedy — one performer on a cushion, bringing multiple characters to life through voice and timing. Sunshine is one of the only English-speaking masters of the art form and is now in his 7th year on Broadway in NYC, splitting his time between New York and Tokyo stages. This tour features Sunshine and his apprentices performing classic Rakugo stories. A show of hilarity and culture in equal doses! Katsura Sunshine completed his grueling traditional apprenticeship in Rakugo comic storytelling under the great Rakugo Master Katsura Bunshi VI in 2011. His performances have delighted audiences throughout the world as well as all over Japan. Sunshine has graced the Broadway stage with a different delightful Japanese story each month since 2019, at the famous New World Stages in Manhattan. Come for an hour of laughter and leave with a piece of Japan in you heart!"
-   link:"https://www.bocablackbox.com/events/Katsura-Sunshines-Raukugo-"
-  },
+  
   {
     date: "2026-08-15",
     title: "Morikami Summer Yukata Stroll",
@@ -53,14 +46,6 @@ const EVENTS = [
     location: "Naples, FL",
     description: "Ongoing 2026-2027 season of Ikebana demonstrations, workshops, and exhibitions at the Naples Botanical Garden.",
     link: "https://www.ikebananaples.com/programs-and-events"
-  },
-  {
-    date: "2026-09-20",
-    title: "Beginner's Obi Tying Workshop",
-    host: "Florida Kimono Club",
-    location: "Tampa, FL",
-    description: "Hands-on workshop covering basic obi musubi for warm-weather kimono. Bring your own kimono or borrow one on-site; limited spots.",
-    link: "https://www.facebook.com/groups/floridakimonoclub"
   },
   {
     date: "2026-09-26",
