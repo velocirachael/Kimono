@@ -98,18 +98,13 @@ const EVENTS = [
   },
   {
     date: "2026-11-08",
-    title: "Orlando Japan Festival — Kimono Meetup",
+    title: "Orlando Japan Festival",
     host: "Japan Association of Orlando",
     location: "Kissimmee, FL",
-    description: "Central Florida's largest annual Japan festival at Kissimmee Lakefront Park — taiko drumming, traditional dance, martial arts demos, and a cosplay contest. FKD members are gathering at the festival grounds for photos and a group walk-through. Look for the vermillion banner.",
+    description: "From Japan Association of Orlando, Inc:
+       2026年11月8日、キシミーの美しいレークフロントパークにて「日本祭」が開催されます。伝統的な太鼓の演奏や踊り、武道のデモンストレーション、そして美味しい日本食の屋台など、日本の魅力を存分に味わえる一日です。入場は無料ですので、ご家族やご友人と一緒に、秋の風を感じながら日本文化に触れてみませんか？
+
+Join us for the annual Japan Festival at the scenic Kissimmee Lakefront Park! This event celebrates the rich heritage of Japan through captivating Taiko drumming, traditional dance, martial arts demos, and authentic cuisine. Admission is free, making it a perfect day out for families and friends to experience the spirit of Japan right here in Central Florida.",
     link: "https://www.jorlando.org/orlando-japan-festival"
   },
-  {
-    date: "2026-12-04",
-    title: "JAPAN Fes Florida — Miami (Winter)",
-    host: "JAPAN Fes Florida",
-    location: "Miami, FL",
-    description: "The second JAPAN Fes Florida date of the year, again in Miami — food, performances, and cultural exhibits over three days.",
-    link: "https://www.japanfes.com/florida/2026"
-  }
 ];
