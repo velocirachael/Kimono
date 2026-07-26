@@ -12,9 +12,9 @@
     --ivory-soft: #EFE8D8;
     --indigo-deep: #16324A;
     --indigo: #2C5A78;
-    --vermillion: #E34234;
-    --sumi-ink: #2B2b2b;
-    --kimono-gold: #E2B654;
+    --vermillion: #C1502E;
+    --charcoal: #2A2622;
+    --gold-thread: #B8893B;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,7 +23,7 @@
 
   body {
     background: var(--ivory);
-    color: var(--sumi-ink);
+    color: var(--charcoal);
     font-family: 'Zen Kaku Gothic New', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
@@ -35,6 +35,7 @@
     font-weight: 700;
   }
 
+  /* ---------- Seigaiha wave pattern (signature element) ---------- */
   .wave-band {
     width: 100%;
     height: 28px;
@@ -45,6 +46,7 @@
   }
   .wave-band.flip { transform: scaleY(-1); }
 
+  /* ---------- Header ---------- */
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -91,76 +93,6 @@
   }
   .social-links a:hover { color: var(--vermillion); }
   .social-links a:hover::after { width: 100%; }
-
-  /* ---------- Hamburger Menu ---------- */
-  .hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 101;
-  }
-  .hamburger-line {
-    width: 24px;
-    height: 2px;
-    background: var(--indigo-deep);
-    border-radius: 1px;
-    transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
-  }
-  .hamburger:hover .hamburger-line { background: var(--vermillion); }
-  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
-    opacity: 0;
-  }
-  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  .mobile-nav {
-    position: absolute;
-    top: 100%;
-    left: 6vw;
-    right: 6vw;
-    display: flex;
-    flex-direction: column;
-    background: var(--ivory);
-    border: 1px solid rgba(22, 50, 74, 0.12);
-    border-top: none;
-    box-shadow: 0 14px 28px rgba(22, 50, 74, 0.14);
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.25s ease;
-  }
-  .mobile-nav.open {
-    max-height: 320px;
-    opacity: 1;
-  }
-  .mobile-nav a {
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--indigo-deep);
-    text-decoration: none;
-    padding: 16px 22px;
-    border-bottom: 1px solid rgba(22, 50, 74, 0.08);
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-  .mobile-nav a:last-child { border-bottom: none; }
-  .mobile-nav a:hover {
-    background: var(--ivory-soft);
-    color: var(--vermillion);
-  }
 
   /* ---------- Hero ---------- */
   .hero {
@@ -217,7 +149,7 @@
     align-items: start;
   }
   .mission .divider {
-    background: linear-gradient(to bottom, transparent, var(--kimono-gold), transparent);
+    background: linear-gradient(to bottom, transparent, var(--gold-thread), transparent);
     width: 1px;
     height: 100%;
   }
@@ -237,237 +169,6 @@
     color: var(--vermillion);
     font-style: italic;
     opacity: 0.8;
-  }
-
-  /* ---------- Events / Calendar ---------- */
-  section#events {
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 90px 6vw 70px;
-  }
-
-  .events-eyebrow {
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--vermillion);
-    margin: 0 0 10px;
-  }
-
-  .events-title {
-    font-family: 'Shippori Mincho', serif;
-    font-weight: 700;
-    font-size: clamp(1.9rem, 4vw, 2.6rem);
-    color: var(--indigo-deep);
-    margin: 0 0 10px;
-  }
-
-  .events-sub {
-    font-size: 1rem;
-    color: var(--charcoal);
-    opacity: 0.75;
-    max-width: 56ch;
-    margin: 0 0 34px;
-    line-height: 1.6;
-  }
-
-  .view-toggle {
-    display: inline-flex;
-    border: 1px solid var(--vermillion);
-    border-radius: 999px;
-    overflow: hidden;
-    margin-bottom: 36px;
-  }
-  .view-toggle button {
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 9px 24px;
-    border: none;
-    background: transparent;
-    color: var(--vermillion);
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-  .view-toggle button.active {
-    background: var(--vermillion);
-    color: var(--ivory);
-  }
-  .view-toggle button:focus-visible {
-    outline: 2px solid var(--indigo-deep);
-    outline-offset: -2px;
-  }
-
-  #list-view {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .event-card {
-    display: grid;
-    grid-template-columns: 92px 1fr;
-    gap: 22px;
-    background: var(--ivory-soft);
-    border: 1px solid rgba(22, 50, 74, 0.12);
-    border-left: 4px solid var(--vermillion);
-    border-radius: 6px;
-    padding: 20px 22px;
-  }
-
-  .event-date { text-align: center; }
-  .event-date .month {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--vermillion);
-  }
-  .event-date .day {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 2.1rem;
-    font-weight: 700;
-    color: var(--indigo-deep);
-    line-height: 1.1;
-  }
-
-  .event-title {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--indigo-deep);
-    margin: 0 0 4px;
-  }
-  .event-meta {
-    font-size: 0.82rem;
-    color: var(--charcoal);
-    opacity: 0.65;
-    margin: 0 0 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 14px;
-  }
-  .event-meta span { white-space: nowrap; }
-  .event-desc {
-    font-size: 0.92rem;
-    line-height: 1.6;
-    color: var(--charcoal);
-    opacity: 0.9;
-    margin: 0 0 12px;
-  }
-  .event-link {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--vermillion);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-  }
-  .event-link:hover { border-bottom-color: var(--vermillion); }
-
-  #grid-view { display: none; }
-  #grid-view.active { display: block; }
-  #list-view.hidden { display: none; }
-
-  .cal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-  .cal-header h3 {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 1.25rem;
-    color: var(--indigo-deep);
-    margin: 0;
-  }
-  .cal-nav { display: flex; gap: 6px; }
-  .cal-nav button {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--vermillion);
-    background: var(--ivory-soft);
-    color: var(--vermillion);
-    cursor: pointer;
-    font-size: 15px;
-    line-height: 1;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-  .cal-nav button:hover { background: var(--vermillion); color: var(--ivory); }
-
-  .cal-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-  }
-  .cal-dow {
-    text-align: center;
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--charcoal);
-    opacity: 0.55;
-    padding-bottom: 6px;
-  }
-  .cal-cell {
-    min-height: 76px;
-    background: var(--ivory-soft);
-    border: 1px solid rgba(22, 50, 74, 0.12);
-    border-radius: 4px;
-    padding: 6px 8px;
-    font-size: 0.78rem;
-    color: var(--charcoal);
-    opacity: 0.85;
-    position: relative;
-  }
-  .cal-cell.empty { background: transparent; border-color: transparent; }
-  .cal-cell .num {
-    font-weight: 600;
-    color: var(--charcoal);
-    opacity: 1;
-    font-size: 0.8rem;
-  }
-  .cal-cell.has-event {
-    border-color: var(--kimono-gold);
-    cursor: pointer;
-    opacity: 1;
-  }
-  .cal-cell.has-event:hover { background: var(--ivory); }
-  .cal-dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--vermillion);
-    margin-top: 4px;
-  }
-  .cal-event-label {
-    display: block;
-    font-size: 0.65rem;
-    color: var(--indigo-deep);
-    margin-top: 2px;
-    line-height: 1.3;
-  }
-
-  .cal-detail { margin-top: 20px; }
-
-  .empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--charcoal);
-    opacity: 0.6;
-    font-size: 0.92rem;
-    background: var(--ivory-soft);
-    border: 1px dashed rgba(22, 50, 74, 0.2);
-    border-radius: 6px;
-  }
-
-  @media (max-width: 560px) {
-    .event-card { grid-template-columns: 1fr; }
-    .event-date { display: flex; align-items: baseline; gap: 8px; text-align: left; }
-    .cal-cell { min-height: 56px; font-size: 0.7rem; }
-    .cal-event-label { display: none; }
   }
 
   /* ---------- Signup ---------- */
@@ -561,6 +262,8 @@
 
   @media (max-width: 720px) {
     header { padding: 14px 5vw; }
+    .social-links { gap: 14px; }
+    .social-links a { font-size: 0.7rem; }
     .mission {
       grid-template-columns: 1fr;
       gap: 36px;
@@ -575,29 +278,20 @@
 </style>
 </head>
 <body>
+<!-- <a href="#" target="_blank">Contact</a> -->
 <header>
   <a href="#" class="wordmark">Florida Kimono <span>Club</span></a>
-
-  <!-- Hamburger Button -->
-  <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-  </button>
-
-  <!-- Dropdown Menu -->
-  <nav class="mobile-nav" id="mobileNav">
-    <a href="#events">Calendar</a>
+  <!-- <a href="#" target="_blank">Contact</a> EDIT: replace # with your real social links -->
+  <nav class="social-links">
     <a href="https://www.instagram.com/floridakimono?igsh=bzM0aGx1cmR6M29v" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
-    <!-- <a href="#about">About</a> -->
-    <!-- <a href="#resources">Resources</a> -->
+    <!-- <a href="#" target"_blank"Calendar</a> -->  
   </nav>
 </header>
 
 <section class="hero">
   <div class="eyebrow">Coming soon to Florida kimono enthusiasts</div>
-  <h1>Florida's kimono community, woven together.</h1>
+  <h1>Florida's kimono community, connected at last.</h1>
   <p class="tagline">Building a community dedicated to the history, craft, and wearing of kimono — while living in Florida — open to anyone curious or seasoned and built by those who love it.</p>
   <p class="location">Florida, USA</p>
 </section>
@@ -608,7 +302,9 @@
   <div>
     <h2>Our purpose</h2>
     <p>
-To cultivate a vibrant, supportive community where the traditional art of wearing kimono is seamlessly and joyfully integrated into the unique lifestyle, climate, and culture of Florida. Florida Kimono strives to maintain the living directory, archive, and community network for Japanese culture in Florida by attempting to build a statewide network that includes both kimono sellers and enthusiasts, rather than a single local club, school, or business.
+      <!-- EDIT: replace with your real purpose statement -->
+Florida Kimono: The living directory, archive, and community network for kimono culture in Florida.
+Florida Kimono is attempting to build a statewide kimono network that includes both sellers and enthusiasts, rather than a single local club, school, or business. 
     </p>
     <span class="edit-note">It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and celebrate kimono culture.</span>
   </div>
@@ -616,232 +312,79 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
   <div>
     <h2>Our mission</h2>
     <p>
-      Our mission is to connect and celebrate the kimono community, support a vibrant culture and lifestyle, help members discover their style, and curate a trusted network to elevate every wardrobe and keep these traditions alive for the next generation.
+      <!-- EDIT: replace with your real mission statement -->
+      We bring together enthusiasts, collectors, and newcomers to celebrate kimono culture, support one another's craft, and keep these traditions alive for the next generation.
     </p>
-    <span class="edit-note">Wear kimono with confidence, anywhere and any season in Florida.</span>
+    <span class="edit-note">Replace this paragraph with your mission statement.</span>
   </div>
 </section>
 
 <div class="wave-band flip"></div>
 
-<section id="events" aria-labelledby="events-title">
-  <p class="events-eyebrow">Gather Together</p>
-  <h2 class="events-title" id="events-title">Events Around Florida</h2>
-  <p class="events-sub">
-    Kimono gatherings, festivals, and meetups happening across the state — hosted by our community and our partners.
-    Find where to go next and connect directly with the organizer.
-  </p>
-
-  <div class="view-toggle" role="group" aria-label="Choose event view">
-    <button id="btn-list" class="active" onclick="setView('list')">List</button>
-    <button id="btn-grid" onclick="setView('grid')">Calendar</button>
-  </div>
-
-  <div id="list-view"></div>
-
-  <div id="grid-view">
-    <div class="cal-header">
-      <h3 id="cal-month-label"></h3>
-      <div class="cal-nav">
-        <button onclick="shiftMonth(-1)" aria-label="Previous month">‹</button>
-        <button onclick="shiftMonth(1)" aria-label="Next month">›</button>
-      </div>
-    </div>
-    <div class="cal-grid" id="cal-dow-row"></div>
-    <div class="cal-grid" id="cal-grid-body"></div>
-    <div class="cal-detail" id="cal-detail"></div>
-  </div>
-</section>
-
-<div class="wave-band"></div>
-
 <section class="signup">
   <h2>Stay in the loop</h2>
   <p>Sign up to hear about upcoming events, news, and what's next for the delegation.</p>
   <form id="signup-form">
-    <input type="text" id="name" placeholder="Your name" required>
-    <input type="email" id="email" placeholder="Your email" required>
-    <button type="submit">Join the list</button>
+    <input type="text" id="name" name="name" placeholder="Your name" required>
+    <input type="email" id="email" name="email" placeholder="Your email" required>
+    <button type="submit" id="signup-submit">Join the list</button>
   </form>
-  <p class="form-message" id="form-message"></p>
+  <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
 </section>
 
 <footer>
   <nav class="social-links">
     <a href="https://www.instagram.com/floridakimono" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
-    <a href="#events">Calendar</a>
+    <!-- <a href="#" target="_blank">Contact</a> -->
   </nav>
   <p class="copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
 </footer>
 
 <script>
+  // Signups are sent to Formspree. Replace YOUR_FORM_ID below with the ID
+  // from your form's endpoint, e.g. https://formspree.io/f/xxxxabcd -> "xxxxabcd"
+  const FORMSPREE_FORM_ID = 'xaqrlzeb';
+  const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`;
+
   const form = document.getElementById('signup-form');
   const message = document.getElementById('form-message');
+  const submitBtn = document.getElementById('signup-submit');
 
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    message.textContent = `Thanks, ${name.split(' ')[0]}! You're on the list.`;
-    form.reset();
-  });
-</script>
 
-<!-- ---------- Hamburger menu toggle ---------- -->
-<script>
-  const hamburger = document.querySelector('.hamburger');
-  const mobileNav = document.getElementById('mobileNav');
+    const nameField = document.getElementById('name');
+    const name = nameField.value.trim();
 
-  hamburger.addEventListener('click', function () {
-    const isOpen = mobileNav.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', isOpen);
-  });
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    message.textContent = '';
 
-  mobileNav.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      mobileNav.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    });
-  });
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
 
-  document.addEventListener('click', function (e) {
-    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
-      mobileNav.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      mobileNav.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    }
-  });
-</script>
-
-<!-- Events data lives in events.js — that's the only file you need to
-     touch to add, edit, or remove events. This tag just loads it. -->
-<script src="events.js"></script>
-<script>
-  let currentView = 'list';
-  let calDate = new Date();
-
-  function fmtMonthDay(dateStr) {
-    const d = new Date(dateStr + 'T00:00:00');
-    return {
-      month: d.toLocaleDateString('en-US', { month: 'short' }),
-      day: d.getDate()
-    };
-  }
-  function fmtFull(dateStr) {
-    const d = new Date(dateStr + 'T00:00:00');
-    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-  }
-
-  function renderList() {
-    const el = document.getElementById('list-view');
-    if (EVENTS.length === 0) {
-      el.innerHTML = '<div class="empty-state">No events scheduled yet — check back soon.</div>';
-      return;
-    }
-    const sorted = [...EVENTS].sort((a, b) => new Date(a.date) - new Date(b.date));
-    el.innerHTML = sorted.map(ev => {
-      const { month, day } = fmtMonthDay(ev.date);
-      return `
-        <div class="event-card">
-          <div class="event-date">
-            <div class="month">${month}</div>
-            <div class="day">${day}</div>
-          </div>
-          <div>
-            <h3 class="event-title">${ev.title}</h3>
-            <p class="event-meta"><span>Hosted by ${ev.host}</span><span>${ev.location}</span><span>${fmtFull(ev.date)}</span></p>
-            <p class="event-desc">${ev.description}</p>
-            <a class="event-link" href="${ev.link}" target="_blank" rel="noopener">View original listing →</a>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  function renderGrid() {
-    const dowRow = document.getElementById('cal-dow-row');
-    const body = document.getElementById('cal-grid-body');
-    const label = document.getElementById('cal-month-label');
-    const detail = document.getElementById('cal-detail');
-    detail.innerHTML = '';
-
-    const dows = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    dowRow.innerHTML = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
-
-    label.textContent = calDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-
-    const year = calDate.getFullYear();
-    const month = calDate.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    const eventsByDate = {};
-    EVENTS.forEach(ev => {
-      if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
-      eventsByDate[ev.date].push(ev);
-    });
-
-    let cells = '';
-    for (let i = 0; i < firstDay; i++) {
-      cells += '<div class="cal-cell empty"></div>';
-    }
-    for (let d = 1; d <= daysInMonth; d++) {
-      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-      const dayEvents = eventsByDate[dateStr];
-      if (dayEvents) {
-        cells += `
-          <div class="cal-cell has-event" onclick="showDay('${dateStr}')">
-            <span class="num">${d}</span>
-            <span class="cal-dot"></span>
-            <span class="cal-event-label">${dayEvents[0].title}</span>
-          </div>`;
+      if (response.ok) {
+        message.textContent = `Thanks, ${name.split(' ')[0]}! You're on the list.`;
+        form.reset();
       } else {
-        cells += `<div class="cal-cell"><span class="num">${d}</span></div>`;
+        const data = await response.json().catch(() => null);
+        const detail = data && data.errors ? data.errors.map(err => err.message).join(', ') : '';
+        message.textContent = detail
+          ? `Something went wrong: ${detail}`
+          : 'Something went wrong — please try again in a moment.';
       }
+    } catch (err) {
+      message.textContent = 'Network error — please check your connection and try again.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Join the list';
     }
-    body.innerHTML = cells;
-  }
-
-  function showDay(dateStr) {
-    const dayEvents = EVENTS.filter(ev => ev.date === dateStr);
-    const detail = document.getElementById('cal-detail');
-    detail.innerHTML = dayEvents.map(ev => `
-      <div class="event-card">
-        <div class="event-date">
-          <div class="month">${fmtMonthDay(ev.date).month}</div>
-          <div class="day">${fmtMonthDay(ev.date).day}</div>
-        </div>
-        <div>
-          <h3 class="event-title">${ev.title}</h3>
-          <p class="event-meta"><span>Hosted by ${ev.host}</span><span>${ev.location}</span></p>
-          <p class="event-desc">${ev.description}</p>
-          <a class="event-link" href="${ev.link}" target="_blank" rel="noopener">View original listing →</a>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function shiftMonth(delta) {
-    calDate.setMonth(calDate.getMonth() + delta);
-    renderGrid();
-  }
-
-  function setView(view) {
-    currentView = view;
-    document.getElementById('list-view').classList.toggle('hidden', view !== 'list');
-    document.getElementById('grid-view').classList.toggle('active', view === 'grid');
-    document.getElementById('btn-list').classList.toggle('active', view === 'list');
-    document.getElementById('btn-grid').classList.toggle('active', view === 'grid');
-    if (view === 'grid') renderGrid();
-  }
-
-  renderList();
+  });
 </script>
 
 </body>
