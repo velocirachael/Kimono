@@ -659,11 +659,11 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
   <h2>Stay in the loop</h2>
   <p>Sign up to hear about upcoming events, news, and what's next for the delegation.</p>
   <form id="signup-form">
-    <input type="text" id="name" placeholder="Your name" required>
-    <input type="email" id="email" placeholder="Your email" required>
-    <button type="submit">Join the list</button>
+    <input type="text" id="name" name="name" placeholder="Your name" required>
+    <input type="email" id="email" name="email" placeholder="Your email" required>
+    <button type="submit" id="signup-submit">Join the list</button>
   </form>
-  <p class="form-message" id="form-message"></p>
+  <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
 </section>
 
 <footer>
@@ -676,14 +676,45 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
 </footer>
 
 <script>
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqrlzeb';
+
   const form = document.getElementById('signup-form');
   const message = document.getElementById('form-message');
+  const submitBtn = document.getElementById('signup-submit');
 
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    message.textContent = `Thanks, ${name.split(' ')[0]}! You're on the list.`;
-    form.reset();
+
+    const nameField = document.getElementById('name');
+    const name = nameField.value.trim();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    message.textContent = '';
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+
+      if (response.ok) {
+        message.textContent = `Thanks, ${name.split(' ')[0]}! You're on the list.`;
+        form.reset();
+      } else {
+        const data = await response.json().catch(() => null);
+        const detail = data && data.errors ? data.errors.map(err => err.message).join(', ') : '';
+        message.textContent = detail
+          ? `Something went wrong: ${detail}`
+          : 'Something went wrong — please try again in a moment.';
+      }
+    } catch (err) {
+      message.textContent = 'Network error — please check your connection and try again.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Join the list';
+    }
   });
 </script>
 
