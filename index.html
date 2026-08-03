@@ -142,7 +142,7 @@
     transition: max-height 0.3s ease, opacity 0.25s ease;
   }
   .mobile-nav.open {
-    max-height: 320px;
+    max-height: 400px;
     opacity: 1;
   }
   .mobile-nav a {
@@ -162,43 +162,95 @@
     color: var(--vermillion);
   }
 
+  /* ---------- Language Toggle ---------- */
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--indigo-deep);
+    border-radius: 999px;
+    padding: 3px;
+    margin-right: 14px;
+    background: transparent;
+  }
+  .lang-toggle button {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--indigo-deep);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .lang-toggle button.active {
+    background: var(--vermillion);
+    color: var(--ivory);
+  }
+  .lang-toggle button:hover:not(.active) { color: var(--vermillion); }
+  .lang-toggle button:focus-visible {
+    outline: 2px solid var(--vermillion);
+    outline-offset: 2px;
+  }
+  .header-controls {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: 520px) {
+    .lang-toggle { margin-right: 8px; }
+    .lang-toggle button { padding: 5px 9px; font-size: 0.68rem; }
+  }
+
   /* ---------- Hero ---------- */
   .hero {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 120px 6vw 80px;
+    padding: 128px 6vw 48px;
     position: relative;
   }
 
   .eyebrow {
     font-size: 0.8rem;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--vermillion);
-    margin-bottom: 22px;
-    font-weight: 500;
+    margin-bottom: 14px;
+    font-weight: 700;
   }
 
   .hero h1 {
-    font-size: clamp(2.6rem, 7vw, 5.2rem);
-    line-height: 1.08;
-    max-width: 16ch;
-    margin-bottom: 24px;
+    font-size: clamp(1.4rem, 3.6vw, 2.75rem);
+    line-height: 1.25;
+    max-width: 34ch;
+    margin-bottom: 14px;
+  }
+  .hero h1 .line-a,
+  .hero h1 .line-b {
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  @media (max-width: 420px) {
+    .hero h1 { font-size: clamp(1.2rem, 6.5vw, 1.6rem); }
   }
 
   .hero .tagline {
-    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--indigo);
-    max-width: 42ch;
-    font-weight: 300;
+    max-width: 52ch;
+    font-weight: 400;
   }
 
   .hero .location {
-    margin-top: 28px;
+    margin-top: 16px;
     font-size: 0.85rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -206,11 +258,13 @@
     opacity: 0.6;
   }
 
-  /* ---------- Mission ---------- */
-  .mission {
-    padding: 100px 6vw;
-    max-width: 1100px;
+  /* ---------- About (was Mission) ---------- */
+  section#about {
+    max-width: 1040px;
     margin: 0 auto;
+    padding: 90px 6vw 70px;
+  }
+  .mission {
     display: grid;
     grid-template-columns: 1fr 1px 1fr;
     gap: 60px;
@@ -474,18 +528,18 @@
   .signup {
     background: var(--indigo-deep);
     color: var(--ivory);
-    padding: 110px 6vw;
+    padding: 56px 6vw;
     text-align: center;
   }
   .signup h2 {
     color: var(--ivory);
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
-    margin-bottom: 14px;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 10px;
   }
   .signup p {
     color: var(--ivory-soft);
     max-width: 46ch;
-    margin: 0 auto 42px;
+    margin: 0 auto 26px;
     font-weight: 300;
   }
 
@@ -578,63 +632,51 @@
 <header>
   <a href="#" class="wordmark">Florida Kimono <span>Club</span></a>
 
-  <!-- Hamburger Button -->
-  <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-  </button>
+  <div class="header-controls">
+    <!-- Language Toggle -->
+    <div class="lang-toggle" role="group" aria-label="Language / 言語">
+      <button id="lang-en" class="active" onclick="setLang('en')" aria-pressed="true">EN</button>
+      <button id="lang-ja" onclick="setLang('ja')" aria-pressed="false">JA</button>
+    </div>
+
+    <!-- Hamburger Button -->
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
 
   <!-- Dropdown Menu -->
   <nav class="mobile-nav" id="mobileNav">
-    <a href="#events">Calendar</a>
+    <a href="#events" data-i18n="nav-calendar">Calendar</a>
     <a href="https://www.instagram.com/floridakimono?igsh=bzM0aGx1cmR6M29v" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
-    <!-- <a href="#about">About</a> -->
+    <a href="#about" data-i18n="nav-about">About Us</a>
     <!-- <a href="#resources">Resources</a> -->
   </nav>
 </header>
 
 <section class="hero">
-  <div class="eyebrow">Coming soon to Florida kimono enthusiasts</div>
-  <h1>Florida's kimono community, woven together.</h1>
-  <p class="tagline">Building a community dedicated to the history, craft, and wearing of kimono — while living in Florida — open to anyone curious or seasoned and built by those who love it.</p>
+  <div class="eyebrow" data-i18n="hero-eyebrow">Created for Florida enthusiasts</div>
+  <h1 data-i18n="hero-title"><span class="line-a">Florida's Kimono community,</span> <span class="line-b">woven together.</span></h1>
+  <p class="tagline" data-i18n="hero-tagline">Connecting Florida through the history, craftsmanship, wearing, and everyday appreciation of kimono — building a welcoming community where everyone can learn, wear, and share, from the simply curious to lifelong practitioners.</p>
   <p class="location">Florida, USA</p>
 </section>
 
 <div class="wave-band"></div>
 
-<section class="mission">
-  <div>
-    <h2>Our purpose</h2>
-    <p>
-To cultivate a vibrant, supportive community where the traditional art of wearing kimono is seamlessly and joyfully integrated into the unique lifestyle, climate, and culture of Florida. Florida Kimono strives to maintain the living directory, archive, and community network for Japanese culture in Florida by attempting to build a statewide network that includes both kimono sellers and enthusiasts, rather than a single local club, school, or business.
-    </p>
-    <span class="edit-note">It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and celebrate kimono culture.</span>
-  </div>
-  <div class="divider"></div>
-  <div>
-    <h2>Our mission</h2>
-    <p>
-      Our mission is to connect and celebrate the kimono community, support a vibrant culture and lifestyle, help members discover their style, and curate a trusted network to elevate every wardrobe and keep these traditions alive for the next generation.
-    </p>
-    <span class="edit-note">Wear kimono with confidence, anywhere and any season in Florida.</span>
-  </div>
-</section>
-
-<div class="wave-band flip"></div>
-
 <section id="events" aria-labelledby="events-title">
-  <p class="events-eyebrow">Gather Together</p>
-  <h2 class="events-title" id="events-title">Events Around Florida</h2>
-  <p class="events-sub">
+  <p class="events-eyebrow" data-i18n="events-eyebrow">Gather Together</p>
+  <h2 class="events-title" id="events-title" data-i18n="events-title">Events Around Florida</h2>
+  <p class="events-sub" data-i18n="events-sub">
     Kimono gatherings, festivals, and meetups happening across the state — hosted by our community and our partners.
     Find where to go next and connect directly with the organizer.
   </p>
 
   <div class="view-toggle" role="group" aria-label="Choose event view">
-    <button id="btn-list" class="active" onclick="setView('list')">List</button>
-    <button id="btn-grid" onclick="setView('grid')">Calendar</button>
+    <button id="btn-list" class="active" onclick="setView('list')" data-i18n="btn-list">List</button>
+    <button id="btn-grid" onclick="setView('grid')" data-i18n="btn-grid">Calendar</button>
   </div>
 
   <div id="list-view"></div>
@@ -656,23 +698,48 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
 <div class="wave-band"></div>
 
 <section class="signup">
-  <h2>Stay in the loop</h2>
-  <p>Sign up to hear about upcoming events, news, and what's next for the delegation.</p>
+  <h2 data-i18n="signup-h2">Stay in the loop</h2>
+  <p data-i18n="signup-p">Sign up to hear about upcoming events, news, and what's next for the delegation.</p>
   <form id="signup-form">
-    <input type="text" id="name" name="name" placeholder="Your name" required>
-    <input type="email" id="email" name="email" placeholder="Your email" required>
-    <button type="submit" id="signup-submit">Join the list</button>
+    <input type="text" id="name" name="name" placeholder="Your name" data-i18n-placeholder="placeholder-name" required>
+    <input type="email" id="email" name="email" placeholder="Your email" data-i18n-placeholder="placeholder-email" required>
+    <button type="submit" id="signup-submit" data-i18n="signup-submit">Join the list</button>
   </form>
   <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+</section>
+
+<div class="wave-band flip"></div>
+
+<section id="about" aria-labelledby="about-title">
+  <p class="events-eyebrow" data-i18n="about-eyebrow">Who We Are</p>
+  <h2 class="events-title" id="about-title" data-i18n="about-title">About Florida Kimono</h2>
+  <div class="mission">
+    <div>
+      <h2 data-i18n="purpose-h2">Our purpose</h2>
+      <p data-i18n="purpose-p">
+To cultivate a vibrant, supportive community where the traditional art of wearing kimono is seamlessly and joyfully integrated into the unique lifestyle, climate, and culture of Florida. Florida Kimono strives to maintain the living directory, archive, and community network for Japanese culture in Florida by attempting to build a statewide network that includes both kimono sellers and enthusiasts, rather than a single local club, school, or business.
+      </p>
+      <span class="edit-note" data-i18n="purpose-note">It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and celebrate kimono culture.</span>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <h2 data-i18n="mission-h2">Our mission</h2>
+      <p data-i18n="mission-p">
+        Our mission is to connect and celebrate the kimono community, support a vibrant culture and lifestyle, help members discover their style, and curate a trusted network to elevate every wardrobe and keep these traditions alive for the next generation.
+      </p>
+      <span class="edit-note" data-i18n="mission-note">Wear kimono with confidence, anywhere and any season in Florida.</span>
+    </div>
+  </div>
 </section>
 
 <footer>
   <nav class="social-links">
     <a href="https://www.instagram.com/floridakimono" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
-    <a href="#events">Calendar</a>
+    <a href="#events" data-i18n="nav-calendar">Calendar</a>
+    <a href="#about" data-i18n="nav-about">About Us</a>
   </nav>
-  <p class="copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
+  <p class="copyright" data-i18n="footer-copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
 </footer>
 
 <script>
@@ -689,7 +756,7 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
     const name = nameField.value.trim();
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
+    submitBtn.textContent = t('signup-sending');
     message.textContent = '';
 
     try {
@@ -700,22 +767,101 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
       });
 
       if (response.ok) {
-        message.textContent = `Thanks, ${name.split(' ')[0]}! You're on the list.`;
+        message.textContent = `${t('signup-thanks-prefix')} ${name.split(' ')[0]}${t('signup-thanks-suffix')}`;
         form.reset();
       } else {
         const data = await response.json().catch(() => null);
         const detail = data && data.errors ? data.errors.map(err => err.message).join(', ') : '';
         message.textContent = detail
-          ? `Something went wrong: ${detail}`
-          : 'Something went wrong — please try again in a moment.';
+          ? `${t('signup-error-prefix')} ${detail}`
+          : t('signup-error-generic');
       }
     } catch (err) {
-      message.textContent = 'Network error — please check your connection and try again.';
+      message.textContent = t('signup-error-network');
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Join the list';
+      submitBtn.textContent = t('signup-submit');
     }
   });
+</script>
+
+<!-- ---------- Language Toggle (EN / JA) ---------- -->
+<script>
+  const STRINGS = {
+    'nav-calendar': { en: 'Calendar', ja: 'カレンダー' },
+    'nav-about': { en: 'About Us', ja: '私たちについて' },
+    'hero-eyebrow': { en: 'Coming soon to Florida kimono enthusiasts', ja: 'フロリダの着物愛好家へ、まもなく始動' },
+    'hero-title': {
+      en: '<span class="line-a">Florida\'s Kimono community,</span> <span class="line-b">woven together.</span>',
+      ja: '<span class="line-a">フロリダの着物コミュニティを、</span> <span class="line-b">ひとつの糸に。</span>'
+    },
+    'hero-tagline': { en: 'Building a community dedicated to the history, craft, and wearing of kimono — while living in Florida — open to anyone curious or seasoned and built by those who love it.', ja: '着物の歴史・技・着装に捧げるコミュニティを、フロリダの地で築いています。初心者からベテランまで、着物を愛するすべての人に開かれた場所です。' },
+    'about-eyebrow': { en: 'Who We Are', ja: '私たちについて' },
+    'about-title': { en: 'About Florida Kimono', ja: 'Florida Kimonoについて' },
+    'purpose-h2': { en: 'Our purpose', ja: '目的' },
+    'purpose-p': { en: 'To cultivate a vibrant, supportive community where the traditional art of wearing kimono is seamlessly and joyfully integrated into the unique lifestyle, climate, and culture of Florida. Florida Kimono strives to maintain the living directory, archive, and community network for Japanese culture in Florida by attempting to build a statewide network that includes both kimono sellers and enthusiasts, rather than a single local club, school, or business.', ja: '着物を着るという伝統的な技を、フロリダ独自のライフスタイル・気候・文化の中に自然に、そして喜びをもって根付かせる、活気ある支え合いのコミュニティを育てること。Florida Kimonoは、単一の地域クラブや教室、事業者にとどまらず、着物の販売者と愛好家の双方を含む州全体のネットワークを目指し、フロリダにおける日本文化の生きた名簿・アーカイブ・コミュニティ網を維持することに努めています。' },
+    'purpose-note': { en: 'It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and celebrate kimono culture.', ja: 'フロリダ在住の着物コレクター、販売者、愛好家、教育者、文化団体が、つながり、学び、継承し、着物文化を祝うための中心的な場として存在します。' },
+    'mission-h2': { en: 'Our mission', ja: '使命' },
+    'mission-p': { en: 'Our mission is to connect and celebrate the kimono community, support a vibrant culture and lifestyle, help members discover their style, and curate a trusted network to elevate every wardrobe and keep these traditions alive for the next generation.', ja: '私たちの使命は、着物コミュニティをつなぎ祝福すること、活気ある文化とライフスタイルを支えること、メンバーが自分のスタイルを見つける手助けをすること、そしてすべてのワードローブを高め、これらの伝統を次世代へと伝える信頼のネットワークを築くことです。' },
+    'mission-note': { en: 'Wear kimono with confidence, anywhere and any season in Florida.', ja: 'フロリダのどこでも、どの季節でも、自信を持って着物を。' },
+    'events-eyebrow': { en: 'Gather Together', ja: '共に集う' },
+    'events-title': { en: 'Events Around Florida', ja: 'フロリダ各地のイベント' },
+    'events-sub': { en: 'Kimono gatherings, festivals, and meetups happening across the state — hosted by our community and our partners. Find where to go next and connect directly with the organizer.', ja: '州内各地で開催される着物の集い、祭り、交流会 — 私たちのコミュニティとパートナーが主催しています。次の目的地を見つけ、主催者と直接つながりましょう。' },
+    'btn-list': { en: 'List', ja: 'リスト' },
+    'btn-grid': { en: 'Calendar', ja: 'カレンダー' },
+    'empty-state': { en: 'No events scheduled yet — check back soon.', ja: 'まだ予定されているイベントはありません。近日中にご確認ください。' },
+    'hosted-by': { en: 'Hosted by', ja: '主催：' },
+    'view-listing': { en: 'View original listing →', ja: '元の掲載を見る →' },
+    'signup-h2': { en: 'Stay in the loop', ja: '最新情報を受け取る' },
+    'signup-p': { en: "Sign up to hear about upcoming events, news, and what's next for the delegation.", ja: '今後のイベントやニュース、団体の今後の展開についてお知らせします。' },
+    'placeholder-name': { en: 'Your name', ja: 'お名前' },
+    'placeholder-email': { en: 'Your email', ja: 'メールアドレス' },
+    'signup-submit': { en: 'Join the list', ja: '登録する' },
+    'signup-sending': { en: 'Sending…', ja: '送信中…' },
+    'signup-thanks-prefix': { en: 'Thanks,', ja: 'ありがとうございます、' },
+    'signup-thanks-suffix': { en: "! You're on the list.", ja: 'さん！登録が完了しました。' },
+    'signup-error-prefix': { en: 'Something went wrong:', ja: 'エラーが発生しました：' },
+    'signup-error-generic': { en: 'Something went wrong — please try again in a moment.', ja: 'エラーが発生しました。しばらくしてから再度お試しください。' },
+    'signup-error-network': { en: 'Network error — please check your connection and try again.', ja: 'ネットワークエラーです。接続をご確認の上、再度お試しください。' },
+    'footer-copyright': { en: '&copy; 2026 Florida Kimono Delegation. All rights reserved.', ja: '&copy; 2026 Florida Kimono Delegation. All rights reserved.' }
+  };
+
+  let currentLang = localStorage.getItem('fk-lang') || 'en';
+
+  function t(key) {
+    const entry = STRINGS[key];
+    if (!entry) return '';
+    return entry[currentLang] || entry.en;
+  }
+
+  function applyTranslations() {
+    document.documentElement.lang = currentLang === 'ja' ? 'ja' : 'en';
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      const key = el.getAttribute('data-i18n');
+      if (STRINGS[key]) el.innerHTML = t(key);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (STRINGS[key]) el.placeholder = t(key);
+    });
+
+    document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+    document.getElementById('lang-ja').classList.toggle('active', currentLang === 'ja');
+    document.getElementById('lang-en').setAttribute('aria-pressed', currentLang === 'en');
+    document.getElementById('lang-ja').setAttribute('aria-pressed', currentLang === 'ja');
+
+    if (typeof renderList === 'function') renderList();
+    if (typeof currentView !== 'undefined' && currentView === 'grid' && typeof renderGrid === 'function') renderGrid();
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('fk-lang', lang);
+    applyTranslations();
+  }
+
+  document.addEventListener('DOMContentLoaded', applyTranslations);
 </script>
 
 <!-- ---------- Hamburger menu toggle ---------- -->
@@ -772,7 +918,7 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
   function renderList() {
     const el = document.getElementById('list-view');
     if (EVENTS.length === 0) {
-      el.innerHTML = '<div class="empty-state">No events scheduled yet — check back soon.</div>';
+      el.innerHTML = `<div class="empty-state">${t('empty-state')}</div>`;
       return;
     }
     const sorted = [...EVENTS].sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -786,9 +932,9 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
           </div>
           <div>
             <h3 class="event-title">${ev.title}</h3>
-            <p class="event-meta"><span>Hosted by ${ev.host}</span><span>${ev.location}</span><span>${fmtFull(ev.date)}</span></p>
+            <p class="event-meta"><span>${t('hosted-by')} ${ev.host}</span><span>${ev.location}</span><span>${fmtFull(ev.date)}</span></p>
             <p class="event-desc">${ev.description}</p>
-            <a class="event-link" href="${ev.link}" target="_blank" rel="noopener">View original listing →</a>
+            <a class="event-link" href="${ev.link}" target="_blank" rel="noopener">${t('view-listing')}</a>
           </div>
         </div>
       `;
@@ -802,10 +948,13 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
     const detail = document.getElementById('cal-detail');
     detail.innerHTML = '';
 
-    const dows = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const dows = currentLang === 'ja'
+      ? ['日', '月', '火', '水', '木', '金', '土']
+      : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     dowRow.innerHTML = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
 
-    label.textContent = calDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const localeTag = currentLang === 'ja' ? 'ja-JP' : 'en-US';
+    label.textContent = calDate.toLocaleDateString(localeTag, { month: 'long', year: 'numeric' });
 
     const year = calDate.getFullYear();
     const month = calDate.getMonth();
@@ -850,9 +999,9 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
         </div>
         <div>
           <h3 class="event-title">${ev.title}</h3>
-          <p class="event-meta"><span>Hosted by ${ev.host}</span><span>${ev.location}</span></p>
+          <p class="event-meta"><span>${t('hosted-by')} ${ev.host}</span><span>${ev.location}</span></p>
           <p class="event-desc">${ev.description}</p>
-          <a class="event-link" href="${ev.link}" target="_blank" rel="noopener">View original listing →</a>
+          <a class="event-link" href="${ev.link}" target="_blank" rel="noopener">${t('view-listing')}</a>
         </div>
       </div>
     `).join('');
