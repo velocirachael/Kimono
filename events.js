@@ -21,6 +21,14 @@
    A multi-line description in double quotes will break the whole file.
    ============================================================ */
 const EVENTS = [
+   {
+    date: "Sep 3, 2026",
+    title: "Japanese Tea Ceremony Beginners Course",
+    host: "University of West Florida Continuing Education",
+    location: "Pensacola, FL",
+    description: "This course blends hands-on tea ceremony lessons with engaging presentations on the history and philosophy behind the practice. Through guided tastings, interactive demonstrations, and thoughtful discussions, you'll uncover the rituals, artistry, and cultural significance of this ancient tradition. Whether you're seeking a meditative escape or fascinated by Japanese culture, this course invites you to slow down, savor the moment, and embrace the beauty of tea.No experience needed, just curiosity and an open mind.",
+    link: "https://registration.xendirect.com/uwf/coursedisplay.cfm?schID=1790&check=1"
+  },
   {
     date: "2026-08-22",
     title: "BonFest Pensacola 2026",
