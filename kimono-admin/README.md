@@ -7,7 +7,7 @@ See `DESIGN.md` before touching colors or adding a new admin section — it
 records the color-coding scheme and rationale, plus what's built vs. still
 backlog from the original Command Center mockup.
 
-## How it works
+## How it works.
 
 1. Tally webhook → `/api/webhooks/tally?secret=...` → appends to
    `data/pending-events.json` in the repo. No changes to the live site yet.
