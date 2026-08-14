@@ -22,12 +22,12 @@
    ============================================================ */
 const EVENTS = [
   {
-    date: "2026-07-27",
-    title: "Katsura Sunshine's Rakugo (Japanese Comedic Storytelling) Live in Naples, Florida!",
-    host: "Off The Hook Comedy Club",
-    location: "Naples, FL",
-    description: "A show of hilarity and culture in equal doses! Katsura Sunshine completed his grueling traditional apprenticeship in Rakugo comic storytelling under the great Rakugo Master Katsura Bunshi VI in 2011. His performances have delighted audiences throughout the world as well as all over Japan. Sunshine has graced the Broadway stage with a different delightful Japanese story each month since 2019, at the famous New World Stages in Manhattan.",
-    link: "https://www.offthehookcomedy.com/shows/377193"
+    date: "2026-08-22",
+    title: "BonFest Pensacola 2026",
+    host: "Japan-American Society of NWFL",
+    location: "Pensacola, FL",
+    description: "BonFest Pensacola is coming back! Save the date for Saturday, August 22, 12-4pm, at the Sanders Beach-Corinne Jones Resource Center. Watch this space for details. This will be a FREE event with traditional Obon music and dance, food and craft vendors, and more.",
+    link: "https://www.facebook.com/events/sanders-beach-corinne-jones-resource-center/bonfest-pensacola-2026/868908612955901/"
   },
   {
     date: "2026-08-15",
@@ -36,6 +36,14 @@ const EVENTS = [
     location: "Delray Beach, FL",
     description: "An evening walk through the gardens in yukata, followed by a short tea demonstration. Casual and beginner-friendly — no kimono required to attend.",
     link: "https://morikami.org"
+   },
+   {
+    date: "Oct 25, 2026",
+    title: "3rd Annual OKI Fest",
+    host: "Oki - Okinawa Kulture Impact",
+    location: "Fort Walton Beach, FL",
+    description: "Celebrate the Spirit of Okinawa Together! ✅ Free Admission & Entertainment!",
+    link: "https://facebook.com/events/s/3rd-annual-oki-fest/2020882632120354/"
   },
   {
     date: "2026-08-16",
@@ -44,7 +52,7 @@ const EVENTS = [
     location: "Orlando, FL",
     description: "A specialized workshop focusing on Chabana, the traditional Japanese art of flower arrangement designed for the tea ceremony.",
     link: "https://www.eventbrite.com/e/ikebana-chabana-japanese-flower-arrangement-class-tickets-1992285336071"
-  },
+   },
   {
     date: "2026-09-09",
     title: "Ikebana International Naples Chapter Programs",
