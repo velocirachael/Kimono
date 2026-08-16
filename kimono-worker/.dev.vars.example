@@ -1,0 +1,14 @@
+# Local development only — copy to .dev.vars (which is gitignored by wrangler)
+# and fill in. In production these are set differently:
+#   WEBHOOK_SECRET, RESEND_API_KEY  →  wrangler secret put <NAME>
+#   the rest                        →  "vars" in wrangler.jsonc
+
+# Lets you open http://localhost:8787/admin without Cloudflare Access.
+# NEVER set this in production.
+REQUIRE_ACCESS=false
+
+WEBHOOK_SECRET=dev-secret
+RESEND_API_KEY=
+RESEND_FROM=Florida Kimono Club <hello@floridakimono.com>
+ADMIN_EMAIL=you@example.com
+ALLOWED_ORIGINS=http://localhost:8787

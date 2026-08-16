@@ -1,0 +1,47 @@
+{
+  // Kimono Command Center — Cloudflare Worker config.
+  // After `wrangler d1 create kimono`, paste the database_id it prints below.
+  "name": "kimono-admin",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-01",
+
+  // No *.workers.dev URL: the only way in is the custom domain, which sits
+  // behind Cloudflare Access. Don't flip this to true — it would open a
+  // second door that Access doesn't guard.
+  "workers_dev": false,
+
+  "routes": [
+    { "pattern": "admin.floridakimono.com", "custom_domain": true }
+  ],
+
+  // The admin GUI. Requests matching files in ./public are served as static
+  // assets; everything else falls through to the Worker code.
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kimono",
+      "database_id": "PASTE_DATABASE_ID_HERE"
+    }
+  ],
+
+  // Daily steward. Cron is UTC: 12:00 UTC = 8:00 AM Florida in summer (EDT),
+  // 7:00 AM in winter (EST). Change to "0 13 * * *" if you'd rather have
+  // 8 AM in winter and 9 AM in summer.
+  "triggers": {
+    "crons": ["0 12 * * *"]
+  },
+
+  // Non-secret config. Secrets (WEBHOOK_SECRET, RESEND_API_KEY) are set with
+  // `wrangler secret put`, never written here.
+  "vars": {
+    "REQUIRE_ACCESS": "true",
+    "ALLOWED_ORIGINS": "https://www.floridakimono.com,https://floridakimono.com",
+    "RESEND_FROM": "Florida Kimono Club <hello@floridakimono.com>",
+    "ADMIN_EMAIL": "velocirachael@gmail.com"
+  }
+}

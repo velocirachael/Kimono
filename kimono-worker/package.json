@@ -1,0 +1,17 @@
+{
+  "name": "kimono-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Florida Kimono Club Command Center — Cloudflare Worker + D1",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "seed": "node scripts/import-events.mjs > seed.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.0.0"
+  }
+}
