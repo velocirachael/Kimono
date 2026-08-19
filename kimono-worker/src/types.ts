@@ -25,7 +25,7 @@ export type SignupType = "welcome" | "newsletter" | "both";
 
 export type PendingSignup = {
   id: string;
-  source: "formspree";
+  source: "web" | "formspree"; // "web" = posted directly by the site's own signup form
   submittedAt: string;
   email: string;
   name?: string;

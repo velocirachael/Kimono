@@ -39,7 +39,7 @@ function rowToPendingEvent(r: Record<string, unknown>): PendingEvent {
 function rowToPendingSignup(r: Record<string, unknown>): PendingSignup {
   return {
     id: r.id as string,
-    source: "formspree",
+    source: r.source as PendingSignup["source"],
     submittedAt: r.submitted_at as string,
     status: r.status as PendingSignup["status"],
     email: r.email as string,

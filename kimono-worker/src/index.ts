@@ -22,14 +22,19 @@
 import { confirmBatch, listEvents, listPending, toISODate } from "./db";
 import { sendSignupEmail } from "./resend";
 import { runSteward, buildStewardReport } from "./steward";
-import { checkWebhookSecret, handleFormspreeWebhook, handleTallyWebhook } from "./webhooks";
+import { checkWebhookSecret, handleDirectSignup, handleFormspreeWebhook, handleTallyWebhook } from "./webhooks";
 import type { ConfirmBatchRequest, ConfirmBatchResult, Env } from "./types";
 
 function corsHeaders(req: Request, env: Env): HeadersInit {
   const allowed = (env.ALLOWED_ORIGINS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
   const origin = req.headers.get("Origin") ?? "";
   if (allowed.includes(origin)) {
-    return { "Access-Control-Allow-Origin": origin, Vary: "Origin" };
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      Vary: "Origin",
+    };
   }
   return {};
 }
@@ -72,6 +77,14 @@ export default {
       return Response.json(events, {
         headers: { ...cors, "Cache-Control": "public, max-age=300" },
       });
+    }
+
+    // --- direct signup (replaces Formspree — their free tier won't forward
+    //     webhooks, only email; this is the free, no-third-party version) ---
+    if (pathname === "/api/signup" && (req.method === "POST" || req.method === "OPTIONS")) {
+      const cors = corsHeaders(req, env);
+      if (req.method === "OPTIONS") return new Response(null, { headers: cors });
+      return handleDirectSignup(req, env, cors);
     }
 
     // --- admin API (Access-locked) ---

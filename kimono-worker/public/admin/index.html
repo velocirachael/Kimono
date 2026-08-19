@@ -203,7 +203,7 @@ function render() {
         ${events.length === 0 ? '<p class="muted">Nothing pending.</p>' : events.map(eventRowHtml).join("")}
       </section>
       <section class="panel panel-purple">
-        <div class="panelhead"><h2>Pending signups</h2><span class="sub">Via Formspree</span></div>
+        <div class="panelhead"><h2>Pending signups</h2><span class="sub">From the site's signup form</span></div>
         ${signups.length === 0 ? '<p class="muted">Nothing pending.</p>' : signups.map(signupRowHtml).join("")}
       </section>
       <div class="actions">

@@ -86,3 +86,37 @@ export async function handleFormspreeWebhook(req: Request, env: Env): Promise<Re
   await insertPendingSignup(env.DB, signup);
   return Response.json({ ok: true });
 }
+
+// Formspree's free tier only emails you — forwarding to a webhook needs
+// their Pro plan. Instead the site's own signup form posts straight here:
+// same effect, no third party, no cost. `website` is a honeypot field the
+// form keeps visually hidden; a filled-in value means a bot filled every
+// field it could find, so we accept the request but silently drop it.
+export async function handleDirectSignup(req: Request, env: Env, corsHeaders: HeadersInit): Promise<Response> {
+  const body: any = await req.json().catch(() => ({}));
+
+  if (body?.website) {
+    return Response.json({ ok: true }, { headers: corsHeaders });
+  }
+
+  const email: string = (body?.email ?? "").trim();
+  const name: string | undefined = (body?.name ?? "").trim() || undefined;
+
+  if (!email) {
+    return Response.json({ error: "Please enter your email." }, { status: 400, headers: corsHeaders });
+  }
+
+  const signup: PendingSignup = {
+    id: `web-${Date.now()}-${email}`,
+    source: "web",
+    submittedAt: new Date().toISOString(),
+    status: "pending",
+    email,
+    name,
+    type: "both", // one unified "join the list" form; admin can narrow this at approval time
+    raw: body,
+  };
+
+  await insertPendingSignup(env.DB, signup);
+  return Response.json({ ok: true }, { headers: corsHeaders });
+}

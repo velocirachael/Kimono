@@ -703,6 +703,8 @@
   <form id="signup-form">
     <input type="text" id="name" name="name" placeholder="Your name" data-i18n-placeholder="placeholder-name" required>
     <input type="email" id="email" name="email" placeholder="Your email" data-i18n-placeholder="placeholder-email" required>
+    <!-- Honeypot: real visitors never see or fill this in; a bot that fills every field it finds will. -->
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">
     <button type="submit" id="signup-submit" data-i18n="signup-submit">Join the list</button>
   </form>
   <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
@@ -743,7 +745,10 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
 </footer>
 
 <script>
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqrlzeb';
+  // Posts straight to the Command Center — no Formspree, no third party,
+  // no cost. Same effect as before: the submission lands in the admin
+  // queue for approval.
+  const SIGNUP_ENDPOINT = 'https://admin.floridakimono.com/api/signup';
 
   const form = document.getElementById('signup-form');
   const message = document.getElementById('form-message');
@@ -752,18 +757,19 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const nameField = document.getElementById('name');
-    const name = nameField.value.trim();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const website = document.getElementById('website').value; // honeypot
 
     submitBtn.disabled = true;
     submitBtn.textContent = t('signup-sending');
     message.textContent = '';
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(SIGNUP_ENDPOINT, {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(form)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, website })
       });
 
       if (response.ok) {
@@ -771,9 +777,8 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
         form.reset();
       } else {
         const data = await response.json().catch(() => null);
-        const detail = data && data.errors ? data.errors.map(err => err.message).join(', ') : '';
-        message.textContent = detail
-          ? `${t('signup-error-prefix')} ${detail}`
+        message.textContent = data && data.error
+          ? `${t('signup-error-prefix')} ${data.error}`
           : t('signup-error-generic');
       }
     } catch (err) {
