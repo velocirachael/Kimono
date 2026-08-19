@@ -326,12 +326,20 @@
     line-height: 1.6;
   }
 
+  .events-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
   .view-toggle {
     display: inline-flex;
     border: 1px solid var(--vermillion);
     border-radius: 999px;
     overflow: hidden;
-    margin-bottom: 36px;
   }
   .view-toggle button {
     font-family: 'Zen Kaku Gothic New', sans-serif;
@@ -352,6 +360,25 @@
   .view-toggle button:focus-visible {
     outline: 2px solid var(--indigo-deep);
     outline-offset: -2px;
+  }
+
+  .submit-event-btn {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 10px 24px;
+    border-radius: 999px;
+    background: var(--indigo-deep);
+    color: var(--ivory);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+  .submit-event-btn:hover { background: var(--indigo); }
+  .submit-event-btn:focus-visible {
+    outline: 2px solid var(--vermillion);
+    outline-offset: 2px;
   }
 
   #list-view {
@@ -674,9 +701,13 @@
     Find where to go next and connect directly with the organizer.
   </p>
 
-  <div class="view-toggle" role="group" aria-label="Choose event view">
-    <button id="btn-list" class="active" onclick="setView('list')" data-i18n="btn-list">List</button>
-    <button id="btn-grid" onclick="setView('grid')" data-i18n="btn-grid">Calendar</button>
+  <div class="events-toolbar">
+    <div class="view-toggle" role="group" aria-label="Choose event view">
+      <button id="btn-list" class="active" onclick="setView('list')" data-i18n="btn-list">List</button>
+      <button id="btn-grid" onclick="setView('grid')" data-i18n="btn-grid">Calendar</button>
+    </div>
+
+    <a class="submit-event-btn" href="https://tally.so/r/vGaxPd" target="_blank" rel="noopener" data-i18n="submit-event">Submit an Event</a>
   </div>
 
   <div id="list-view"></div>
@@ -814,6 +845,7 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
     'events-sub': { en: 'Kimono gatherings, festivals, and meetups happening across the state — hosted by our community and our partners. Find where to go next and connect directly with the organizer.', ja: '州内各地で開催される着物の集い、祭り、交流会 — 私たちのコミュニティとパートナーが主催しています。次の目的地を見つけ、主催者と直接つながりましょう。' },
     'btn-list': { en: 'List', ja: 'リスト' },
     'btn-grid': { en: 'Calendar', ja: 'カレンダー' },
+    'submit-event': { en: 'Submit an Event', ja: 'イベントを登録する' },
     'empty-state': { en: 'No events scheduled yet — check back soon.', ja: 'まだ予定されているイベントはありません。近日中にご確認ください。' },
     'hosted-by': { en: 'Hosted by', ja: '主催：' },
     'view-listing': { en: 'View original listing →', ja: '元の掲載を見る →' },
