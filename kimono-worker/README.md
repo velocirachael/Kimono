@@ -94,18 +94,21 @@ the DNS record automatically) and starts the daily steward cron.
 **Now set up Access — before pointing any forms at it.** In
 [one.dash.cloudflare.com](https://one.dash.cloudflare.com) (Zero Trust,
 free tier), first pick any team name if asked. Then **Access →
-Applications → Add an application → Self-hosted**, three times:
+Applications → Add an application → Self-hosted**, four times:
 
 | # | Application domain/path | Policy |
 |---|---|---|
 | 1 | `admin.floridakimono.com` | **Allow** → Include → Emails → `velocirachael@gmail.com` |
 | 2 | `admin.floridakimono.com/api/webhooks` | **Bypass** → Everyone |
 | 3 | `admin.floridakimono.com/api/events` | **Bypass** → Everyone |
+| 4 | `admin.floridakimono.com/api/signup` | **Bypass** → Everyone |
 
 App 1 is the lock (login via one-time email code by default; add Google
 as a login method in Settings → Authentication if you want one-click).
-Apps 2 and 3 punch holes for the webhooks (which have their own secret)
-and the public calendar. More-specific paths win, so the holes work.
+Apps 2–4 punch holes for the webhooks (which have their own secret), the
+public calendar, and the site's own signup form — none of those can pass
+an interactive login, so they need to bypass Access entirely. More-specific
+paths win, so the holes work even though App 1 covers the whole domain.
 
 The Worker fails closed: until Access is configured, admin routes return
 403 rather than sitting open.
