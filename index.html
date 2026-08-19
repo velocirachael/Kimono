@@ -941,7 +941,12 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
   fetch('https://admin.floridakimono.com/api/events')
     .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then((data) => {
-      EVENTS = data;
+      // Drop events once their date has passed — ISO "YYYY-MM-DD" strings
+      // compare correctly with plain string comparison, so no Date parsing
+      // (and its UTC/local timezone footguns) is needed here.
+      const today = new Date();
+      const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      EVENTS = data.filter(ev => ev.date >= todayStr);
       renderList();
       if (currentView === 'grid') renderGrid();
     })
