@@ -1,11 +1,11 @@
 # Agentic SDLC Setup — Status Report
 
-_Generated 2026-08-20_
+_Generated 2026-08-20 (updated)_
 
 | # | Check | Status | Details |
 |---|-------|--------|---------|
 | 1 | Claude Code authenticated and working | ✅ Pass | Running Claude Code CLI v2.1.236 inside a managed cloud session. The session is live and responding, which confirms authentication against Anthropic is working. `claude doctor` reports 3 minor, non-blocking config warnings (see below) but no auth errors. |
-| 2 | OpenSpec CLI installed and functional | ❌ Fail | `openspec` is not on `PATH`, not installed as a global npm package (`npm ls -g` shows no `openspec` entry), not installed via `pip`, and `npx openspec` fails with "could not determine executable to run." No `openspec/` directory or config exists in this repo either. **Action needed:** install with `npm install -g @openspec/cli` (or the current published package name) and run `openspec init` in the repo. |
+| 2 | OpenSpec CLI installed and functional | ✅ Pass | The real package is [`@fission-ai/openspec`](https://github.com/Fission-AI/OpenSpec) (not the abandoned `openspec` package on npm — that one is an unrelated placeholder from 2019 and should not be used). Installed globally via `npm install -g @fission-ai/openspec@latest`; `openspec --version` reports `1.10.0`. Initialized in this repo with `openspec init . --tools claude`, which created `openspec/config.yaml` plus Claude Code skills/commands under `.claude/`. |
 | 3 | Project idea ready to work on | ✅ Pass | This repo (`Kimono`) already documents a clear project: build community and outreach for the **Florida Kimono Club**, and define the concepts of Florida Kitsuke-dō (着付け道) — "the Way of Dressing in Kimono in Florida" — covering TPO (time, place, occasion) and season. See `README.md`. The live site is at https://www.floridakimono.com. |
 
 ## Details
@@ -19,14 +19,19 @@ _Generated 2026-08-20_
   - Leftover npm global install at `/opt/node22/bin/claude` — can be removed with `npm -g uninstall @anthropic-ai/claude-code`
 
 ### 2. OpenSpec CLI
-- Not found via `which openspec`, global npm listing, `pip show openspec`, or `npx openspec`.
-- No `openspec/` folder or spec files found anywhere in this repository.
-- This is the one blocker before an OpenSpec-driven agentic SDLC workflow can run here.
+- **Package:** `@fission-ai/openspec` — GitHub: https://github.com/Fission-AI/OpenSpec
+- **Note:** the bare `openspec` package on npm is a stale, unrelated placeholder (v0.0.0, published 2019) — don't install that one.
+- Installed globally: `npm install -g @fission-ai/openspec@latest` → resolves to `1.10.0`
+- Verified working: `openspec --version` → `1.10.0`; `openspec --help` lists commands (`init`, `change`, `spec`, `archive`, `view`, `doctor`, etc.)
+- Initialized in this repo: `openspec init . --tools claude`
+  - Created `openspec/config.yaml` (schema: spec-driven)
+  - Created 6 skills + 6 `/opsx:*` slash commands under `.claude/` for driving OpenSpec from Claude Code
+- Next step for a new change: `/opsx:propose "your idea"`
 
 ### 3. Project idea
 - Defined in `README.md`: grow the Florida Kimono Club's community/outreach and define Florida Kitsuke-dō concepts (TPO + season).
-- No formal spec files yet (ties back to item 2 — once OpenSpec is installed, this idea can be turned into a proper spec with `openspec init` / `openspec new`).
+- Now that OpenSpec is initialized, this idea can be turned into a formal change proposal with `/opsx:propose` or `openspec change new`.
 
 ## Summary
 
-**2 of 3 checks pass.** Claude Code is authenticated and ready, and there's a concrete project idea documented in this repo. The remaining gap is installing and initializing the OpenSpec CLI before starting spec-driven agentic development.
+**3 of 3 checks pass.** Claude Code is authenticated, the OpenSpec CLI (`@fission-ai/openspec`) is installed and initialized in this repo, and there's a concrete project idea documented in `README.md`. The Agentic SDLC setup is ready — the next action is running `/opsx:propose` to turn the Florida Kimono Club idea into a formal OpenSpec change.
