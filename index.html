@@ -633,6 +633,7 @@
   footer .social-links {
     justify-content: center;
     margin-bottom: 24px;
+    flex-wrap: wrap;
   }
   footer .copyright {
     font-size: 0.8rem;
@@ -677,9 +678,11 @@
   <!-- Dropdown Menu -->
   <nav class="mobile-nav" id="mobileNav">
     <a href="#events" data-i18n="nav-calendar">Calendar</a>
+    <a href="aboutus.html" data-i18n="nav-about">About Us</a>
+    <a href="journal.html" data-i18n="nav-journal">Journal</a>
+    <a href="art.html" data-i18n="nav-art">Art</a>
     <a href="https://www.instagram.com/floridakimono?igsh=bzM0aGx1cmR6M29v" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
-    <a href="#about" data-i18n="nav-about">About Us</a>
     <!-- <a href="#resources">Resources</a> -->
   </nav>
 </header>
@@ -767,10 +770,12 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
 
 <footer>
   <nav class="social-links">
+    <a href="#events" data-i18n="nav-calendar">Calendar</a>
+    <a href="aboutus.html" data-i18n="nav-about">About Us</a>
+    <a href="journal.html" data-i18n="nav-journal">Journal</a>
+    <a href="art.html" data-i18n="nav-art">Art</a>
     <a href="https://www.instagram.com/floridakimono" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
-    <a href="#events" data-i18n="nav-calendar">Calendar</a>
-    <a href="#about" data-i18n="nav-about">About Us</a>
   </nav>
   <p class="copyright" data-i18n="footer-copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
 </footer>
@@ -826,6 +831,8 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
   const STRINGS = {
     'nav-calendar': { en: 'Calendar', ja: 'カレンダー' },
     'nav-about': { en: 'About Us', ja: '私たちについて' },
+    'nav-journal': { en: 'Journal', ja: 'ジャーナル' },
+    'nav-art': { en: 'Art', ja: 'アート' },
     'hero-eyebrow': { en: 'Created for Florida enthusiasts', ja: 'フロリダの着物愛好家のために創作' },
     'hero-title': {
       en: '<span class="line-a">Florida\'s Kimono community,</span> <span class="line-b">woven together.</span>',

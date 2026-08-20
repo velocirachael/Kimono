@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Florida Kimono</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #F7F2E7;
+    --ivory-soft: #EFE8D8;
+    --indigo-deep: #16324A;
+    --indigo: #2C5A78;
+    --vermillion: #E34234;
+    --sumi-ink: #2B2b2b;
+    --kimono-gold: #E2B654;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--sumi-ink);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--indigo-deep);
+    font-weight: 700;
+  }
+
+  .wave-band {
+    width: 100%;
+    height: 28px;
+    background-image: radial-gradient(circle at 50% -50%, transparent 0, transparent 18px, var(--indigo) 19px, var(--indigo) 20px, transparent 21px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 0;
+    opacity: 0.85;
+  }
+  .wave-band.flip { transform: scaleY(-1); }
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 6vw;
+    background: rgba(247, 242, 231, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(22, 50, 74, 0.12);
+  }
+
+  .wordmark {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    color: var(--indigo-deep);
+    text-decoration: none;
+  }
+  .wordmark span { color: var(--vermillion); }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+  }
+  .hamburger-line {
+    width: 24px;
+    height: 2px;
+    background: var(--indigo-deep);
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+  }
+  .hamburger:hover .hamburger-line { background: var(--vermillion); }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) { opacity: 0; }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 6vw;
+    right: 6vw;
+    display: flex;
+    flex-direction: column;
+    background: var(--ivory);
+    border: 1px solid rgba(22, 50, 74, 0.12);
+    border-top: none;
+    box-shadow: 0 14px 28px rgba(22, 50, 74, 0.14);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+  }
+  .mobile-nav.open {
+    max-height: 480px;
+    opacity: 1;
+  }
+  .mobile-nav a {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--indigo-deep);
+    text-decoration: none;
+    padding: 16px 22px;
+    border-bottom: 1px solid rgba(22, 50, 74, 0.08);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover {
+    background: var(--ivory-soft);
+    color: var(--vermillion);
+  }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--indigo-deep);
+    border-radius: 999px;
+    padding: 3px;
+    margin-right: 14px;
+    background: transparent;
+  }
+  .lang-toggle button {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--indigo-deep);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .lang-toggle button.active {
+    background: var(--vermillion);
+    color: var(--ivory);
+  }
+  .lang-toggle button:hover:not(.active) { color: var(--vermillion); }
+  .lang-toggle button:focus-visible {
+    outline: 2px solid var(--vermillion);
+    outline-offset: 2px;
+  }
+  .header-controls {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: 520px) {
+    .lang-toggle { margin-right: 8px; }
+    .lang-toggle button { padding: 5px 9px; font-size: 0.68rem; }
+  }
+
+  /* ---------- Page hero ---------- */
+  .page-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 128px 6vw 48px;
+  }
+  .eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--vermillion);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .page-hero h1 {
+    font-size: clamp(1.6rem, 3.6vw, 2.75rem);
+    line-height: 1.25;
+    max-width: 30ch;
+    margin-bottom: 14px;
+  }
+  .page-hero .tagline {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--indigo);
+    max-width: 52ch;
+    font-weight: 400;
+  }
+
+  /* ---------- Sections ---------- */
+  .page-section {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 90px 6vw 70px;
+  }
+  .section-eyebrow {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--vermillion);
+    margin: 0 0 10px;
+  }
+  .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    color: var(--indigo-deep);
+    margin: 0 0 10px;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--sumi-ink);
+    opacity: 0.75;
+    max-width: 56ch;
+    margin: 0 0 34px;
+    line-height: 1.6;
+  }
+
+  .mission {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .mission .divider {
+    background: linear-gradient(to bottom, transparent, var(--kimono-gold), transparent);
+    width: 1px;
+    height: 100%;
+  }
+  .mission h2 {
+    font-size: 1.9rem;
+    margin-bottom: 18px;
+  }
+  .mission p {
+    font-size: 1.02rem;
+    color: var(--sumi-ink);
+    opacity: 0.85;
+  }
+  .mission .edit-note {
+    display: block;
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: var(--vermillion);
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  /* ---------- Vision ---------- */
+  .vision-card {
+    background: var(--indigo-deep);
+    color: var(--ivory);
+    border-radius: 6px;
+    padding: 48px clamp(24px, 5vw, 60px);
+    text-align: center;
+  }
+  .vision-card h2 {
+    color: var(--ivory);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 16px;
+  }
+  .vision-card p {
+    color: var(--ivory-soft);
+    max-width: 62ch;
+    margin: 0 auto 14px;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+  .vision-card p:last-child { margin-bottom: 0; }
+
+  /* ---------- Principles of Kitsuke ---------- */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .principle-card {
+    background: var(--ivory-soft);
+    border: 1px solid rgba(22, 50, 74, 0.12);
+    border-top: 3px solid var(--kimono-gold);
+    border-radius: 6px;
+    padding: 26px 24px;
+  }
+  .principle-card .kanji {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.7rem;
+    color: var(--vermillion);
+    line-height: 1.2;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .principle-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+  .principle-card p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--sumi-ink);
+    opacity: 0.85;
+  }
+
+  /* ---------- Footer ---------- */
+  .social-links {
+    display: flex;
+    gap: 22px;
+  }
+  .social-links a {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--indigo-deep);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.25s ease;
+  }
+  .social-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 1px;
+    background: var(--vermillion);
+    transition: width 0.25s ease;
+  }
+  .social-links a:hover { color: var(--vermillion); }
+  .social-links a:hover::after { width: 100%; }
+
+  footer {
+    padding: 50px 6vw 40px;
+    text-align: center;
+    background: var(--ivory);
+  }
+  footer .social-links {
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  footer .copyright {
+    font-size: 0.8rem;
+    color: var(--sumi-ink);
+    opacity: 0.55;
+  }
+
+  @media (max-width: 720px) {
+    header { padding: 14px 5vw; }
+    .mission {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .mission .divider { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="wordmark">Florida Kimono <span>Club</span></a>
+
+  <div class="header-controls">
+    <div class="lang-toggle" role="group" aria-label="Language / 言語">
+      <button id="lang-en" class="active" onclick="setLang('en')" aria-pressed="true">EN</button>
+      <button id="lang-ja" onclick="setLang('ja')" aria-pressed="false">JA</button>
+    </div>
+
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="index.html" data-i18n="nav-home">Home</a>
+    <a href="index.html#events" data-i18n="nav-calendar">Calendar</a>
+    <a href="aboutus.html" data-i18n="nav-about">About Us</a>
+    <a href="journal.html" data-i18n="nav-journal">Journal</a>
+    <a href="art.html" data-i18n="nav-art">Art</a>
+    <a href="https://www.instagram.com/floridakimono?igsh=bzM0aGx1cmR6M29v" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="eyebrow" data-i18n="hero-eyebrow">Who We Are</div>
+  <h1 data-i18n="hero-title">About Florida Kimono</h1>
+  <p class="tagline" data-i18n="hero-tagline">A statewide community for everyone who loves kimono — collectors, sellers, educators, artists, and the simply curious.</p>
+</section>
+
+<div class="wave-band"></div>
+
+<section class="page-section" id="purpose-mission" aria-labelledby="pm-title">
+  <p class="section-eyebrow" data-i18n="pm-eyebrow">Why We Exist</p>
+  <h2 class="section-title" id="pm-title" data-i18n="pm-title">Purpose &amp; Mission</h2>
+  <div class="mission">
+    <div>
+      <h2 data-i18n="purpose-h2">Our purpose</h2>
+      <p data-i18n="purpose-p">
+To cultivate a vibrant, supportive community where the traditional art of wearing kimono is seamlessly and joyfully integrated into the unique lifestyle, climate, and culture of Florida. Florida Kimono strives to maintain the living directory, archive, and community network for Japanese culture in Florida by attempting to build a statewide network that includes both kimono sellers and enthusiasts, rather than a single local club, school, or business.
+      </p>
+      <span class="edit-note" data-i18n="purpose-note">It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and celebrate kimono culture.</span>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <h2 data-i18n="mission-h2">Our mission</h2>
+      <p data-i18n="mission-p">
+        Our mission is to connect and celebrate the kimono community, support a vibrant culture and lifestyle, help members discover their style, and curate a trusted network to elevate every wardrobe and keep these traditions alive for the next generation.
+      </p>
+      <span class="edit-note" data-i18n="mission-note">Wear kimono with confidence, anywhere and any season in Florida.</span>
+    </div>
+  </div>
+</section>
+
+<div class="wave-band"></div>
+
+<section class="page-section" id="vision" aria-labelledby="vision-title">
+  <p class="section-eyebrow" data-i18n="vision-eyebrow">Where We're Going</p>
+  <h2 class="section-title" id="vision-title" data-i18n="vision-title">Our Vision</h2>
+  <div class="vision-card">
+    <h2 data-i18n="vision-card-h2">A Florida where kimono is a living tradition</h2>
+    <p data-i18n="vision-card-p1">We envision a Florida where kimono is not a costume or a curiosity, but a living, breathing part of everyday life — worn to festivals and tea gatherings, to the beach boardwalk and the botanical garden, in every season this state offers.</p>
+    <p data-i18n="vision-card-p2">A statewide network where every collector knows where to find their next piece, every seller finds an appreciative home for theirs, and every newcomer is met with warmth, guidance, and an open tansu.</p>
+  </div>
+</section>
+
+<div class="wave-band flip"></div>
+
+<section class="page-section" id="kitsuke" aria-labelledby="kitsuke-title">
+  <p class="section-eyebrow" data-i18n="kitsuke-eyebrow">How We Wear</p>
+  <h2 class="section-title" id="kitsuke-title" data-i18n="kitsuke-title">Principles of Kitsuke</h2>
+  <p class="section-sub" data-i18n="kitsuke-sub">
+    Kitsuke (着付け) is the art of dressing in kimono. These principles guide how we practice, teach, and share it — with respect for the tradition and room for Florida's own spirit.
+  </p>
+
+  <div class="principles-grid">
+    <div class="principle-card">
+      <span class="kanji" aria-hidden="true">左前を避ける</span>
+      <h3 data-i18n="p1-h3">Left over right</h3>
+      <p data-i18n="p1-p">The left panel always crosses over the right. It is the first rule every wearer learns, and the foundation everything else is built upon — right over left is reserved only for dressing the deceased.</p>
+    </div>
+    <div class="principle-card">
+      <span class="kanji" aria-hidden="true">季節感</span>
+      <h3 data-i18n="p2-h3">Seasonality</h3>
+      <p data-i18n="p2-p">Kimono follows the seasons in fabric, lining, motif, and color. In Florida we honor kisetsukan while adapting to our climate — light awase, hitoe, and breathable weaves carry us through long summers.</p>
+    </div>
+    <div class="principle-card">
+      <span class="kanji" aria-hidden="true">時・所・場合</span>
+      <h3 data-i18n="p3-h3">Time, place, occasion</h3>
+      <p data-i18n="p3-p">TPO — matching formality to the moment. A yukata for the festival, houmongi for the ceremony, komon for the coffee shop. Knowing what to wear, and when, is a kindness to your hosts and yourself.</p>
+    </div>
+    <div class="principle-card">
+      <span class="kanji" aria-hidden="true">清潔</span>
+      <h3 data-i18n="p4-h3">Care and cleanliness</h3>
+      <p data-i18n="p4-p">Kitsuke begins before the kimono goes on: clean hands, prepared undergarments, pressed collars, and garments stored with care. Respecting the garment extends its life for the next generation of wearers.</p>
+    </div>
+    <div class="principle-card">
+      <span class="kanji" aria-hidden="true">調和</span>
+      <h3 data-i18n="p5-h3">Harmony and balance</h3>
+      <p data-i18n="p5-p">A clean collar line, a level hem, an obi tied with intention. Kitsuke seeks harmony between garment and wearer — not perfection, but balance, so the kimono moves with you rather than against you.</p>
+    </div>
+    <div class="principle-card">
+      <span class="kanji" aria-hidden="true">稽古</span>
+      <h3 data-i18n="p6-h3">Practice and patience</h3>
+      <p data-i18n="p6-p">Nobody ties a perfect otaiko on the first try. Kitsuke is keiko — ongoing practice. We celebrate every attempt, share what we learn, and never gatekeep. Wrinkles are proof you showed up.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wave-band"></div>
+
+<footer>
+  <nav class="social-links">
+    <a href="index.html" data-i18n="nav-home">Home</a>
+    <a href="index.html#events" data-i18n="nav-calendar">Calendar</a>
+    <a href="journal.html" data-i18n="nav-journal">Journal</a>
+    <a href="art.html" data-i18n="nav-art">Art</a>
+    <a href="https://www.instagram.com/floridakimono" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
+  </nav>
+  <p class="copyright" data-i18n="footer-copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
+</footer>
+
+<!-- ---------- Language Toggle (EN / JA) ---------- -->
+<script>
+  const STRINGS = {
+    'nav-home': { en: 'Home', ja: 'ホーム' },
+    'nav-calendar': { en: 'Calendar', ja: 'カレンダー' },
+    'nav-about': { en: 'About Us', ja: '私たちについて' },
+    'nav-journal': { en: 'Journal', ja: 'ジャーナル' },
+    'nav-art': { en: 'Art', ja: 'アート' },
+    'hero-eyebrow': { en: 'Who We Are', ja: '私たちについて' },
+    'hero-title': { en: 'About Florida Kimono', ja: 'Florida Kimonoについて' },
+    'hero-tagline': { en: 'A statewide community for everyone who loves kimono — collectors, sellers, educators, artists, and the simply curious.', ja: '着物を愛するすべての人のための州全体のコミュニティ — コレクター、販売者、教育者、アーティスト、そして好奇心旺盛な方々へ。' },
+    'pm-eyebrow': { en: 'Why We Exist', ja: '存在意義' },
+    'pm-title': { en: 'Purpose & Mission', ja: '目的と使命' },
+    'purpose-h2': { en: 'Our purpose', ja: '目的' },
+    'purpose-p': { en: 'To cultivate a vibrant, supportive community where the traditional art of wearing kimono is seamlessly and joyfully integrated into the unique lifestyle, climate, and culture of Florida. Florida Kimono strives to maintain the living directory, archive, and community network for Japanese culture in Florida by attempting to build a statewide network that includes both kimono sellers and enthusiasts, rather than a single local club, school, or business.', ja: '着物を着るという伝統的な技を、フロリダ独自のライフスタイル・気候・文化の中に自然に、そして喜びをもって根付かせる、活気ある支え合いのコミュニティを育てること。Florida Kimonoは、単一の地域クラブや教室、事業者にとどまらず、着物の販売者と愛好家の双方を含む州全体のネットワークを目指し、フロリダにおける日本文化の生きた名簿・アーカイブ・コミュニティ網を維持することに努めています。' },
+    'purpose-note': { en: 'It exists for Florida-based kimono collectors, sellers, enthusiasts, educators, and cultural organizations who want a central place to connect, learn, preserve, and celebrate kimono culture.', ja: 'フロリダ在住の着物コレクター、販売者、愛好家、教育者、文化団体が、つながり、学び、継承し、着物文化を祝うための中心的な場として存在します。' },
+    'mission-h2': { en: 'Our mission', ja: '使命' },
+    'mission-p': { en: 'Our mission is to connect and celebrate the kimono community, support a vibrant culture and lifestyle, help members discover their style, and curate a trusted network to elevate every wardrobe and keep these traditions alive for the next generation.', ja: '私たちの使命は、着物コミュニティをつなぎ祝福すること、活気ある文化とライフスタイルを支えること、メンバーが自分のスタイルを見つける手助けをすること、そしてすべてのワードローブを高め、これらの伝統を次世代へと伝える信頼のネットワークを築くことです。' },
+    'mission-note': { en: 'Wear kimono with confidence, anywhere and any season in Florida.', ja: 'フロリダのどこでも、どの季節でも、自信を持って着物を。' },
+    'vision-eyebrow': { en: "Where We're Going", ja: '目指す未来' },
+    'vision-title': { en: 'Our Vision', ja: 'ビジョン' },
+    'vision-card-h2': { en: 'A Florida where kimono is a living tradition', ja: '着物が生きた伝統であるフロリダへ' },
+    'vision-card-p1': { en: 'We envision a Florida where kimono is not a costume or a curiosity, but a living, breathing part of everyday life — worn to festivals and tea gatherings, to the beach boardwalk and the botanical garden, in every season this state offers.', ja: '着物が仮装や珍しいものではなく、日常に息づく生きた文化であるフロリダを思い描いています。祭りや茶会に、海辺の遊歩道に、植物園に — この州のあらゆる季節の中で。' },
+    'vision-card-p2': { en: 'A statewide network where every collector knows where to find their next piece, every seller finds an appreciative home for theirs, and every newcomer is met with warmth, guidance, and an open tansu.', ja: 'すべてのコレクターが次の一枚に出会え、すべての販売者が大切にしてくれる相手を見つけられ、すべての初心者が温かさと導き、そして開かれた箪笥に迎えられる、州全体のネットワークを。' },
+    'kitsuke-eyebrow': { en: 'How We Wear', ja: '着方の心得' },
+    'kitsuke-title': { en: 'Principles of Kitsuke', ja: '着付けの原則' },
+    'kitsuke-sub': { en: "Kitsuke (着付け) is the art of dressing in kimono. These principles guide how we practice, teach, and share it — with respect for the tradition and room for Florida's own spirit.", ja: '着付けとは、着物を着る技術と心得のことです。伝統への敬意とフロリダらしい精神を大切にしながら、私たちはこれらの原則に沿って実践し、教え、分かち合います。' },
+    'p1-h3': { en: 'Left over right', ja: '左前を避ける' },
+    'p1-p': { en: 'The left panel always crosses over the right. It is the first rule every wearer learns, and the foundation everything else is built upon — right over left is reserved only for dressing the deceased.', ja: '衿は必ず右前（左の身頃が上）に合わせます。誰もが最初に学ぶ基本であり、すべての土台です。左前は亡くなった方の装いにのみ用いられます。' },
+    'p2-h3': { en: 'Seasonality', ja: '季節感' },
+    'p2-p': { en: 'Kimono follows the seasons in fabric, lining, motif, and color. In Florida we honor kisetsukan while adapting to our climate — light awase, hitoe, and breathable weaves carry us through long summers.', ja: '着物は生地・裏地・文様・色で季節を映します。フロリダでは季節感を大切にしつつ気候に合わせ、軽い袷、単衣、通気性のよい織物で長い夏を乗り切ります。' },
+    'p3-h3': { en: 'Time, place, occasion', ja: '時・所・場合' },
+    'p3-p': { en: 'TPO — matching formality to the moment. A yukata for the festival, houmongi for the ceremony, komon for the coffee shop. Knowing what to wear, and when, is a kindness to your hosts and yourself.', ja: 'TPO — 場にふさわしい格を選ぶこと。祭りには浴衣、式典には訪問着、カフェには小紋。何をいつ着るかを知ることは、相手にも自分にも心配りです。' },
+    'p4-h3': { en: 'Care and cleanliness', ja: '清潔と手入れ' },
+    'p4-p': { en: 'Kitsuke begins before the kimono goes on: clean hands, prepared undergarments, pressed collars, and garments stored with care. Respecting the garment extends its life for the next generation of wearers.', ja: '着付けは着る前から始まります。清潔な手、整えられた肌着、整った衿、丁寧な保管。着物を大切にすることが、次の世代へと命をつなぎます。' },
+    'p5-h3': { en: 'Harmony and balance', ja: '調和と均衡' },
+    'p5-p': { en: 'A clean collar line, a level hem, an obi tied with intention. Kitsuke seeks harmony between garment and wearer — not perfection, but balance, so the kimono moves with you rather than against you.', ja: '美しい衿元、整った裾線、心を込めて結んだ帯。着付けが求めるのは完璧ではなく調和です。着物があなたとともに動くように。' },
+    'p6-h3': { en: 'Practice and patience', ja: '稽古と忍耐' },
+    'p6-p': { en: 'Nobody ties a perfect otaiko on the first try. Kitsuke is keiko — ongoing practice. We celebrate every attempt, share what we learn, and never gatekeep. Wrinkles are proof you showed up.', ja: '最初から完璧なお太鼓を結べる人はいません。着付けは稽古 — 続けることです。すべての挑戦を称え、学びを分かち合い、決して敷居を高くしません。しわは挑戦の証です。' },
+    'footer-copyright': { en: '&copy; 2026 Florida Kimono Delegation. All rights reserved.', ja: '&copy; 2026 Florida Kimono Delegation. All rights reserved.' }
+  };
+
+  let currentLang = localStorage.getItem('fk-lang') || 'en';
+
+  function t(key) {
+    const entry = STRINGS[key];
+    if (!entry) return '';
+    return entry[currentLang] || entry.en;
+  }
+
+  function applyTranslations() {
+    document.documentElement.lang = currentLang === 'ja' ? 'ja' : 'en';
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      const key = el.getAttribute('data-i18n');
+      if (STRINGS[key]) el.innerHTML = t(key);
+    });
+
+    document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+    document.getElementById('lang-ja').classList.toggle('active', currentLang === 'ja');
+    document.getElementById('lang-en').setAttribute('aria-pressed', currentLang === 'en');
+    document.getElementById('lang-ja').setAttribute('aria-pressed', currentLang === 'ja');
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('fk-lang', lang);
+    applyTranslations();
+  }
+
+  document.addEventListener('DOMContentLoaded', applyTranslations);
+</script>
+
+<!-- ---------- Hamburger menu toggle ---------- -->
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', function () {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  mobileNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+</body>
+</html>
