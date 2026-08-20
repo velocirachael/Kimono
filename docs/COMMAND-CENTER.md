@@ -43,12 +43,12 @@ up exactly where this one left off.
   list" form POSTs to `/api/signup`. (`events.js` still sits in the
   repo but is unused — stale, don't edit it expecting the site to
   change.)
-- **The Worker's source code is not in version control.** The
-  `kimono-admin` folder (an earlier Next.js version of the Command
-  Center) was deleted from this repo on **Friday, August 14, 2026**
-  (commit `d08fbcd`). The running Worker's code exists *only* inside
-  Cloudflare right now. It is recoverable from the dashboard — see
-  to-do #1. The old Next.js version is still viewable in git history:
+- **The Worker's source code lives in the private `kimono-worker`
+  repo** (rescued Aug 20, 2026 — see the resolved to-do #1 below).
+  That repo is the source of truth: changes go code → repo →
+  `npx wrangler deploy`. Treat Cloudflare's online "Edit code" as
+  read-only from now on. The even older Next.js version remains
+  viewable in this repo's history:
   `git show d08fbcd^:kimono-admin/README.md`.
 - **Privacy principle (the reason a backend exists at all):** this
   repo is **public** — member names and emails must never be committed
@@ -58,21 +58,15 @@ up exactly where this one left off.
 
 ## To-do list
 
-### 1. Rescue the Worker's code into a private repo  ← most important
+### 1. ~~Rescue the Worker's code into a private repo~~ ✅ DONE Aug 20, 2026
 
-The running system has no backup. One mis-tap in Cloudflare's online
-editor could break events and signups with nothing to restore from.
-
-- **Recon (phone-friendly):** Cloudflare dashboard → Workers →
-  `kimono-admin` → **Settings / Bindings** → screenshot it. This shows
-  which database (D1) or storage (KV) holds members and events, and
-  any secrets/services wired in.
-- **The actual copy (needs a computer):** dashboard → `kimono-admin` →
-  **Edit code** → select all → copy → paste into a Claude session.
-  Claude then commits it to a **new private repo** (private because
-  Worker code sometimes contains passwords/secrets inline).
-- Note: Claude's remote sandbox cannot reach Cloudflare's API
-  directly, so this copy step has to go through a human.
+The private **`kimono-worker`** repo now holds the Worker's full source
+(TypeScript, admin GUI assets, D1 schema and seeds, wrangler config
+with the real database_id, and a dated snapshot of the dashboard's
+deployed bundle). The code copied from the dashboard was verified
+identical to the compiled output of that repo's `src/` — no secrets
+were inline; they live in Cloudflare's encrypted variables, where they
+belong. Recovery from any mishap is now: clone → `npx wrangler deploy`.
 
 ### 2. Test whether membership signup actually works
 
@@ -87,34 +81,31 @@ bot protection can mistake the form's submission for spam).
   `admin.floridakimono.com`, path starting `/api/` (skip Bot Fight
   Mode / managed rules for those API paths). Re-test after.
 
-### 3. Build "Organizers & Venues" into the Command Center
+### 3. ~~Build "Organizers & Venues" into the Command Center~~ ✅ DONE Aug 20, 2026
 
-The outreach tracker's permanent home. The old Command Center design
-(`git show d08fbcd^:kimono-admin/DESIGN.md`) already reserved this
-section — color yellow — in its plan.
-
-- Port the contact list and email templates from this repo's
-  `admin/outreach-data.js` into the Worker, stored in its database.
-- Until then, the **stopgap tracker** lives in this repo at `/admin`
-  (static page: dashboard counts, contact cards with status editing,
-  email templates with mailto compose). Its edits save per-browser;
-  "Export data file" produces an updated `outreach-data.js` to commit.
+Live at **admin.floridakimono.com/admin/outreach.html** (also linked
+from the Approvals sidebar — the yellow section the original design
+reserved). Contacts live in the Worker's D1 `outreach_contacts` table;
+every edit saves to the server through the Access-locked
+`/api/outreach` route, so the list is private and identical on every
+device. Source, migration, and seed are in the `kimono-worker` repo
+(see its README). The static stopgap this repo briefly served at
+`/admin` was deleted the same day — its data was seeded into D1
+first, and the old page remains in git history if ever needed.
 
 ### 4. Later / nice-to-have
 
 - Delete the stale `events.js` and `index (2).html` from this repo
   once confirmed nothing references them.
-- Retire the static `/admin` stopgap after the Worker version exists.
-- Point `admin.floridakimono.com/admin` nav to include the new section.
 
 ## The outreach program itself
 
 Goal: build community and connect Florida Kimono to the Orlando
 Asian-American community (and statewide).
 
-- **Tracker (stopgap):** `admin/index.html` + `admin/outreach-data.js`
-  in this repo — 10 seeded contacts, statuses, priorities, next
-  actions.
+- **Tracker:** admin.floridakimono.com/admin/outreach.html (private,
+  in the Command Center) — 10 seeded contacts, statuses, priorities,
+  next actions, and the email templates.
 - **First target:** Gary C.K. Lau, founder/executive director of Asia
   Trend (asiatrend.org) — Orlando 501(c)(3) magazine + community
   learning center, runs the annual Asian Cultural EXPO.
