@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Command Center — Florida Kimono</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #F7F2E7;
+    --ivory-soft: #EFE8D8;
+    --indigo-deep: #16324A;
+    --indigo: #2C5A78;
+    --vermillion: #E34234;
+    --sumi-ink: #2B2b2b;
+    --kimono-gold: #E2B654;
+    --paper: #FBF8F2;
+    --line: #E3DAC9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ivory);
+    color: var(--sumi-ink);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--indigo-deep);
+    font-weight: 700;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 18px 4vw;
+    background: rgba(247, 242, 231, 0.92);
+    border-bottom: 1px solid rgba(22, 50, 74, 0.12);
+  }
+  .wordmark {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    color: var(--indigo-deep);
+    text-decoration: none;
+  }
+  .wordmark span { color: var(--vermillion); }
+  .header-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--indigo);
+  }
+
+  main { padding: 24px 4vw 80px; max-width: 1280px; margin: 0 auto; }
+
+  /* Dashboard chips */
+  .dash {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 18px 0 26px;
+  }
+  .chip {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px 16px;
+    min-width: 120px;
+  }
+  .chip .num {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.6rem;
+    color: var(--indigo-deep);
+    line-height: 1.2;
+  }
+  .chip .lbl { font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--indigo); }
+  .chip.alert .num { color: var(--vermillion); }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .toolbar input[type="search"], .toolbar select {
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--sumi-ink);
+  }
+  .toolbar input[type="search"] { flex: 1 1 200px; min-width: 160px; }
+
+  button {
+    font-family: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    padding: 9px 16px;
+    border: 1px solid var(--indigo-deep);
+    border-radius: 4px;
+    background: var(--indigo-deep);
+    color: var(--ivory);
+    cursor: pointer;
+  }
+  button.secondary { background: transparent; color: var(--indigo-deep); }
+  button.danger { background: transparent; color: var(--vermillion); border-color: var(--vermillion); }
+  button:hover { opacity: 0.88; }
+
+  /* Cards list */
+  .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--line);
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card.p-High { border-left-color: var(--vermillion); }
+  .card.p-Medium { border-left-color: var(--kimono-gold); }
+  .card.p-Low { border-left-color: var(--indigo); }
+
+  .card .org { font-family: 'Shippori Mincho', serif; font-size: 1.05rem; color: var(--indigo-deep); font-weight: 700; }
+  .card .who { font-size: 0.85rem; color: var(--indigo); }
+  .card .meta { font-size: 0.8rem; color: #6b6b6b; }
+  .card .meta a { color: var(--indigo); }
+  .card .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .card select, .card input, .card textarea {
+    font-family: inherit;
+    font-size: 0.82rem;
+    padding: 5px 8px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--ivory);
+    color: var(--sumi-ink);
+  }
+  .card textarea { width: 100%; resize: vertical; min-height: 44px; }
+  .card .next-label { font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--indigo); }
+  .card .notes { font-size: 0.8rem; color: #555; }
+  .card .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .card .actions button { padding: 6px 12px; font-size: 0.78rem; }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--ivory-soft);
+    color: var(--indigo-deep);
+  }
+  .badge.s-Partnered { background: #DDEBDD; color: #1F5B2E; }
+  .badge.s-Contacted, .badge.s-Meeting { background: #E4EDF4; color: var(--indigo-deep); }
+  .badge.s-Follow { background: #F8E9CE; color: #7A5A12; }
+  .badge.s-Declined { background: #F0E0DE; color: #8A2F27; }
+
+  /* Sections */
+  section { margin-top: 44px; }
+  section > h2 { margin-bottom: 6px; }
+  .section-sub { font-size: 0.9rem; color: #6b6b6b; margin-bottom: 16px; }
+
+  /* Templates */
+  .tpl-controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+  .tpl-controls select {
+    font-family: inherit; font-size: 0.9rem; padding: 8px 10px;
+    border: 1px solid var(--line); border-radius: 4px; background: var(--paper);
+  }
+  .tpl-preview {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+  .tpl-preview .subject { font-weight: 700; margin-bottom: 10px; color: var(--indigo-deep); }
+  .tpl-preview pre {
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+  .tpl-hint { font-size: 0.78rem; color: #8a7a55; margin-top: 8px; }
+
+  /* Add form */
+  .add-form {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px 18px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .add-form label { font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--indigo); display: block; }
+  .add-form input, .add-form select, .add-form textarea {
+    width: 100%;
+    font-family: inherit; font-size: 0.88rem; padding: 8px 10px;
+    border: 1px solid var(--line); border-radius: 4px; background: var(--ivory);
+  }
+  .add-form .full { grid-column: 1 / -1; }
+
+  .storage-note {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: #8a7a55;
+    background: var(--ivory-soft);
+    border-radius: 6px;
+    padding: 12px 16px;
+  }
+
+  #toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--indigo-deep);
+    color: var(--ivory);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  #toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <a class="wordmark" href="../index.html">Florida <span>Kimono</span></a>
+    <div class="header-sub">Command Center — Outreach</div>
+  </div>
+  <div class="row" style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="secondary" onclick="exportDataFile()">Export data file</button>
+    <button class="danger" onclick="resetLocal()">Reset local edits</button>
+  </div>
+</header>
+
+<main>
+
+  <h1>Organizers &amp; Venues</h1>
+  <p class="section-sub">The outreach tracker: every person, organizer, venue, and business we're building a relationship with. Edits save in this browser; use “Export data file” to commit them for everyone.</p>
+
+  <div class="dash" id="dash"></div>
+
+  <div class="toolbar">
+    <input type="search" id="q" placeholder="Search name, org, city, notes…" oninput="render()">
+    <select id="f-status" onchange="render()">
+      <option value="">All statuses</option>
+    </select>
+    <select id="f-category" onchange="render()">
+      <option value="">All categories</option>
+    </select>
+    <select id="f-priority" onchange="render()">
+      <option value="">All priorities</option>
+    </select>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <section id="add">
+    <h2>Add a contact</h2>
+    <p class="section-sub">New organizers, venues, media, businesses, or individuals to write to.</p>
+    <form class="add-form" onsubmit="addContact(event)">
+      <div><label>Organization *</label><input id="a-org" required></div>
+      <div><label>Contact name</label><input id="a-contact"></div>
+      <div><label>Role / title</label><input id="a-role"></div>
+      <div><label>City</label><input id="a-city" placeholder="Orlando, FL"></div>
+      <div><label>Email</label><input id="a-email" type="email"></div>
+      <div><label>Phone</label><input id="a-phone"></div>
+      <div><label>Website</label><input id="a-website"></div>
+      <div><label>Priority</label>
+        <select id="a-priority"><option>High</option><option selected>Medium</option><option>Low</option></select>
+      </div>
+      <div><label>Category</label><select id="a-category"></select></div>
+      <div class="full"><label>Next action</label><input id="a-next"></div>
+      <div class="full"><label>Notes / source</label><textarea id="a-notes" rows="2"></textarea></div>
+      <div class="full"><button type="submit">Add to tracker</button></div>
+    </form>
+  </section>
+
+  <section id="templates">
+    <h2>Email templates</h2>
+    <p class="section-sub">Pick a template and a contact — placeholders fill in automatically. Anything in [square brackets] still needs your personal touch before sending.</p>
+    <div class="tpl-controls">
+      <select id="tpl-select" onchange="renderTemplate()"></select>
+      <select id="tpl-contact" onchange="renderTemplate()"></select>
+      <button class="secondary" onclick="copyTemplate()">Copy to clipboard</button>
+      <button onclick="composeEmail()">Open in email app</button>
+    </div>
+    <div class="tpl-preview">
+      <div class="subject" id="tpl-subject"></div>
+      <pre id="tpl-body"></pre>
+    </div>
+    <p class="tpl-hint">Rules of thumb: lead with what's in it for them · one ask per email · follow up once after ~2 weeks of silence, then close the row out · update the contact's status right after every send or reply.</p>
+  </section>
+
+  <div class="storage-note">
+    <strong>How saving works:</strong> the master list lives in <code>admin/outreach-data.js</code> in the site's GitHub repository. Changes you make here are stored in this browser only. When you've made edits worth keeping, click <em>Export data file</em> and replace <code>admin/outreach-data.js</code> with the downloaded file (GitHub → repo → admin folder → upload/replace). This page is public if deployed — keep anything sensitive out of the notes.
+  </div>
+
+</main>
+
+<div id="toast"></div>
+
+<script src="outreach-data.js"></script>
+<script>
+const STATUSES = ["Not Contacted", "Contacted", "Follow-up Needed", "Meeting Scheduled", "Partnered", "Declined"];
+const CATEGORIES = ["Media", "Community Org", "Chamber", "Organizer", "Venue", "Business", "Individual", "Government"];
+const PRIORITIES = ["High", "Medium", "Low"];
+const LS_KEY = "fk-outreach-v1";
+
+/* Merge: seed data from outreach-data.js, overlaid with local edits */
+function loadContacts() {
+  const local = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+  const overrides = local.overrides || {};
+  const added = local.added || [];
+  const deleted = new Set(local.deleted || []);
+  const merged = OUTREACH_CONTACTS
+    .filter(c => !deleted.has(c.id))
+    .map(c => ({ ...c, ...(overrides[c.id] || {}) }));
+  return merged.concat(added.filter(c => !deleted.has(c.id)));
+}
+function saveLocal(mutator) {
+  const local = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+  local.overrides = local.overrides || {};
+  local.added = local.added || [];
+  local.deleted = local.deleted || [];
+  mutator(local);
+  localStorage.setItem(LS_KEY, JSON.stringify(local));
+}
+function updateContact(id, field, value) {
+  saveLocal(local => {
+    const addedIdx = local.added.findIndex(c => c.id === id);
+    if (addedIdx >= 0) local.added[addedIdx][field] = value;
+    else {
+      local.overrides[id] = local.overrides[id] || {};
+      local.overrides[id][field] = value;
+    }
+  });
+  render();
+}
+function deleteContact(id) {
+  const c = loadContacts().find(c => c.id === id);
+  if (!confirm(`Remove "${c ? c.org : id}" from the tracker?`)) return;
+  saveLocal(local => { local.deleted.push(id); });
+  render();
+  toast("Removed. Export the data file to make it permanent.");
+}
+function resetLocal() {
+  if (!confirm("Discard ALL edits made in this browser and go back to the committed data file?")) return;
+  localStorage.removeItem(LS_KEY);
+  render();
+  toast("Local edits cleared.");
+}
+
+/* Rendering */
+function esc(s) {
+  return String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+}
+function badgeClass(status) {
+  if (status === "Partnered") return "s-Partnered";
+  if (status === "Contacted" || status === "Meeting Scheduled") return "s-Contacted";
+  if (status === "Follow-up Needed") return "s-Follow";
+  if (status === "Declined") return "s-Declined";
+  return "";
+}
+function render() {
+  const contacts = loadContacts();
+  const q = document.getElementById("q").value.toLowerCase();
+  const fs = document.getElementById("f-status").value;
+  const fc = document.getElementById("f-category").value;
+  const fp = document.getElementById("f-priority").value;
+
+  const shown = contacts.filter(c => {
+    if (fs && c.status !== fs) return false;
+    if (fc && c.category !== fc) return false;
+    if (fp && c.priority !== fp) return false;
+    if (q) {
+      const hay = [c.org, c.contact, c.role, c.city, c.email, c.notes, c.nextAction].join(" ").toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const prioRank = { High: 0, Medium: 1, Low: 2 };
+  shown.sort((a, b) => (prioRank[a.priority] ?? 3) - (prioRank[b.priority] ?? 3) || a.org.localeCompare(b.org));
+
+  document.getElementById("cards").innerHTML = shown.map(c => {
+    const site = c.website ? (c.website.startsWith("http") ? c.website : "https://" + c.website) : "";
+    return `
+    <div class="card p-${esc(c.priority)}">
+      <div class="org">${esc(c.org)}</div>
+      ${c.contact || c.role ? `<div class="who">${esc(c.contact)}${c.contact && c.role ? " — " : ""}${esc(c.role)}</div>` : ""}
+      <div class="meta">
+        ${esc(c.city)}${c.city ? " · " : ""}
+        ${c.email ? `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a> · ` : ""}
+        ${c.phone ? esc(c.phone) + " · " : ""}
+        ${site ? `<a href="${esc(site)}" target="_blank" rel="noopener">${esc(c.website)}</a>` : ""}
+      </div>
+      <div class="row">
+        <span class="badge">${esc(c.category)}</span>
+        <span class="badge s-prio">${esc(c.priority)} priority</span>
+        <span class="badge ${badgeClass(c.status)}">${esc(c.status)}</span>
+      </div>
+      <div class="row">
+        <select onchange="updateContact('${esc(c.id)}','status',this.value)">
+          ${STATUSES.map(s => `<option ${s === c.status ? "selected" : ""}>${s}</option>`).join("")}
+        </select>
+        <select onchange="updateContact('${esc(c.id)}','priority',this.value)">
+          ${PRIORITIES.map(p => `<option ${p === c.priority ? "selected" : ""}>${p}</option>`).join("")}
+        </select>
+      </div>
+      <div>
+        <div class="next-label">Next action</div>
+        <textarea onchange="updateContact('${esc(c.id)}','nextAction',this.value)">${esc(c.nextAction)}</textarea>
+      </div>
+      <div class="notes">${esc(c.notes)}</div>
+      <div class="actions">
+        ${c.email ? `<button onclick="prefillTemplate('${esc(c.id)}')">Write to them</button>` : `<button class="secondary" onclick="prefillTemplate('${esc(c.id)}')">Draft message</button>`}
+        <button class="danger" onclick="deleteContact('${esc(c.id)}')">Remove</button>
+      </div>
+    </div>`;
+  }).join("") || `<p style="color:#888">No contacts match — clear a filter or add one below.</p>`;
+
+  renderDash(contacts);
+  renderContactPicker(contacts);
+}
+function renderDash(contacts) {
+  const total = contacts.length;
+  const byStatus = s => contacts.filter(c => c.status === s).length;
+  const highTodo = contacts.filter(c => c.priority === "High" && c.status === "Not Contacted").length;
+  document.getElementById("dash").innerHTML = `
+    <div class="chip"><div class="num">${total}</div><div class="lbl">Tracked</div></div>
+    <div class="chip ${highTodo ? "alert" : ""}"><div class="num">${highTodo}</div><div class="lbl">High priority, not contacted</div></div>
+    <div class="chip"><div class="num">${byStatus("Contacted") + byStatus("Follow-up Needed")}</div><div class="lbl">In conversation</div></div>
+    <div class="chip"><div class="num">${byStatus("Meeting Scheduled")}</div><div class="lbl">Meetings</div></div>
+    <div class="chip"><div class="num">${byStatus("Partnered")}</div><div class="lbl">Partnered</div></div>`;
+}
+
+/* Filters + add form */
+function initSelectors() {
+  document.getElementById("f-status").innerHTML += STATUSES.map(s => `<option>${s}</option>`).join("");
+  document.getElementById("f-category").innerHTML += CATEGORIES.map(c => `<option>${c}</option>`).join("");
+  document.getElementById("f-priority").innerHTML += PRIORITIES.map(p => `<option>${p}</option>`).join("");
+  document.getElementById("a-category").innerHTML = CATEGORIES.map(c => `<option ${c === "Organizer" ? "selected" : ""}>${c}</option>`).join("");
+  document.getElementById("tpl-select").innerHTML = EMAIL_TEMPLATES.map(t => `<option value="${t.id}">${esc(t.name)}</option>`).join("");
+}
+function addContact(e) {
+  e.preventDefault();
+  const val = id => document.getElementById(id).value.trim();
+  const org = val("a-org");
+  const id = org.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-" + Math.random().toString(36).slice(2, 6);
+  const contact = {
+    id, org,
+    contact: val("a-contact"), role: val("a-role"), city: val("a-city"),
+    email: val("a-email"), phone: val("a-phone"), website: val("a-website"),
+    priority: val("a-priority"), category: val("a-category"),
+    status: "Not Contacted", nextAction: val("a-next"), notes: val("a-notes")
+  };
+  saveLocal(local => { local.added.push(contact); });
+  e.target.reset();
+  render();
+  toast(`Added ${org}. Export the data file when you're done editing.`);
+}
+
+/* Templates */
+function renderContactPicker(contacts) {
+  const sel = document.getElementById("tpl-contact");
+  const current = sel.value;
+  sel.innerHTML = `<option value="">— pick a contact —</option>` +
+    contacts.map(c => `<option value="${esc(c.id)}" ${c.id === current ? "selected" : ""}>${esc(c.org)}</option>`).join("");
+  renderTemplate();
+}
+function fillPlaceholders(text, c) {
+  if (!c) return text;
+  return text
+    .replaceAll("{{contact}}", c.contact || "[contact name]")
+    .replaceAll("{{org}}", c.org)
+    .replaceAll("{{city}}", c.city || "");
+}
+function currentTemplate() {
+  const tid = document.getElementById("tpl-select").value;
+  return EMAIL_TEMPLATES.find(t => t.id === tid) || EMAIL_TEMPLATES[0];
+}
+function currentTplContact() {
+  const cid = document.getElementById("tpl-contact").value;
+  return loadContacts().find(c => c.id === cid) || null;
+}
+function renderTemplate() {
+  const t = currentTemplate();
+  if (!t) return;
+  const c = currentTplContact();
+  document.getElementById("tpl-subject").textContent = "Subject: " + fillPlaceholders(t.subject, c);
+  document.getElementById("tpl-body").textContent = fillPlaceholders(t.body, c);
+}
+function prefillTemplate(id) {
+  document.getElementById("tpl-contact").value = id;
+  renderTemplate();
+  document.getElementById("templates").scrollIntoView({ behavior: "smooth" });
+}
+function copyTemplate() {
+  const t = currentTemplate(), c = currentTplContact();
+  const text = "Subject: " + fillPlaceholders(t.subject, c) + "\n\n" + fillPlaceholders(t.body, c);
+  navigator.clipboard.writeText(text).then(() => toast("Copied — remember to fill the [brackets]."));
+}
+function composeEmail() {
+  const t = currentTemplate(), c = currentTplContact();
+  const to = c && c.email ? c.email : "";
+  const url = "mailto:" + encodeURIComponent(to) +
+    "?subject=" + encodeURIComponent(fillPlaceholders(t.subject, c)) +
+    "&body=" + encodeURIComponent(fillPlaceholders(t.body, c));
+  location.href = url;
+}
+
+/* Export the merged state back as outreach-data.js */
+function exportDataFile() {
+  const contacts = loadContacts();
+  const header = document.getElementById("data-file-header").textContent;
+  const body = "const OUTREACH_CONTACTS = " + JSON.stringify(contacts, null, 2) + ";\n\n" +
+    "const EMAIL_TEMPLATES = " + JSON.stringify(EMAIL_TEMPLATES, null, 2) + ";\n";
+  const blob = new Blob([header + body], { type: "text/javascript" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "outreach-data.js";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("Downloaded outreach-data.js — replace the copy in the repo's admin folder.");
+}
+
+function toast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove("show"), 3500);
+}
+
+initSelectors();
+render();
+</script>
+
+<script type="text/plain" id="data-file-header">/* ============================================================
+   FLORIDA KIMONO CLUB — COMMAND CENTER DATA (outreach-data.js)
+   Exported from the Command Center page. This file is the master
+   Organizers & Venues outreach list; admin/index.html loads it.
+   Statuses: Not Contacted | Contacted | Follow-up Needed
+             | Meeting Scheduled | Partnered | Declined
+   ============================================================ */
+
+</script>
+
+</body>
+</html>
