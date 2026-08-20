@@ -326,12 +326,20 @@
     line-height: 1.6;
   }
 
+  .events-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
   .view-toggle {
     display: inline-flex;
     border: 1px solid var(--vermillion);
     border-radius: 999px;
     overflow: hidden;
-    margin-bottom: 36px;
   }
   .view-toggle button {
     font-family: 'Zen Kaku Gothic New', sans-serif;
@@ -352,6 +360,25 @@
   .view-toggle button:focus-visible {
     outline: 2px solid var(--indigo-deep);
     outline-offset: -2px;
+  }
+
+  .submit-event-btn {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 10px 24px;
+    border-radius: 999px;
+    background: var(--indigo-deep);
+    color: var(--ivory);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+  .submit-event-btn:hover { background: var(--indigo); }
+  .submit-event-btn:focus-visible {
+    outline: 2px solid var(--vermillion);
+    outline-offset: 2px;
   }
 
   #list-view {
@@ -661,7 +688,7 @@
 </header>
 
 <section class="hero">
-  <div class="eyebrow" data-i18n="hero-eyebrow">Created for Florida enthusiasts</div>
+  <div class="eyebrow" data-i18n="hero-eyebrow">Created for Florida enthusiasts and visitors</div>
   <h1 data-i18n="hero-title"><span class="line-a">Florida's Kimono community,</span> <span class="line-b">woven together.</span></h1>
   <p class="tagline" data-i18n="hero-tagline">Connecting Florida through the history, craftsmanship, wearing, and everyday appreciation of kimono — building a welcoming community where everyone can learn, wear, and share, from the simply curious to lifelong practitioners.</p>
   <p class="location">Florida, USA</p>
@@ -677,9 +704,13 @@
     Find where to go next and connect directly with the organizer.
   </p>
 
-  <div class="view-toggle" role="group" aria-label="Choose event view">
-    <button id="btn-list" class="active" onclick="setView('list')" data-i18n="btn-list">List</button>
-    <button id="btn-grid" onclick="setView('grid')" data-i18n="btn-grid">Calendar</button>
+  <div class="events-toolbar">
+    <div class="view-toggle" role="group" aria-label="Choose event view">
+      <button id="btn-list" class="active" onclick="setView('list')" data-i18n="btn-list">List</button>
+      <button id="btn-grid" onclick="setView('grid')" data-i18n="btn-grid">Calendar</button>
+    </div>
+
+    <a class="submit-event-btn" href="https://tally.so/r/vGaxPd" target="_blank" rel="noopener" data-i18n="submit-event">Submit an Event</a>
   </div>
 
   <div id="list-view"></div>
@@ -706,6 +737,8 @@
   <form id="signup-form">
     <input type="text" id="name" name="name" placeholder="Your name" data-i18n-placeholder="placeholder-name" required>
     <input type="email" id="email" name="email" placeholder="Your email" data-i18n-placeholder="placeholder-email" required>
+    <!-- Honeypot: real visitors never see or fill this in; a bot that fills every field it finds will. -->
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">
     <button type="submit" id="signup-submit" data-i18n="signup-submit">Join the list</button>
   </form>
   <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
@@ -748,7 +781,10 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
 </footer>
 
 <script>
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqrlzeb';
+  // Posts straight to the Command Center — no Formspree, no third party,
+  // no cost. Same effect as before: the submission lands in the admin
+  // queue for approval.
+  const SIGNUP_ENDPOINT = 'https://admin.floridakimono.com/api/signup';
 
   const form = document.getElementById('signup-form');
   const message = document.getElementById('form-message');
@@ -757,18 +793,19 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const nameField = document.getElementById('name');
-    const name = nameField.value.trim();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const website = document.getElementById('website').value; // honeypot
 
     submitBtn.disabled = true;
     submitBtn.textContent = t('signup-sending');
     message.textContent = '';
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(SIGNUP_ENDPOINT, {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(form)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, website })
       });
 
       if (response.ok) {
@@ -776,9 +813,8 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
         form.reset();
       } else {
         const data = await response.json().catch(() => null);
-        const detail = data && data.errors ? data.errors.map(err => err.message).join(', ') : '';
-        message.textContent = detail
-          ? `${t('signup-error-prefix')} ${detail}`
+        message.textContent = data && data.error
+          ? `${t('signup-error-prefix')} ${data.error}`
           : t('signup-error-generic');
       }
     } catch (err) {
@@ -816,6 +852,7 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
     'events-sub': { en: 'Kimono gatherings, festivals, and meetups happening across the state — hosted by our community and our partners. Find where to go next and connect directly with the organizer.', ja: '州内各地で開催される着物の集い、祭り、交流会 — 私たちのコミュニティとパートナーが主催しています。次の目的地を見つけ、主催者と直接つながりましょう。' },
     'btn-list': { en: 'List', ja: 'リスト' },
     'btn-grid': { en: 'Calendar', ja: 'カレンダー' },
+    'submit-event': { en: 'Submit an Event', ja: 'イベントを登録する' },
     'empty-state': { en: 'No events scheduled yet — check back soon.', ja: 'まだ予定されているイベントはありません。近日中にご確認ください。' },
     'hosted-by': { en: 'Hosted by', ja: '主催：' },
     'view-listing': { en: 'View original listing →', ja: '元の掲載を見る →' },
@@ -903,9 +940,25 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
   });
 </script>
 
-<!-- Events data lives in events.js — that's the only file you need to
-     touch to add, edit, or remove events. This tag just loads it. -->
-<script src="events.js"></script>
+<!-- Events now come from the Command Center API (approve an event in the
+     admin and it appears here instantly — no commit, no rebuild). EVENTS
+     starts empty and the calendar re-renders when the data arrives. -->
+<script>
+  let EVENTS = [];
+  fetch('https://admin.floridakimono.com/api/events')
+    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then((data) => {
+      // Drop events once their date has passed — ISO "YYYY-MM-DD" strings
+      // compare correctly with plain string comparison, so no Date parsing
+      // (and its UTC/local timezone footguns) is needed here.
+      const today = new Date();
+      const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      EVENTS = data.filter(ev => ev.date >= todayStr);
+      renderList();
+      if (currentView === 'grid') renderGrid();
+    })
+    .catch(() => { /* leave the empty state showing */ });
+</script>
 <script>
   let currentView = 'list';
   let calDate = new Date();
