@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art — Florida Kimono</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #F7F2E7;
+    --ivory-soft: #EFE8D8;
+    --indigo-deep: #16324A;
+    --indigo: #2C5A78;
+    --vermillion: #E34234;
+    --sumi-ink: #2B2b2b;
+    --kimono-gold: #E2B654;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--sumi-ink);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--indigo-deep);
+    font-weight: 700;
+  }
+
+  .wave-band {
+    width: 100%;
+    height: 28px;
+    background-image: radial-gradient(circle at 50% -50%, transparent 0, transparent 18px, var(--indigo) 19px, var(--indigo) 20px, transparent 21px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 0;
+    opacity: 0.85;
+  }
+  .wave-band.flip { transform: scaleY(-1); }
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 6vw;
+    background: rgba(247, 242, 231, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(22, 50, 74, 0.12);
+  }
+
+  .wordmark {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    color: var(--indigo-deep);
+    text-decoration: none;
+  }
+  .wordmark span { color: var(--vermillion); }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+  }
+  .hamburger-line {
+    width: 24px;
+    height: 2px;
+    background: var(--indigo-deep);
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+  }
+  .hamburger:hover .hamburger-line { background: var(--vermillion); }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) { opacity: 0; }
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 6vw;
+    right: 6vw;
+    display: flex;
+    flex-direction: column;
+    background: var(--ivory);
+    border: 1px solid rgba(22, 50, 74, 0.12);
+    border-top: none;
+    box-shadow: 0 14px 28px rgba(22, 50, 74, 0.14);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+  }
+  .mobile-nav.open {
+    max-height: 480px;
+    opacity: 1;
+  }
+  .mobile-nav a {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--indigo-deep);
+    text-decoration: none;
+    padding: 16px 22px;
+    border-bottom: 1px solid rgba(22, 50, 74, 0.08);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover {
+    background: var(--ivory-soft);
+    color: var(--vermillion);
+  }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--indigo-deep);
+    border-radius: 999px;
+    padding: 3px;
+    margin-right: 14px;
+    background: transparent;
+  }
+  .lang-toggle button {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--indigo-deep);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .lang-toggle button.active {
+    background: var(--vermillion);
+    color: var(--ivory);
+  }
+  .lang-toggle button:hover:not(.active) { color: var(--vermillion); }
+  .lang-toggle button:focus-visible {
+    outline: 2px solid var(--vermillion);
+    outline-offset: 2px;
+  }
+  .header-controls {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: 520px) {
+    .lang-toggle { margin-right: 8px; }
+    .lang-toggle button { padding: 5px 9px; font-size: 0.68rem; }
+  }
+
+  /* ---------- Page hero ---------- */
+  .page-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 128px 6vw 48px;
+  }
+  .eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--vermillion);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .page-hero h1 {
+    font-size: clamp(1.6rem, 3.6vw, 2.75rem);
+    line-height: 1.25;
+    max-width: 30ch;
+    margin-bottom: 14px;
+  }
+  .page-hero .tagline {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--indigo);
+    max-width: 52ch;
+    font-weight: 400;
+  }
+
+  /* ---------- Gallery ---------- */
+  .gallery-section {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 70px 6vw 90px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+  }
+
+  .art-card {
+    background: var(--ivory-soft);
+    border: 1px solid rgba(22, 50, 74, 0.12);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .art-image {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    background: var(--ivory);
+  }
+  .art-placeholder {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(circle at 50% 120%, rgba(226, 182, 84, 0.25), transparent 60%),
+      repeating-linear-gradient(135deg, rgba(44, 90, 120, 0.08) 0 12px, transparent 12px 24px),
+      var(--ivory);
+  }
+  .art-placeholder span {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 2.2rem;
+    color: var(--kimono-gold);
+  }
+  .art-info {
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .art-title {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+  .art-meta {
+    font-size: 0.8rem;
+    color: var(--sumi-ink);
+    opacity: 0.65;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 12px;
+  }
+  .art-meta span { white-space: nowrap; }
+  .art-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--sumi-ink);
+    opacity: 0.88;
+    margin-bottom: 12px;
+    flex: 1;
+  }
+  .art-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--vermillion);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    align-self: flex-start;
+  }
+  .art-link:hover { border-bottom-color: var(--vermillion); }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--sumi-ink);
+    opacity: 0.6;
+    font-size: 0.92rem;
+    background: var(--ivory-soft);
+    border: 1px dashed rgba(22, 50, 74, 0.2);
+    border-radius: 6px;
+  }
+
+  /* ---------- Share your art ---------- */
+  .share {
+    background: var(--indigo-deep);
+    color: var(--ivory);
+    padding: 56px 6vw;
+    text-align: center;
+  }
+  .share h2 {
+    color: var(--ivory);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 10px;
+  }
+  .share p {
+    color: var(--ivory-soft);
+    max-width: 54ch;
+    margin: 0 auto 26px;
+    font-weight: 300;
+  }
+  .share form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .share input {
+    flex: 1 1 220px;
+    padding: 14px 18px;
+    border: 1px solid rgba(247, 242, 231, 0.35);
+    background: rgba(247, 242, 231, 0.06);
+    color: var(--ivory);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.95rem;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .share input::placeholder { color: rgba(247, 242, 231, 0.55); }
+  .share input:focus {
+    border-color: var(--vermillion);
+    background: rgba(247, 242, 231, 0.1);
+  }
+  .share button {
+    flex: 0 0 auto;
+    padding: 14px 30px;
+    background: var(--vermillion);
+    color: var(--ivory);
+    border: none;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .share button:hover { background: #a8431f; }
+  .share button:active { transform: scale(0.98); }
+  .share button:focus-visible, .share input:focus-visible {
+    outline: 2px solid var(--ivory);
+    outline-offset: 2px;
+  }
+  .form-message {
+    margin-top: 18px;
+    font-size: 0.9rem;
+    color: var(--ivory-soft);
+    min-height: 1.4em;
+  }
+  .share .alt-note {
+    margin: 22px auto 0;
+    font-size: 0.85rem;
+    color: var(--ivory-soft);
+    opacity: 0.8;
+    max-width: 54ch;
+  }
+  .share .alt-note a {
+    color: var(--kimono-gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(226, 182, 84, 0.5);
+  }
+  .share .alt-note a:hover { border-bottom-color: var(--kimono-gold); }
+
+  /* ---------- Footer ---------- */
+  .social-links {
+    display: flex;
+    gap: 22px;
+  }
+  .social-links a {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--indigo-deep);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.25s ease;
+  }
+  .social-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 1px;
+    background: var(--vermillion);
+    transition: width 0.25s ease;
+  }
+  .social-links a:hover { color: var(--vermillion); }
+  .social-links a:hover::after { width: 100%; }
+
+  footer {
+    padding: 50px 6vw 40px;
+    text-align: center;
+    background: var(--ivory);
+  }
+  footer .social-links {
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  footer .copyright {
+    font-size: 0.8rem;
+    color: var(--sumi-ink);
+    opacity: 0.55;
+  }
+
+  @media (max-width: 720px) {
+    header { padding: 14px 5vw; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="wordmark">Florida Kimono <span>Club</span></a>
+
+  <div class="header-controls">
+    <div class="lang-toggle" role="group" aria-label="Language / 言語">
+      <button id="lang-en" class="active" onclick="setLang('en')" aria-pressed="true">EN</button>
+      <button id="lang-ja" onclick="setLang('ja')" aria-pressed="false">JA</button>
+    </div>
+
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="index.html" data-i18n="nav-home">Home</a>
+    <a href="index.html#events" data-i18n="nav-calendar">Calendar</a>
+    <a href="aboutus.html" data-i18n="nav-about">About Us</a>
+    <a href="journal.html" data-i18n="nav-journal">Journal</a>
+    <a href="art.html" data-i18n="nav-art">Art</a>
+    <a href="https://www.instagram.com/floridakimono?igsh=bzM0aGx1cmR6M29v" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="eyebrow" data-i18n="hero-eyebrow">Made by the Community</div>
+  <h1 data-i18n="hero-title">Kimono Art Gallery</h1>
+  <p class="tagline" data-i18n="hero-tagline">Paintings, photography, textiles, and digital work inspired by kimono — created and shared by the Florida Kimono community.</p>
+</section>
+
+<div class="wave-band"></div>
+
+<section class="gallery-section" aria-label="Community art gallery">
+  <div class="gallery-grid" id="gallery-grid"></div>
+</section>
+
+<div class="wave-band flip"></div>
+
+<section class="share" id="share">
+  <h2 data-i18n="share-h2">Share your art</h2>
+  <p data-i18n="share-p">Made something kimono-inspired? Send us a link to your piece — a post, portfolio page, or shared photo — and we'll feature it in the gallery with credit to you.</p>
+  <form id="art-form">
+    <input type="hidden" name="_subject" value="Art submission — Florida Kimono">
+    <input type="text" id="artist-name" name="name" placeholder="Your name" data-i18n-placeholder="placeholder-name" required>
+    <input type="email" id="artist-email" name="email" placeholder="Your email" data-i18n-placeholder="placeholder-email" required>
+    <input type="url" id="art-link" name="artwork_link" placeholder="Link to your artwork" data-i18n-placeholder="placeholder-link" required>
+    <button type="submit" id="art-submit" data-i18n="share-submit">Submit art</button>
+  </form>
+  <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+  <p class="alt-note" data-i18n="share-alt">You can also tag <a href="https://www.instagram.com/floridakimono" target="_blank">@floridakimono</a> on Instagram or post in our <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook group</a>.</p>
+</section>
+
+<div class="wave-band"></div>
+
+<footer>
+  <nav class="social-links">
+    <a href="index.html" data-i18n="nav-home">Home</a>
+    <a href="index.html#events" data-i18n="nav-calendar">Calendar</a>
+    <a href="aboutus.html" data-i18n="nav-about">About Us</a>
+    <a href="journal.html" data-i18n="nav-journal">Journal</a>
+    <a href="https://www.instagram.com/floridakimono" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook</a>
+  </nav>
+  <p class="copyright" data-i18n="footer-copyright">&copy; 2026 Florida Kimono Delegation. All rights reserved.</p>
+</footer>
+
+<!-- ---------- Language Toggle (EN / JA) ---------- -->
+<script>
+  const STRINGS = {
+    'nav-home': { en: 'Home', ja: 'ホーム' },
+    'nav-calendar': { en: 'Calendar', ja: 'カレンダー' },
+    'nav-about': { en: 'About Us', ja: '私たちについて' },
+    'nav-journal': { en: 'Journal', ja: 'ジャーナル' },
+    'nav-art': { en: 'Art', ja: 'アート' },
+    'hero-eyebrow': { en: 'Made by the Community', ja: 'コミュニティの創作' },
+    'hero-title': { en: 'Kimono Art Gallery', ja: '着物アートギャラリー' },
+    'hero-tagline': { en: 'Paintings, photography, textiles, and digital work inspired by kimono — created and shared by the Florida Kimono community.', ja: '着物にインスパイアされた絵画、写真、テキスタイル、デジタル作品 — Florida Kimonoコミュニティが創作し、共有しています。' },
+    'empty-state': { en: 'The gallery is just getting started — share your art below!', ja: 'ギャラリーはまだ始まったばかり — 下からあなたの作品をシェアしてください！' },
+    'art-by': { en: 'by', ja: '作' },
+    'view-piece': { en: 'View the piece →', ja: '作品を見る →' },
+    'share-h2': { en: 'Share your art', ja: '作品をシェアする' },
+    'share-p': { en: "Made something kimono-inspired? Send us a link to your piece — a post, portfolio page, or shared photo — and we'll feature it in the gallery with credit to you.", ja: '着物にインスパイアされた作品を作りましたか？投稿、ポートフォリオ、写真へのリンクをお送りください。クレジット付きでギャラリーに掲載します。' },
+    'placeholder-name': { en: 'Your name', ja: 'お名前' },
+    'placeholder-email': { en: 'Your email', ja: 'メールアドレス' },
+    'placeholder-link': { en: 'Link to your artwork', ja: '作品へのリンク' },
+    'share-submit': { en: 'Submit art', ja: '送信する' },
+    'share-sending': { en: 'Sending…', ja: '送信中…' },
+    'share-thanks': { en: 'Thank you! We received your submission and will be in touch.', ja: 'ありがとうございます！作品を受け付けました。追ってご連絡します。' },
+    'share-error-generic': { en: 'Something went wrong — please try again in a moment.', ja: 'エラーが発生しました。しばらくしてから再度お試しください。' },
+    'share-error-network': { en: 'Network error — please check your connection and try again.', ja: 'ネットワークエラーです。接続をご確認の上、再度お試しください。' },
+    'share-alt': { en: 'You can also tag <a href="https://www.instagram.com/floridakimono" target="_blank">@floridakimono</a> on Instagram or post in our <a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebook group</a>.', ja: 'Instagramで<a href="https://www.instagram.com/floridakimono" target="_blank">@floridakimono</a>をタグ付けするか、<a href="https://www.facebook.com/groups/floridakimonoclub" target="_blank">Facebookグループ</a>に投稿することもできます。' },
+    'footer-copyright': { en: '&copy; 2026 Florida Kimono Delegation. All rights reserved.', ja: '&copy; 2026 Florida Kimono Delegation. All rights reserved.' }
+  };
+
+  let currentLang = localStorage.getItem('fk-lang') || 'en';
+
+  function t(key) {
+    const entry = STRINGS[key];
+    if (!entry) return '';
+    return entry[currentLang] || entry.en;
+  }
+
+  function applyTranslations() {
+    document.documentElement.lang = currentLang === 'ja' ? 'ja' : 'en';
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      const key = el.getAttribute('data-i18n');
+      if (STRINGS[key]) el.innerHTML = t(key);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (STRINGS[key]) el.placeholder = t(key);
+    });
+
+    document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+    document.getElementById('lang-ja').classList.toggle('active', currentLang === 'ja');
+    document.getElementById('lang-en').setAttribute('aria-pressed', currentLang === 'en');
+    document.getElementById('lang-ja').setAttribute('aria-pressed', currentLang === 'ja');
+
+    renderGallery();
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('fk-lang', lang);
+    applyTranslations();
+  }
+
+  document.addEventListener('DOMContentLoaded', applyTranslations);
+</script>
+
+<!-- ---------- Hamburger menu toggle ---------- -->
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', function () {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  mobileNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+<!-- Gallery pieces live in art.js — that's the only file you need to
+     touch to add, edit, or remove artwork. This tag just loads it. -->
+<script src="art.js"></script>
+<script>
+  function renderGallery() {
+    const grid = document.getElementById('gallery-grid');
+    if (typeof ART === 'undefined' || ART.length === 0) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">${t('empty-state')}</div>`;
+      return;
+    }
+    const sorted = [...ART].sort((a, b) => new Date(b.date) - new Date(a.date));
+    grid.innerHTML = sorted.map(piece => {
+      const visual = piece.image
+        ? `<img class="art-image" src="${piece.image}" alt="${piece.title} — ${piece.artist}" loading="lazy">`
+        : `<div class="art-placeholder" aria-hidden="true"><span>絵</span></div>`;
+      const desc = piece.description ? `<p class="art-desc">${piece.description}</p>` : '';
+      const link = piece.link ? `<a class="art-link" href="${piece.link}" target="_blank" rel="noopener">${t('view-piece')}</a>` : '';
+      return `
+        <div class="art-card">
+          ${visual}
+          <div class="art-info">
+            <h3 class="art-title">${piece.title}</h3>
+            <p class="art-meta"><span>${t('art-by')} ${piece.artist}</span><span>${piece.medium}</span></p>
+            ${desc}
+            ${link}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  renderGallery();
+</script>
+
+<!-- ---------- Art submission form (Formspree) ---------- -->
+<script>
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqrlzeb';
+
+  const artForm = document.getElementById('art-form');
+  const formMessage = document.getElementById('form-message');
+  const artSubmitBtn = document.getElementById('art-submit');
+
+  artForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    artSubmitBtn.disabled = true;
+    artSubmitBtn.textContent = t('share-sending');
+    formMessage.textContent = '';
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(artForm)
+      });
+
+      if (response.ok) {
+        formMessage.textContent = t('share-thanks');
+        artForm.reset();
+      } else {
+        formMessage.textContent = t('share-error-generic');
+      }
+    } catch (err) {
+      formMessage.textContent = t('share-error-network');
+    } finally {
+      artSubmitBtn.disabled = false;
+      artSubmitBtn.textContent = t('share-submit');
+    }
+  });
+</script>
+</body>
+</html>
