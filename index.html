@@ -208,12 +208,56 @@
   /* ---------- Hero ---------- */
   .hero {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: clamp(32px, 5vw, 72px);
     text-align: center;
     padding: 128px 6vw 48px;
     position: relative;
+    flex-wrap: wrap;
+  }
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 520px;
+    max-width: 660px;
+    min-width: 0;
+  }
+
+  /* ---------- Under-construction notice ---------- */
+  .construction-card {
+    flex: 0 1 320px;
+    border: 2px solid var(--kimono-gold);
+    outline: 1px solid rgba(226, 182, 84, 0.45);
+    outline-offset: 5px;
+    border-radius: 2px;
+    padding: 34px 30px;
+    text-align: left;
+    background: var(--ivory);
+  }
+  .construction-kanji {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--vermillion);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .construction-text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.55;
+    color: var(--vermillion);
+    opacity: 0.9;
+  }
+
+  @media (max-width: 900px) {
+    .construction-card {
+      flex-basis: 100%;
+      max-width: 440px;
+      text-align: center;
+    }
   }
 
   .eyebrow {
@@ -688,10 +732,17 @@
 </header>
 
 <section class="hero">
-  <div class="eyebrow" data-i18n="hero-eyebrow">Created for Florida enthusiasts and visitors</div>
-  <h1 data-i18n="hero-title"><span class="line-a">Florida's Kimono community,</span> <span class="line-b">woven together.</span></h1>
-  <p class="tagline" data-i18n="hero-tagline">Connecting Florida through the history, craftsmanship, wearing, and everyday appreciation of kimono — building a welcoming community where everyone can learn, wear, and share, from the simply curious to lifelong practitioners.</p>
-  <p class="location">Florida, USA</p>
+  <div class="hero-copy">
+    <div class="eyebrow" data-i18n="hero-eyebrow">Created for Florida enthusiasts and visitors</div>
+    <h1 data-i18n="hero-title"><span class="line-a">Florida's Kimono community,</span> <span class="line-b">woven together.</span></h1>
+    <p class="tagline" data-i18n="hero-tagline">Connecting Florida through the history, craftsmanship, wearing, and everyday appreciation of kimono — building a welcoming community where everyone can learn, wear, and share, from the simply curious to lifelong practitioners.</p>
+    <p class="location">Florida, USA</p>
+  </div>
+
+  <aside class="construction-card" aria-labelledby="construction-title">
+    <p class="construction-kanji" id="construction-title" lang="ja">準備中</p>
+    <p class="construction-text" data-i18n="construction-text">Something new is on the way. We're stitching things together.</p>
+  </aside>
 </section>
 
 <div class="wave-band"></div>
@@ -834,6 +885,7 @@ To cultivate a vibrant, supportive community where the traditional art of wearin
     'nav-journal': { en: 'Journal', ja: 'ジャーナル' },
     'nav-art': { en: 'Art', ja: 'アート' },
     'hero-eyebrow': { en: 'Created for Florida enthusiasts', ja: 'フロリダの着物愛好家のために創作' },
+    'construction-text': { en: "Something new is on the way. We're stitching things together.", ja: '新しいコンテンツを準備しています。ただいま仕立て中です。' },
     'hero-title': {
       en: '<span class="line-a">Florida\'s Kimono community,</span> <span class="line-b">woven together.</span>',
       ja: '<span class="line-a">フロリダの着物コミュニティを、</span> <span class="line-b">ひとつの糸に。</span>'
