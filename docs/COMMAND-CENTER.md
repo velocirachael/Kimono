@@ -1,6 +1,6 @@
 # Florida Kimono — Command Center & Outreach System
 
-*Status notes and to-do list. Last updated: August 20, 2026.*
+*Status notes and to-do list. Last updated: August 22, 2026.*
 
 This is the living reference for how the club's systems fit together:
 the public website, the Command Center backend, and the outreach
@@ -93,7 +93,21 @@ device. Source, migration, and seed are in the `kimono-worker` repo
 `/admin` was deleted the same day — its data was seeded into D1
 first, and the old page remains in git history if ever needed.
 
-### 4. Later / nice-to-have
+### 4. ~~Build "Calendar" into the Command Center~~ ✅ DONE Aug 22, 2026
+
+Live at **admin.floridakimono.com/admin/calendar.html** (pink in the
+Approvals sidebar). Every event on the site, editable in place: fix a
+date or link, hide an event without deleting it, delete it, or add a new
+one — no more wrangler SQL for routine calendar edits. Data is the same
+D1 `events` table the public calendar reads, through the Access-locked
+`/api/calendar` route; the public site catches up within ~5 minutes
+(edge cache). Source in the `kimono-worker` repo.
+
+Built because JAPAN Fes Florida — Miami (Nov 6) appeared cancelled (or
+its page moved) and there was no GUI way to remove it. That event was
+deleted from the live calendar and from `seed.sql` the same day.
+
+### 5. Later / nice-to-have
 
 - Delete the stale `events.js` and `index (2).html` from this repo
   once confirmed nothing references them.
