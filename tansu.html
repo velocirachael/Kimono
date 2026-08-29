@@ -519,7 +519,6 @@
   <span class="step-dot" data-step="0"></span>
   <span class="step-dot" data-step="1"></span>
   <span class="step-dot" data-step="2"></span>
-  <span class="step-dot" data-step="3"></span>
 </nav>
 
 <main class="wrap">
@@ -536,48 +535,15 @@
         You're one of the first people to try it.
       </p>
       <ul class="invite-list">
-        <li>Answer two quick questions (30 seconds).</li>
         <li>Walk through a tiny demo: build a festival yukata outfit.</li>
-        <li>Tell us what you think, and get first access when the app launches.</li>
+        <li>Then answer a few quick questions (about a minute).</li>
+        <li>Leave your email and get first access when the app launches.</li>
       </ul>
       <button class="btn btn-matcha" onclick="goStage(1)">Accept the invitation</button>
     </div>
   </section>
 
-  <!-- ========== STAGE 1 · TWO QUESTIONS ========== -->
-  <section class="stage" id="stage-questions">
-    <p class="eyebrow">Before you open the drawers</p>
-    <h2>Two quick questions.</h2>
-    <p class="lede">No wrong answers — this shapes how the tansu gets built.</p>
-
-    <div class="q-block">
-      <p class="q-title">How big is your closet?</p>
-      <p class="q-sub">Pieces of kitsuke — kimono, obi, komono, everything.</p>
-      <div class="chip-row" id="q-closet" role="group" aria-label="Closet size">
-        <button class="chip" data-value="Just starting (1–9)">Just starting (1–9)</button>
-        <button class="chip" data-value="10–24 pieces">10–24</button>
-        <button class="chip" data-value="25–49 pieces">25–49</button>
-        <button class="chip" data-value="50–99 pieces">50–99</button>
-        <button class="chip" data-value="100+ pieces">100+ 😅</button>
-      </div>
-    </div>
-
-    <div class="q-block">
-      <p class="q-title">What would this be worth to you?</p>
-      <p class="q-sub">If Virtual Tansu did everything you hoped — honestly, what would you pay?</p>
-      <div class="chip-row" id="q-pay" role="group" aria-label="Willingness to pay">
-        <button class="chip" data-value="Free only">Free only</button>
-        <button class="chip" data-value="$1–3 / month">$1–3 / mo</button>
-        <button class="chip" data-value="$4–7 / month">$4–7 / mo</button>
-        <button class="chip" data-value="$8–12 / month">$8–12 / mo</button>
-        <button class="chip" data-value="One-time purchase">One-time purchase</button>
-      </div>
-    </div>
-
-    <button class="btn btn-matcha" id="btn-questions" onclick="goStage(2)" disabled>Continue to the demo</button>
-  </section>
-
-  <!-- ========== STAGE 2 · DEMO ========== -->
+  <!-- ========== STAGE 1 · DEMO ========== -->
   <section class="stage" id="stage-demo">
     <div class="mission-card">
       <p class="jp-note">お祭りへ行こう</p>
@@ -757,11 +723,35 @@
     </div>
   </section>
 
-  <!-- ========== STAGE 3 · SURVEY ========== -->
+  <!-- ========== STAGE 2 · SURVEY ========== -->
   <section class="stage" id="stage-survey">
     <p class="eyebrow">Last drawer — feedback</p>
     <h2>How did the tansu feel?</h2>
-    <p class="lede">Four quick things, then you're done. This decides what gets built next.</p>
+    <p class="lede">Now that you've tried it — a few quick things, then you're done. This decides what gets built next.</p>
+
+    <div class="q-block">
+      <p class="q-title">How big is your closet?</p>
+      <p class="q-sub">Pieces of kitsuke — kimono, obi, komono, everything.</p>
+      <div class="chip-row" id="q-closet" role="group" aria-label="Closet size">
+        <button class="chip" data-value="Just starting (1–9)">Just starting (1–9)</button>
+        <button class="chip" data-value="10–24 pieces">10–24</button>
+        <button class="chip" data-value="25–49 pieces">25–49</button>
+        <button class="chip" data-value="50–99 pieces">50–99</button>
+        <button class="chip" data-value="100+ pieces">100+ 😅</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <p class="q-title">What would this be worth to you?</p>
+      <p class="q-sub">If Virtual Tansu did everything you hoped — honestly, what would you pay?</p>
+      <div class="chip-row" id="q-pay" role="group" aria-label="Willingness to pay">
+        <button class="chip" data-value="Free only">Free only</button>
+        <button class="chip" data-value="$1–3 / month">$1–3 / mo</button>
+        <button class="chip" data-value="$4–7 / month">$4–7 / mo</button>
+        <button class="chip" data-value="$8–12 / month">$8–12 / mo</button>
+        <button class="chip" data-value="One-time purchase">One-time purchase</button>
+      </div>
+    </div>
 
     <div class="q-block">
       <p class="q-title">How do you track your collection today?</p>
@@ -800,7 +790,7 @@
     <p class="fine-print">Your demo picks and answers are sent together, once, when you tap send.</p>
   </section>
 
-  <!-- ========== STAGE 4 · THANKS ========== -->
+  <!-- ========== STAGE 3 · THANKS ========== -->
   <section class="stage" id="stage-thanks">
     <p class="eyebrow">ありがとうございます</p>
     <h2>The drawers are closed.<br><em>Thank you.</em></h2>
@@ -880,12 +870,14 @@ const state = {
 let activeCat = null;
 
 /* ---------- stages ---------- */
-const STAGES = ["stage-invite", "stage-questions", "stage-demo", "stage-survey", "stage-thanks"];
+const STAGES = ["stage-invite", "stage-demo", "stage-survey", "stage-thanks"];
 function goStage(n){
+  const toast = document.getElementById("toast");
+  if (toast) toast.classList.remove("show");
   STAGES.forEach((id, i) => document.getElementById(id).classList.toggle("on", i === n));
   document.querySelectorAll(".step-dot").forEach((d, i) => {
     d.classList.toggle("on", i < n);
-    d.classList.toggle("now", i === Math.min(n, 3));
+    d.classList.toggle("now", i === Math.min(n, 2));
   });
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -903,11 +895,8 @@ function wireChips(groupId, key, onChange){
     });
   });
 }
-function updateQuestionsBtn(){
-  document.getElementById("btn-questions").disabled = !(state.closetSize && state.wouldPay);
-}
-wireChips("q-closet", "closetSize", updateQuestionsBtn);
-wireChips("q-pay", "wouldPay", updateQuestionsBtn);
+wireChips("q-closet", "closetSize");
+wireChips("q-pay", "wouldPay");
 wireChips("q-track", "track");
 wireChips("q-feature", "feature");
 
@@ -1052,7 +1041,7 @@ function updateChecklist(){
 
 function finishOutfit(){
   state.coordinateName = document.getElementById("coordinate-name").value.trim();
-  goStage(3);
+  goStage(2);
 }
 
 /* ---------- submit ---------- */
@@ -1064,6 +1053,12 @@ function pickName(cat){
 
 async function submitAll(){
   const btn = document.getElementById("btn-submit");
+  if (!state.closetSize || !state.wouldPay){
+    showToast("Two quick taps first — closet size and what it'd be worth to you.");
+    document.getElementById(state.closetSize ? "q-pay" : "q-closet")
+      .scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
   const email = document.getElementById("q-email").value.trim();
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
     showToast("That email doesn't look quite right — mind checking it?");
@@ -1135,7 +1130,7 @@ function showThanks(payload, sent){
     note.innerHTML = "";
   }
 
-  goStage(4);
+  goStage(3);
 }
 
 function escapeHTML(s){
