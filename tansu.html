@@ -478,6 +478,78 @@
     margin-top:16px;
   }
 
+  /* ---------- carpenter modal ---------- */
+  .carpenter-overlay{
+    position:fixed; inset:0;
+    background:rgba(42,29,20,.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:80;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .carpenter-overlay.show{
+    opacity:1; pointer-events:auto;
+  }
+  .carpenter-modal{
+    background:var(--card);
+    border:3px solid var(--brass);
+    border-radius:10px;
+    padding:32px 28px 28px;
+    max-width:340px;
+    width:88vw;
+    text-align:center;
+    box-shadow:0 14px 40px rgba(42,29,20,.4);
+    transform:scale(.92);
+    transition:transform .25s ease;
+  }
+  .carpenter-overlay.show .carpenter-modal{
+    transform:scale(1);
+  }
+  .carpenter-emoji{
+    font-size:2.8rem;
+    line-height:1;
+    margin-bottom:14px;
+  }
+  .carpenter-text{
+    font-family:var(--display);
+    font-size:1.15rem;
+    color:var(--wood-dark);
+    line-height:1.4;
+    margin:0 0 18px;
+  }
+  .carpenter-dismiss{
+    background:var(--brass-bright);
+    color:var(--wood-dark);
+    border:none;
+    border-radius:4px;
+    padding:10px 24px;
+    font-family:var(--body);
+    font-weight:700;
+    font-size:.9rem;
+    cursor:pointer;
+    box-shadow:0 3px 0 #7a5a30;
+  }
+  .carpenter-dismiss:hover{ background:var(--brass-shine); }
+  .carpenter-dismiss:active{ transform:translateY(1px); }
+
+  /* ---------- wide-screen side-by-side ---------- */
+  @media (min-width:768px){
+    .wrap{ max-width:960px; }
+    .demo-columns{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+    .demo-col-left{ min-width:0; }
+    .demo-col-right{
+      min-width:0;
+      position:sticky;
+      top:20px;
+    }
+  }
+
   /* ---------- toast ---------- */
   .toast{
     position:fixed;
@@ -570,6 +642,8 @@
       </p>
     </div>
 
+    <div class="demo-columns">
+    <div class="demo-col-left">
     <div class="chest" id="chest" role="group" aria-label="Tansu drawers">
       <button class="drawer" data-cat="kimono">
         <span class="knob"></span>
@@ -608,6 +682,9 @@
       <div class="item-grid" id="item-grid"></div>
     </div>
 
+    </div><!-- .demo-col-left -->
+
+    <div class="demo-col-right">
     <div class="flatmono-panel">
       <p class="picker-title">Your coordinate · <span style="color:var(--brass);">flatmono</span></p>
       <p class="flatmono-sub">A flat-lay of your outfit, updating as you pick.</p>
@@ -730,11 +807,13 @@
         <span class="check-slot" id="check-accessories">Geta 下駄</span>
       </div>
 
-      <div class="finish-row" id="finish-row">
-        <input type="text" id="coordinate-name" maxlength="60" placeholder="Name your coordinate (optional) — e.g. “Fireworks Night”">
-        <button class="btn btn-matcha" onclick="finishOutfit()">Finish my coordinate ✦</button>
+      <div class=”finish-row” id=”finish-row”>
+        <input type=”text” id=”coordinate-name” maxlength=”60” placeholder=”Name your coordinate (optional) — e.g. “Fireworks Night””>
+        <button class=”btn btn-matcha” onclick=”finishOutfit()”>Finish my coordinate ✦</button>
       </div>
     </div>
+    </div><!-- .demo-col-right -->
+    </div><!-- .demo-columns -->
   </section>
 
   <!-- ========== STAGE 2 · SURVEY ========== -->
@@ -830,6 +909,14 @@
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="carpenter-overlay" id="carpenter-overlay" role="dialog" aria-modal="true" aria-label="Drawer locked">
+  <div class="carpenter-modal">
+    <div class="carpenter-emoji">🪚</div>
+    <p class="carpenter-text">The carpenter is still building this drawer.</p>
+    <button class="carpenter-dismiss" onclick="closeCarpenter()">OK</button>
+  </div>
+</div>
 
 <footer>
   <p>
@@ -964,11 +1051,18 @@ document.querySelectorAll("#chest .drawer").forEach(drawer => {
   drawer.addEventListener("click", () => {
     const cat = drawer.dataset.cat;
     if (drawer.classList.contains("locked")){
-      showToast(CARPENTER_MSG);
+      document.getElementById("carpenter-overlay").classList.add("show");
       return;
     }
     openPicker(cat);
   });
+});
+
+function closeCarpenter(){
+  document.getElementById("carpenter-overlay").classList.remove("show");
+}
+document.getElementById("carpenter-overlay").addEventListener("click", e => {
+  if (e.target === e.currentTarget) closeCarpenter();
 });
 
 function openPicker(cat){
@@ -1174,13 +1268,7 @@ function showThanks(payload, sent){
   }
 
   const note = document.getElementById("demo-mode-note");
-  if (sent === null){
-    note.innerHTML = '<p class="demo-mode-note">Test build: this response was saved on this device only — the mailbox isn\'t wired to the workshop yet.</p>';
-  } else if (sent === false){
-    note.innerHTML = '<p class="demo-mode-note">Hm — the response couldn\'t reach the workshop just now, but it\'s saved safely on this device.</p>';
-  } else {
-    note.innerHTML = "";
-  }
+  note.innerHTML = "";
 
   goStage(3);
 }
