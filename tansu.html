@@ -2,39 +2,1152 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redirecting to Virtual Tansu…</title>
-
-<!-- Instant redirect -->
-<meta http-equiv="refresh" content="0; url=https://velocirachael.github.io/virtual-tansu/">
-<link rel="canonical" href="https://velocirachael.github.io/virtual-tansu/">
-
-<script>
-  window.location.replace("https://velocirachael.github.io/virtual-tansu/");
-</script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Invite-only demo page: keep out of search engines -->
+<meta name="robots" content="noindex, nofollow">
+<title>Virtual Tansu — You're Invited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  :root{
+    --paper:#ECE3D0;
+    --paper-soft:#F4EEE1;
+    --card:#FBF8F2;
+    --wood-dark:#2A1D14;
+    --wood-mid:#6B4429;
+    --wood-light:#9C7148;
+    --brass:#B8935A;
+    --brass-bright:#D6B27C;
+    --brass-shine:#F5DFA3;
+    --indigo:#33495B;
+    --indigo-deep:#16324A;
+    --ink:#241C14;
+    --ink-soft:#6B6255;
+    --line:#D9CDB4;
+    --vermillion:#B33B2E;
+    --matcha:#7CB342;
+    --matcha-dark:#4F7A2A;
+    --matcha-pale:#EEF3E2;
+
+    --display:'Shippori Mincho', serif;
+    --body:'Zen Kaku Gothic New', sans-serif;
+    --mono:'Space Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
   body{
     margin:0;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#ECE3D0;
-    color:#241C14;
-    font-family:sans-serif;
-    text-align:center;
-    padding:24px;
-    box-sizing:border-box;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
   }
-  a{ color:#33495B; text-decoration:underline; }
+  img, svg{ max-width:100%; display:block; }
+  button{ font-family:var(--body); }
+
+  .wrap{ max-width:600px; margin:0 auto; padding:0 20px; }
+
+  /* ---------- header ---------- */
+  header.site{
+    background:var(--wood-dark);
+    border-bottom:3px solid var(--brass);
+  }
+  .site-bar{
+    max-width:600px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+  }
+  .wordmark{
+    font-family:var(--display);
+    color:var(--paper);
+    font-size:1.15rem;
+    display:flex; align-items:center; gap:10px;
+    text-decoration:none;
+  }
+  .wordmark .pull{
+    width:14px; height:14px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--brass-bright), var(--brass) 70%, #7a5a30 100%);
+    box-shadow:inset 0 0 2px #3a2810;
+  }
+  .credit-chip{
+    font-family:var(--mono);
+    font-size:.62rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    text-align:right;
+    line-height:1.5;
+  }
+
+  /* ---------- stepper ---------- */
+  .stepper{
+    display:flex; justify-content:center; gap:6px;
+    padding:16px 0 0;
+  }
+  .step-dot{
+    width:34px; height:5px; border-radius:3px;
+    background:var(--line);
+    transition:background .3s ease;
+  }
+  .step-dot.on{ background:var(--brass); }
+  .step-dot.now{ background:var(--matcha); }
+
+  /* ---------- stages ---------- */
+  .stage{ display:none; padding:30px 0 60px; }
+  .stage.on{ display:block; animation:stageIn .45s ease; }
+  @keyframes stageIn{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--wood-mid);
+    margin:0 0 14px;
+  }
+  h1, h2{
+    font-family:var(--display);
+    color:var(--wood-dark);
+    line-height:1.3;
+    margin:0 0 14px;
+  }
+  h1{ font-size:1.9rem; }
+  h2{ font-size:1.45rem; }
+  h1 em, h2 em{ font-style:normal; color:var(--vermillion); }
+  p.lede{ color:#4b3d2e; margin:0 0 26px; }
+  .jp-note{
+    font-family:var(--display);
+    color:var(--brass);
+    font-size:.95rem;
+    margin:0 0 6px;
+  }
+
+  .btn{
+    display:inline-block;
+    border:none; cursor:pointer;
+    font-weight:700; font-size:1rem;
+    padding:14px 28px; border-radius:4px;
+    text-decoration:none;
+    transition:transform .15s ease, background .15s ease, opacity .15s ease;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn-matcha{
+    background:var(--matcha); color:#fff;
+    box-shadow:0 3px 0 var(--matcha-dark);
+  }
+  .btn-matcha:hover{ background:var(--matcha-dark); }
+  .btn-matcha:disabled{
+    background:#B8B3A4; box-shadow:0 3px 0 #8f8b7e;
+    cursor:not-allowed; opacity:.7;
+  }
+  .btn-brass{
+    background:var(--brass-bright); color:var(--wood-dark);
+    box-shadow:0 3px 0 #7a5a30;
+  }
+  .btn-brass:hover{ background:var(--brass-shine); }
+
+  /* ---------- invitation card ---------- */
+  .invite-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-top:6px solid var(--vermillion);
+    border-radius:6px;
+    padding:30px 26px;
+    box-shadow:0 10px 24px rgba(42,29,20,.12);
+    position:relative;
+  }
+  .invite-card::after{
+    content:"招待状";
+    position:absolute; top:14px; right:16px;
+    font-family:var(--display);
+    color:var(--vermillion);
+    font-size:.8rem;
+    border:1px solid var(--vermillion);
+    border-radius:3px;
+    padding:2px 7px;
+    opacity:.85;
+  }
+  .invite-list{
+    margin:0 0 24px; padding:0;
+    list-style:none;
+  }
+  .invite-list li{
+    display:flex; gap:10px; align-items:flex-start;
+    padding:7px 0;
+    color:#4b3d2e;
+    font-size:.95rem;
+  }
+  .invite-list li::before{
+    content:"◦";
+    color:var(--brass);
+    font-weight:700;
+  }
+
+  /* ---------- question blocks ---------- */
+  .q-block{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:20px 18px;
+    margin-bottom:18px;
+  }
+  .q-title{
+    font-weight:700; font-size:1rem;
+    margin:0 0 4px;
+  }
+  .q-sub{
+    font-size:.82rem; color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    border:1px solid var(--line);
+    background:var(--paper-soft);
+    color:var(--ink);
+    border-radius:999px;
+    padding:8px 16px;
+    font-size:.88rem;
+    cursor:pointer;
+    transition:background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .chip:hover{ border-color:var(--brass); }
+  .chip[aria-pressed="true"]{
+    background:var(--indigo);
+    border-color:var(--indigo);
+    color:#fff;
+  }
+
+  /* ---------- mission ---------- */
+  .mission-card{
+    background:var(--wood-dark);
+    color:var(--paper);
+    border-radius:6px;
+    padding:28px 24px;
+    background-image:
+      repeating-linear-gradient(100deg, rgba(255,255,255,.03) 0 2px, transparent 2px 26px);
+    margin-bottom:24px;
+  }
+  .mission-card .jp-note{ color:var(--brass-bright); }
+  .mission-card h2{ color:var(--paper); }
+  .mission-card p{ color:#D9CFBB; margin:0; }
+  .mission-card strong{ color:var(--brass-shine); }
+
+  /* ---------- tansu chest ---------- */
+  .chest{
+    background:linear-gradient(160deg, var(--wood-mid), #59371f 70%);
+    border:3px solid var(--wood-dark);
+    border-radius:8px;
+    padding:14px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    box-shadow:0 14px 30px rgba(42,29,20,.35);
+  }
+  .drawer{
+    position:relative;
+    grid-column:span 2;
+    min-width:0;
+    background:
+      repeating-linear-gradient(95deg, rgba(0,0,0,.06) 0 1px, transparent 1px 22px),
+      linear-gradient(180deg, var(--wood-light), #8a6240);
+    border:2px solid var(--wood-dark);
+    border-radius:4px;
+    min-height:66px;
+    display:flex; align-items:center; gap:12px;
+    padding:10px 14px;
+    cursor:pointer;
+    text-align:left;
+    color:var(--paper);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .drawer.half{ grid-column:span 1; }
+  .drawer:hover:not(.locked){ transform:translateY(-2px); box-shadow:0 6px 12px rgba(0,0,0,.28); }
+  .drawer.active{
+    outline:3px solid var(--brass-bright);
+    outline-offset:2px;
+    transform:translateY(2px);
+  }
+  .drawer .knob{
+    flex-shrink:0;
+    width:22px; height:22px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--brass-shine), var(--brass) 70%, #7a5a30 100%);
+    border:1px solid #3a2810;
+    box-shadow:0 2px 3px rgba(0,0,0,.35);
+  }
+  .drawer .d-label{ line-height:1.35; }
+  .drawer .d-en{ font-weight:700; font-size:.92rem; display:block; }
+  .drawer .d-jp{
+    font-family:var(--display);
+    font-size:.75rem; color:var(--brass-shine);
+  }
+  .drawer .d-picked{
+    margin-left:auto;
+    flex-shrink:1;
+    min-width:0;
+    font-size:.7rem;
+    background:var(--matcha);
+    color:#fff;
+    border-radius:999px;
+    padding:3px 10px;
+    max-width:46%;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    display:none;
+  }
+  .drawer.has-pick .d-picked{ display:block; }
+  .drawer.locked{
+    cursor:not-allowed;
+    color:#CDC3B2;
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,.16) 0 8px, transparent 8px 16px),
+      linear-gradient(180deg, #7d7468, #665e53);
+    border-color:#3d372f;
+  }
+  .drawer.locked .knob{
+    background:radial-gradient(circle at 35% 30%, #b5aca0, #7d766c 70%, #55504a 100%);
+  }
+  .drawer.locked .d-jp{ color:#B7AE9F; }
+  .drawer.locked .d-lock{
+    margin-left:auto; font-size:.9rem; opacity:.9;
+  }
+
+  /* ---------- picker ---------- */
+  .picker{
+    margin-top:16px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px;
+    display:none;
+  }
+  .picker.on{ display:block; animation:stageIn .3s ease; }
+  .picker-title{
+    font-family:var(--display);
+    color:var(--indigo-deep);
+    font-size:1.05rem;
+    margin:0 0 12px;
+  }
+  .item-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(120px, 1fr));
+    gap:10px;
+  }
+  .item-card{
+    background:var(--paper-soft);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:0; overflow:hidden;
+    cursor:pointer;
+    text-align:left;
+    transition:transform .15s ease, box-shadow .15s ease;
+    position:relative;
+  }
+  .item-card:hover{ transform:translateY(-2px); box-shadow:0 5px 10px rgba(42,29,20,.15); }
+  .item-card.picked{ outline:3px solid var(--matcha); outline-offset:-1px; }
+  .item-card.picked::after{
+    content:"✓";
+    position:absolute; top:6px; right:6px;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--matcha); color:#fff;
+    font-size:.75rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .item-card svg{ width:100%; height:74px; }
+  .item-meta{ padding:8px 10px 10px; }
+  .item-name{ font-size:.8rem; font-weight:700; line-height:1.3; }
+  .item-sub{ font-size:.7rem; color:var(--ink-soft); }
+
+  /* ---------- flatmono ---------- */
+  .flatmono-panel{
+    margin-top:22px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:18px 16px 20px;
+  }
+  .flatmono-panel .picker-title{ margin-bottom:2px; }
+  .flatmono-sub{ font-size:.78rem; color:var(--ink-soft); margin:0 0 10px; }
+  .flatmono-stage{
+    background:
+      radial-gradient(ellipse at 50% 18%, #FDFAF2 0%, var(--paper-soft) 68%);
+    border:1px dashed var(--line);
+    border-radius:6px;
+    padding:6px;
+  }
+  .checklist{
+    display:flex; gap:8px; justify-content:center;
+    margin:14px 0 0;
+    flex-wrap:wrap;
+  }
+  .check-slot{
+    font-size:.78rem;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 14px;
+    color:var(--ink-soft);
+    background:var(--paper-soft);
+  }
+  .check-slot.done{
+    background:var(--matcha-pale);
+    border-color:var(--matcha);
+    color:var(--matcha-dark);
+    font-weight:700;
+  }
+  .finish-row{
+    margin-top:18px;
+    display:none;
+    flex-direction:column;
+    gap:10px;
+  }
+  .finish-row.on{ display:flex; animation:stageIn .35s ease; }
+  .finish-row input{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-family:var(--body);
+    font-size:.92rem;
+    background:var(--paper-soft);
+    color:var(--ink);
+  }
+  .finish-row .btn{ width:100%; }
+
+  /* ---------- survey ---------- */
+  .email-block{
+    background:var(--matcha-pale);
+    border:1px solid var(--matcha);
+  }
+  .q-block input[type="email"],
+  .q-block input[type="text"],
+  .q-block textarea{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-family:var(--body);
+    font-size:.92rem;
+    background:#fff;
+    color:var(--ink);
+    resize:vertical;
+  }
+  .fine-print{
+    font-size:.72rem; color:var(--ink-soft);
+    margin:8px 0 0;
+  }
+
+  /* ---------- thanks ---------- */
+  .outfit-recap{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px;
+    margin:20px 0;
+  }
+  .recap-line{
+    display:flex; gap:8px; align-items:baseline;
+    font-size:.9rem; padding:4px 0;
+  }
+  .recap-line .r-cat{
+    font-family:var(--mono);
+    font-size:.68rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--wood-mid);
+    min-width:70px;
+  }
+  .demo-mode-note{
+    font-size:.78rem;
+    color:var(--wood-mid);
+    background:var(--paper-soft);
+    border:1px dashed var(--line);
+    border-radius:4px;
+    padding:10px 12px;
+    margin-top:16px;
+  }
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;
+    left:50%; bottom:26px;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--wood-dark);
+    color:var(--paper);
+    border:1px solid var(--brass);
+    border-radius:6px;
+    padding:12px 18px;
+    font-size:.86rem;
+    max-width:88vw;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    z-index:60;
+    text-align:center;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--wood-dark);
+    border-top:1px solid rgba(184,147,90,.35);
+    padding:26px 20px;
+    text-align:center;
+  }
+  footer p{
+    margin:0;
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:#8b7457;
+    letter-spacing:.04em;
+  }
+  footer a{ color:var(--brass-bright); text-decoration:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
 </style>
 </head>
 <body>
+
+<header class="site">
+  <div class="site-bar">
+    <span class="wordmark"><span class="pull"></span> Virtual Tansu</span>
+    <span class="credit-chip">A Florida Kimono Club<br>project · demo</span>
+  </div>
+</header>
+
+<nav class="stepper" aria-label="Demo progress">
+  <span class="step-dot" data-step="0"></span>
+  <span class="step-dot" data-step="1"></span>
+  <span class="step-dot" data-step="2"></span>
+  <span class="step-dot" data-step="3"></span>
+</nav>
+
+<main class="wrap">
+
+  <!-- ========== STAGE 0 · INVITATION ========== -->
+  <section class="stage" id="stage-invite">
+    <p class="eyebrow">By invitation only</p>
+    <div class="invite-card">
+      <p class="jp-note">ようこそ</p>
+      <h1>You're invited to open<br>the <em>Virtual Tansu</em>.</h1>
+      <p class="lede">
+        A digital chest of drawers for your kimono life — catalog your closet,
+        plan coordinates, and stop wrestling stacks of tatoushi on the floor.
+        You're one of the first people to try it.
+      </p>
+      <ul class="invite-list">
+        <li>Answer two quick questions (30 seconds).</li>
+        <li>Walk through a tiny demo: build a festival yukata outfit.</li>
+        <li>Tell us what you think, and get first access when the app launches.</li>
+      </ul>
+      <button class="btn btn-matcha" onclick="goStage(1)">Accept the invitation</button>
+    </div>
+  </section>
+
+  <!-- ========== STAGE 1 · TWO QUESTIONS ========== -->
+  <section class="stage" id="stage-questions">
+    <p class="eyebrow">Before you open the drawers</p>
+    <h2>Two quick questions.</h2>
+    <p class="lede">No wrong answers — this shapes how the tansu gets built.</p>
+
+    <div class="q-block">
+      <p class="q-title">How big is your closet?</p>
+      <p class="q-sub">Pieces of kitsuke — kimono, obi, komono, everything.</p>
+      <div class="chip-row" id="q-closet" role="group" aria-label="Closet size">
+        <button class="chip" data-value="Just starting (1–9)">Just starting (1–9)</button>
+        <button class="chip" data-value="10–24 pieces">10–24</button>
+        <button class="chip" data-value="25–49 pieces">25–49</button>
+        <button class="chip" data-value="50–99 pieces">50–99</button>
+        <button class="chip" data-value="100+ pieces">100+ 😅</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <p class="q-title">What would this be worth to you?</p>
+      <p class="q-sub">If Virtual Tansu did everything you hoped — honestly, what would you pay?</p>
+      <div class="chip-row" id="q-pay" role="group" aria-label="Willingness to pay">
+        <button class="chip" data-value="Free only">Free only</button>
+        <button class="chip" data-value="$1–3 / month">$1–3 / mo</button>
+        <button class="chip" data-value="$4–7 / month">$4–7 / mo</button>
+        <button class="chip" data-value="$8–12 / month">$8–12 / mo</button>
+        <button class="chip" data-value="One-time purchase">One-time purchase</button>
+      </div>
+    </div>
+
+    <button class="btn btn-matcha" id="btn-questions" onclick="goStage(2)" disabled>Continue to the demo</button>
+  </section>
+
+  <!-- ========== STAGE 2 · DEMO ========== -->
+  <section class="stage" id="stage-demo">
+    <div class="mission-card">
+      <p class="jp-note">お祭りへ行こう</p>
+      <h2>Your mission</h2>
+      <p>
+        You're going to a <strong>summer festival</strong> tonight and you need a
+        <strong>yukata outfit</strong>. Open the drawers, pick a
+        <strong>kimono</strong>, an <strong>obi</strong>, and your
+        <strong>geta</strong> — then see your coordinate come together below.
+      </p>
+    </div>
+
+    <div class="chest" id="chest" role="group" aria-label="Tansu drawers">
+      <button class="drawer" data-cat="kimono">
+        <span class="knob"></span>
+        <span class="d-label"><span class="d-en">Kimono</span><span class="d-jp">着物 · yukata inside</span></span>
+        <span class="d-picked" id="picked-kimono"></span>
+      </button>
+      <button class="drawer" data-cat="obi">
+        <span class="knob"></span>
+        <span class="d-label"><span class="d-en">Obi</span><span class="d-jp">帯 · hanhaba for festivals</span></span>
+        <span class="d-picked" id="picked-obi"></span>
+      </button>
+      <button class="drawer half locked" data-cat="obiage" aria-disabled="true">
+        <span class="knob"></span>
+        <span class="d-label"><span class="d-en">Obiage</span><span class="d-jp">帯揚げ</span></span>
+        <span class="d-lock">🪚</span>
+      </button>
+      <button class="drawer half locked" data-cat="obijime" aria-disabled="true">
+        <span class="knob"></span>
+        <span class="d-label"><span class="d-en">Obijime</span><span class="d-jp">帯締め</span></span>
+        <span class="d-lock">🪚</span>
+      </button>
+      <button class="drawer half locked" data-cat="haneri" aria-disabled="true">
+        <span class="knob"></span>
+        <span class="d-label"><span class="d-en">Han-eri</span><span class="d-jp">半襟</span></span>
+        <span class="d-lock">🪚</span>
+      </button>
+      <button class="drawer half" data-cat="accessories">
+        <span class="knob"></span>
+        <span class="d-label"><span class="d-en">Accessories</span><span class="d-jp">下駄 · geta</span></span>
+        <span class="d-picked" id="picked-accessories"></span>
+      </button>
+    </div>
+
+    <div class="picker" id="picker">
+      <p class="picker-title" id="picker-title"></p>
+      <div class="item-grid" id="item-grid"></div>
+    </div>
+
+    <div class="flatmono-panel">
+      <p class="picker-title">Your coordinate · <span style="color:var(--brass);">flatmono</span></p>
+      <p class="flatmono-sub">A flat-lay of your outfit, updating as you pick.</p>
+
+      <div class="flatmono-stage">
+        <svg id="flatmono" viewBox="0 0 360 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flat-lay preview of your outfit">
+          <defs>
+            <!-- Indigo Asanoha -->
+            <pattern id="pat-asanoha" width="28" height="28" patternUnits="userSpaceOnUse">
+              <rect width="28" height="28" fill="#22345C"/>
+              <path d="M14,0 L14,28 M0,14 L28,14 M0,0 L28,28 M28,0 L0,28" stroke="#E8E2D2" stroke-width="1" opacity=".55"/>
+              <path d="M14,6 L22,14 L14,22 L6,14 Z" fill="none" stroke="#E8E2D2" stroke-width="1" opacity=".8"/>
+            </pattern>
+            <!-- Morning glory on cream -->
+            <pattern id="pat-asagao" width="44" height="44" patternUnits="userSpaceOnUse">
+              <rect width="44" height="44" fill="#F4EEE1"/>
+              <circle cx="12" cy="12" r="7" fill="#3E5F8A"/>
+              <path d="M12,5 L12,19 M5,12 L19,12" stroke="#F4EEE1" stroke-width="1.6"/>
+              <circle cx="12" cy="12" r="2" fill="#F5DFA3"/>
+              <circle cx="33" cy="32" r="7" fill="#7A9E9F"/>
+              <path d="M33,25 L33,39 M26,32 L40,32" stroke="#F4EEE1" stroke-width="1.6"/>
+              <circle cx="33" cy="32" r="2" fill="#F5DFA3"/>
+              <path d="M20,30 q4,-6 8,-2" stroke="#5F7A4A" stroke-width="1.4" fill="none"/>
+            </pattern>
+            <!-- Goldfish on vermillion -->
+            <pattern id="pat-kingyo" width="48" height="48" patternUnits="userSpaceOnUse">
+              <rect width="48" height="48" fill="#B33B2E"/>
+              <g fill="#F6E7C9">
+                <ellipse cx="14" cy="13" rx="7" ry="4.6"/>
+                <path d="M20,13 l7,-4.4 -2,4.4 2,4.4 Z"/>
+                <circle cx="10.4" cy="12" r="1" fill="#B33B2E"/>
+              </g>
+              <g fill="#F5DFA3">
+                <ellipse cx="34" cy="36" rx="7" ry="4.6"/>
+                <path d="M28,36 l-7,-4.4 2,4.4 -2,4.4 Z"/>
+                <circle cx="37.6" cy="35" r="1" fill="#B33B2E"/>
+              </g>
+              <circle cx="30" cy="10" r="1.4" fill="#F6E7C9" opacity=".6"/>
+              <circle cx="8" cy="34" r="1.4" fill="#F6E7C9" opacity=".6"/>
+            </pattern>
+            <!-- Seigaiha teal -->
+            <pattern id="pat-seigaiha" width="40" height="20" patternUnits="userSpaceOnUse">
+              <rect width="40" height="20" fill="#2E6E73"/>
+              <g fill="none" stroke="#EDE4CF" stroke-width="1.4">
+                <circle cx="10" cy="20" r="9"/><circle cx="10" cy="20" r="5.6"/><circle cx="10" cy="20" r="2.4"/>
+                <circle cx="30" cy="20" r="9"/><circle cx="30" cy="20" r="5.6"/><circle cx="30" cy="20" r="2.4"/>
+                <circle cx="0" cy="10" r="9"/><circle cx="0" cy="10" r="5.6"/>
+                <circle cx="20" cy="10" r="9"/><circle cx="20" cy="10" r="5.6"/><circle cx="20" cy="10" r="2.4"/>
+                <circle cx="40" cy="10" r="9"/><circle cx="40" cy="10" r="5.6"/>
+              </g>
+            </pattern>
+            <!-- Obi: gold weave -->
+            <pattern id="pat-obi-gold" width="14" height="14" patternUnits="userSpaceOnUse">
+              <rect width="14" height="14" fill="#C99A45"/>
+              <path d="M0,4 H14 M0,10 H14" stroke="#E8C77A" stroke-width="1.4"/>
+              <path d="M0,7 H14" stroke="#9A7430" stroke-width="1"/>
+            </pattern>
+            <!-- Obi: plum stripe -->
+            <pattern id="pat-obi-plum" width="24" height="24" patternUnits="userSpaceOnUse">
+              <rect width="24" height="24" fill="#6A4468"/>
+              <rect x="4" width="4" height="24" fill="#EDE4CF"/>
+              <rect x="15" width="2" height="24" fill="#D6B27C"/>
+            </pattern>
+            <!-- Obi: sky seigaiha -->
+            <pattern id="pat-obi-sky" width="30" height="15" patternUnits="userSpaceOnUse">
+              <rect width="30" height="15" fill="#8FB3C7"/>
+              <g fill="none" stroke="#F4EEE1" stroke-width="1.2">
+                <circle cx="7.5" cy="15" r="6.8"/><circle cx="7.5" cy="15" r="4"/><circle cx="7.5" cy="15" r="1.6"/>
+                <circle cx="22.5" cy="15" r="6.8"/><circle cx="22.5" cy="15" r="4"/><circle cx="22.5" cy="15" r="1.6"/>
+                <circle cx="0" cy="7.5" r="6.8"/><circle cx="0" cy="7.5" r="4"/>
+                <circle cx="15" cy="7.5" r="6.8"/><circle cx="15" cy="7.5" r="4"/><circle cx="15" cy="7.5" r="1.6"/>
+                <circle cx="30" cy="7.5" r="6.8"/><circle cx="30" cy="7.5" r="4"/>
+              </g>
+            </pattern>
+            <!-- Obi: charcoal + gold thread -->
+            <pattern id="pat-obi-kuro" width="16" height="16" patternUnits="userSpaceOnUse">
+              <rect width="16" height="16" fill="#2B2B2B"/>
+              <path d="M0,5 H16" stroke="#D6B27C" stroke-width="1.2"/>
+              <path d="M0,11 H16" stroke="#8b7457" stroke-width=".8"/>
+            </pattern>
+          </defs>
+
+          <!-- kimono flat-lay -->
+          <g id="fm-kimono">
+            <rect id="fm-sleeve-l" x="28" y="78" width="92" height="126" rx="10"/>
+            <rect id="fm-sleeve-r" x="240" y="78" width="92" height="126" rx="10"/>
+            <path id="fm-body" d="M124,64 C124,58 130,54 136,54 L224,54 C230,54 236,58 236,64 L244,356 C244,362 240,366 234,366 L126,366 C120,366 116,362 116,356 Z"/>
+            <path id="fm-collar" d="M141,56 L180,192 L219,56" fill="none" stroke="#F6F1E7" stroke-width="14" stroke-linecap="butt"/>
+            <path d="M141,56 L180,192 L219,56" fill="none" stroke="#B8A88F" stroke-width="1" opacity=".7"/>
+            <text id="fm-kimono-hint" x="180" y="300" text-anchor="middle" font-size="12" fill="#A08F76" font-family="'Space Mono', monospace">open the kimono drawer</text>
+          </g>
+
+          <!-- obi band -->
+          <g id="fm-obi">
+            <rect id="fm-obi-band" x="104" y="196" width="152" height="54" rx="4"/>
+            <rect id="fm-obi-knot" x="242" y="188" width="46" height="52" rx="8" transform="rotate(8 265 214)"/>
+            <text id="fm-obi-hint" x="180" y="228" text-anchor="middle" font-size="11" fill="#A08F76" font-family="'Space Mono', monospace">+ obi</text>
+          </g>
+
+          <!-- geta pair -->
+          <g id="fm-geta">
+            <g>
+              <ellipse class="geta-base" cx="146" cy="404" rx="21" ry="27"/>
+              <path class="geta-strap" d="M146,383 L133,406 M146,383 L159,406" fill="none" stroke-width="4" stroke-linecap="round"/>
+              <circle class="geta-thong" cx="146" cy="383" r="3"/>
+            </g>
+            <g>
+              <ellipse class="geta-base" cx="214" cy="404" rx="21" ry="27"/>
+              <path class="geta-strap" d="M214,383 L201,406 M214,383 L227,406" fill="none" stroke-width="4" stroke-linecap="round"/>
+              <circle class="geta-thong" cx="214" cy="383" r="3"/>
+            </g>
+            <text id="fm-geta-hint" x="290" y="408" text-anchor="middle" font-size="11" fill="#A08F76" font-family="'Space Mono', monospace">+ geta</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="checklist">
+        <span class="check-slot" id="check-kimono">Kimono 着物</span>
+        <span class="check-slot" id="check-obi">Obi 帯</span>
+        <span class="check-slot" id="check-accessories">Geta 下駄</span>
+      </div>
+
+      <div class="finish-row" id="finish-row">
+        <input type="text" id="coordinate-name" maxlength="60" placeholder="Name your coordinate (optional) — e.g. “Fireworks Night”">
+        <button class="btn btn-matcha" onclick="finishOutfit()">Finish my coordinate ✦</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== STAGE 3 · SURVEY ========== -->
+  <section class="stage" id="stage-survey">
+    <p class="eyebrow">Last drawer — feedback</p>
+    <h2>How did the tansu feel?</h2>
+    <p class="lede">Four quick things, then you're done. This decides what gets built next.</p>
+
+    <div class="q-block">
+      <p class="q-title">How do you track your collection today?</p>
+      <div class="chip-row" id="q-track" role="group" aria-label="Current tracking method">
+        <button class="chip" data-value="Photos on my phone">Photos on my phone</button>
+        <button class="chip" data-value="Spreadsheet">Spreadsheet</button>
+        <button class="chip" data-value="Notebook">Notebook</button>
+        <button class="chip" data-value="It's all in my head">It's all in my head</button>
+        <button class="chip" data-value="I don't track it">I don't track it</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <p class="q-title">Which part would you actually use most?</p>
+      <div class="chip-row" id="q-feature" role="group" aria-label="Most valuable feature">
+        <button class="chip" data-value="Closet catalog">Closet catalog</button>
+        <button class="chip" data-value="Outfit coordination">Outfit coordination</button>
+        <button class="chip" data-value="Sharing looks">Sharing looks</button>
+        <button class="chip" data-value="Buying & selling">Buying &amp; selling</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <p class="q-title">What would make this a must-have for you?</p>
+      <p class="q-sub">Optional — one line is plenty.</p>
+      <textarea id="q-wish" rows="2" placeholder="e.g. “Let me upload photos of each piece” or “remind me what fits the season”"></textarea>
+    </div>
+
+    <div class="q-block email-block">
+      <p class="q-title">Get first access when it launches 🏮</p>
+      <p class="q-sub">Leave your email and you're on the launch list. No spam, no sharing — just the launch invite.</p>
+      <input type="email" id="q-email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+    </div>
+
+    <button class="btn btn-matcha" id="btn-submit" onclick="submitAll()">Send my answers</button>
+    <p class="fine-print">Your demo picks and answers are sent together, once, when you tap send.</p>
+  </section>
+
+  <!-- ========== STAGE 4 · THANKS ========== -->
+  <section class="stage" id="stage-thanks">
+    <p class="eyebrow">ありがとうございます</p>
+    <h2>The drawers are closed.<br><em>Thank you.</em></h2>
+    <p class="lede" id="thanks-lede">
+      Your answers are in the workshop. When the carpenter finishes the rest of the
+      drawers, invited testers hear about it first.
+    </p>
+
+    <div class="outfit-recap" id="outfit-recap"></div>
+
+    <p class="lede" style="font-size:.9rem;">
+      Know another kimono person who'd enjoy this? Send them this page —
+      it's invite-only, and you're the invitation.
+    </p>
+    <div id="demo-mode-note"></div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer>
   <p>
-    Taking you to Virtual Tansu…<br>
-    If you're not redirected automatically,
-    <a href="https://velocirachael.github.io/virtual-tansu/">click here</a>.
+    Virtual Tansu · demo build · provisional copyright ©Florida Kimono Club ·
+    <a href="https://floridakimono.com/" rel="noopener">floridakimono.com</a>
   </p>
+</footer>
+
+<script>
+/* =====================================================================
+   CONFIG — response collection endpoint.
+   Create a free form at https://formspree.io (or similar), then paste
+   its endpoint here, e.g. "https://formspree.io/f/abcdwxyz".
+   While this is empty the page runs in test mode: responses are kept
+   in the tester's browser (localStorage) and NOT sent anywhere.
+   ===================================================================== */
+const FORM_ENDPOINT = "";
+
+/* ---------- demo closet data ---------- */
+const ITEMS = {
+  kimono: [
+    { id:"k1", name:"Indigo Asanoha", jp:"麻の葉", sub:"Navy cotton · hemp-leaf", pattern:"pat-asanoha" },
+    { id:"k2", name:"Morning Glory", jp:"朝顔", sub:"Cream cotton · asagao", pattern:"pat-asagao" },
+    { id:"k3", name:"Goldfish Pond", jp:"金魚", sub:"Vermillion · swimming kingyo", pattern:"pat-kingyo" },
+    { id:"k4", name:"Seigaiha Waves", jp:"青海波", sub:"Teal · wave crests", pattern:"pat-seigaiha" },
+  ],
+  obi: [
+    { id:"o1", name:"Golden Weave", jp:"半幅帯", sub:"Hanhaba · brocade gold", pattern:"pat-obi-gold" },
+    { id:"o2", name:"Plum Stripe", jp:"半幅帯", sub:"Hanhaba · plum & cream", pattern:"pat-obi-plum" },
+    { id:"o3", name:"Sky Seigaiha", jp:"半幅帯", sub:"Hanhaba · pale wave", pattern:"pat-obi-sky" },
+    { id:"o4", name:"Charcoal Thread", jp:"半幅帯", sub:"Hanhaba · black & gold", pattern:"pat-obi-kuro" },
+  ],
+  accessories: [
+    { id:"g1", name:"Kiri Geta · Red Hanao", jp:"下駄", sub:"Paulownia wood", wood:"#C89B66", hanao:"#C0392B" },
+    { id:"g2", name:"Lacquer Geta · White Hanao", jp:"下駄", sub:"Black lacquer", wood:"#332A28", hanao:"#F1EAD8" },
+    { id:"g3", name:"Kiri Geta · Indigo Hanao", jp:"下駄", sub:"Natural finish", wood:"#B98F5F", hanao:"#33495B" },
+  ],
+};
+
+const CAT_TITLES = {
+  kimono: "着物 · The kimono drawer — pick your yukata",
+  obi: "帯 · The obi drawer — pick a hanhaba obi",
+  accessories: "小物 · Accessories — pick your geta",
+};
+
+const CARPENTER_MSG = "🪚 The carpenter is still building this drawer.";
+
+/* ---------- state ---------- */
+const state = {
+  closetSize: null,
+  wouldPay: null,
+  picks: { kimono: null, obi: null, accessories: null },
+  coordinateName: "",
+  track: null,
+  feature: null,
+};
+let activeCat = null;
+
+/* ---------- stages ---------- */
+const STAGES = ["stage-invite", "stage-questions", "stage-demo", "stage-survey", "stage-thanks"];
+function goStage(n){
+  STAGES.forEach((id, i) => document.getElementById(id).classList.toggle("on", i === n));
+  document.querySelectorAll(".step-dot").forEach((d, i) => {
+    d.classList.toggle("on", i < n);
+    d.classList.toggle("now", i === Math.min(n, 3));
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ---------- chip groups ---------- */
+function wireChips(groupId, key, onChange){
+  const group = document.getElementById(groupId);
+  group.querySelectorAll(".chip").forEach(chip => {
+    chip.setAttribute("aria-pressed", "false");
+    chip.addEventListener("click", () => {
+      group.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", "false"));
+      chip.setAttribute("aria-pressed", "true");
+      state[key] = chip.dataset.value;
+      if (onChange) onChange();
+    });
+  });
+}
+function updateQuestionsBtn(){
+  document.getElementById("btn-questions").disabled = !(state.closetSize && state.wouldPay);
+}
+wireChips("q-closet", "closetSize", updateQuestionsBtn);
+wireChips("q-pay", "wouldPay", updateQuestionsBtn);
+wireChips("q-track", "track");
+wireChips("q-feature", "feature");
+
+/* ---------- toast ---------- */
+let toastTimer = null;
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+}
+
+/* ---------- drawers & picker ---------- */
+document.querySelectorAll("#chest .drawer").forEach(drawer => {
+  drawer.addEventListener("click", () => {
+    const cat = drawer.dataset.cat;
+    if (drawer.classList.contains("locked")){
+      showToast(CARPENTER_MSG);
+      return;
+    }
+    openPicker(cat);
+  });
+});
+
+function openPicker(cat){
+  activeCat = cat;
+  document.querySelectorAll("#chest .drawer").forEach(d =>
+    d.classList.toggle("active", d.dataset.cat === cat));
+  document.getElementById("picker-title").textContent = CAT_TITLES[cat];
+
+  const grid = document.getElementById("item-grid");
+  grid.innerHTML = "";
+  ITEMS[cat].forEach(item => {
+    const card = document.createElement("button");
+    card.className = "item-card" + (state.picks[cat] === item.id ? " picked" : "");
+    card.innerHTML = swatchSVG(cat, item) +
+      '<div class="item-meta"><div class="item-name">' + item.name +
+      '</div><div class="item-sub">' + item.jp + " · " + item.sub + "</div></div>";
+    card.addEventListener("click", () => pickItem(cat, item.id));
+    grid.appendChild(card);
+  });
+  const picker = document.getElementById("picker");
+  picker.classList.add("on");
+  picker.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function swatchSVG(cat, item){
+  if (cat === "accessories"){
+    return '<svg viewBox="0 0 120 74" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect width="120" height="74" fill="#F4EEE1"/>' +
+      '<ellipse cx="45" cy="40" rx="17" ry="24" fill="' + item.wood + '"/>' +
+      '<path d="M45,21 L35,41 M45,21 L55,41" stroke="' + item.hanao + '" stroke-width="4" stroke-linecap="round" fill="none"/>' +
+      '<circle cx="45" cy="21" r="2.6" fill="' + item.hanao + '"/>' +
+      '<ellipse cx="80" cy="40" rx="17" ry="24" fill="' + item.wood + '"/>' +
+      '<path d="M80,21 L70,41 M80,21 L90,41" stroke="' + item.hanao + '" stroke-width="4" stroke-linecap="round" fill="none"/>' +
+      '<circle cx="80" cy="21" r="2.6" fill="' + item.hanao + '"/>' +
+      "</svg>";
+  }
+  return '<svg viewBox="0 0 120 74" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect width="120" height="74" fill="url(#' + item.pattern + ')"/></svg>';
+}
+
+function pickItem(cat, itemId){
+  state.picks[cat] = itemId;
+  const item = ITEMS[cat].find(i => i.id === itemId);
+
+  const drawer = document.querySelector('#chest .drawer[data-cat="' + cat + '"]');
+  drawer.classList.add("has-pick");
+  const chip = document.getElementById("picked-" + cat);
+  chip.textContent = drawer.classList.contains("half") ? "✓" : item.name;
+  chip.title = item.name;
+
+  document.querySelectorAll("#item-grid .item-card").forEach((c, idx) =>
+    c.classList.toggle("picked", ITEMS[cat][idx].id === itemId));
+
+  renderFlatmono();
+  updateChecklist();
+}
+
+/* ---------- flatmono ---------- */
+function renderFlatmono(){
+  const k = state.picks.kimono ? ITEMS.kimono.find(i => i.id === state.picks.kimono) : null;
+  const o = state.picks.obi ? ITEMS.obi.find(i => i.id === state.picks.obi) : null;
+  const g = state.picks.accessories ? ITEMS.accessories.find(i => i.id === state.picks.accessories) : null;
+
+  const kFill = k ? "url(#" + k.pattern + ")" : "#F0E9DB";
+  ["fm-sleeve-l", "fm-sleeve-r", "fm-body"].forEach(id => {
+    const el = document.getElementById(id);
+    el.setAttribute("fill", kFill);
+    el.setAttribute("stroke", k ? "#3A2C1C" : "#C4B295");
+    el.setAttribute("stroke-width", "2");
+    el.setAttribute("stroke-dasharray", k ? "none" : "6 5");
+    el.setAttribute("stroke-opacity", k ? ".45" : "1");
+  });
+  document.getElementById("fm-collar").setAttribute("opacity", k ? "1" : ".45");
+  document.getElementById("fm-kimono-hint").style.display = k ? "none" : "";
+
+  const oFill = o ? "url(#" + o.pattern + ")" : "#F0E9DB";
+  ["fm-obi-band", "fm-obi-knot"].forEach(id => {
+    const el = document.getElementById(id);
+    el.setAttribute("fill", oFill);
+    el.setAttribute("stroke", o ? "#3A2C1C" : "#C4B295");
+    el.setAttribute("stroke-width", "2");
+    el.setAttribute("stroke-dasharray", o ? "none" : "6 5");
+    el.setAttribute("stroke-opacity", o ? ".45" : "1");
+  });
+  document.getElementById("fm-obi-hint").style.display = o ? "none" : "";
+
+  document.querySelectorAll("#fm-geta .geta-base").forEach(el => {
+    el.setAttribute("fill", g ? g.wood : "#F0E9DB");
+    el.setAttribute("stroke", g ? "#3A2C1C" : "#C4B295");
+    el.setAttribute("stroke-width", "2");
+    el.setAttribute("stroke-dasharray", g ? "none" : "6 5");
+    el.setAttribute("stroke-opacity", g ? ".45" : "1");
+  });
+  document.querySelectorAll("#fm-geta .geta-strap").forEach(el =>
+    el.setAttribute("stroke", g ? g.hanao : "#D8CCB2"));
+  document.querySelectorAll("#fm-geta .geta-thong").forEach(el =>
+    el.setAttribute("fill", g ? g.hanao : "#D8CCB2"));
+  document.getElementById("fm-geta-hint").style.display = g ? "none" : "";
+}
+
+function updateChecklist(){
+  const labels = { kimono: "Kimono 着物", obi: "Obi 帯", accessories: "Geta 下駄" };
+  let done = 0;
+  Object.keys(labels).forEach(cat => {
+    const slot = document.getElementById("check-" + cat);
+    const ok = !!state.picks[cat];
+    if (ok) done++;
+    slot.classList.toggle("done", ok);
+    slot.textContent = (ok ? "✓ " : "") + labels[cat];
+  });
+  const finish = document.getElementById("finish-row");
+  const wasOn = finish.classList.contains("on");
+  finish.classList.toggle("on", done === 3);
+  if (done === 3 && !wasOn){
+    showToast("✦ Outfit complete! Name it if you like, then finish below.");
+    finish.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+function finishOutfit(){
+  state.coordinateName = document.getElementById("coordinate-name").value.trim();
+  goStage(3);
+}
+
+/* ---------- submit ---------- */
+function pickName(cat){
+  const id = state.picks[cat];
+  const item = id ? ITEMS[cat].find(i => i.id === id) : null;
+  return item ? item.name : null;
+}
+
+async function submitAll(){
+  const btn = document.getElementById("btn-submit");
+  const email = document.getElementById("q-email").value.trim();
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    showToast("That email doesn't look quite right — mind checking it?");
+    return;
+  }
+
+  const payload = {
+    source: "virtual-tansu-demo",
+    submittedAt: new Date().toISOString(),
+    closetSize: state.closetSize,
+    wouldPay: state.wouldPay,
+    outfit: {
+      kimono: pickName("kimono"),
+      obi: pickName("obi"),
+      geta: pickName("accessories"),
+      coordinateName: state.coordinateName || null,
+    },
+    trackingToday: state.track,
+    mostWantedFeature: state.feature,
+    mustHaveWish: document.getElementById("q-wish").value.trim() || null,
+    email: email || null,
+  };
+
+  // Always keep a local copy so nothing is lost.
+  try { localStorage.setItem("tansu-demo-response", JSON.stringify(payload)); } catch (e) {}
+
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+  let sent = null; // null = test mode, true = delivered, false = failed
+  if (FORM_ENDPOINT){
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      sent = res.ok;
+    } catch (e) {
+      sent = false;
+    }
+  }
+
+  showThanks(payload, sent);
+}
+
+function showThanks(payload, sent){
+  const recap = document.getElementById("outfit-recap");
+  const rows = [
+    ["Coordinate", payload.outfit.coordinateName || "Untitled festival look"],
+    ["Kimono", payload.outfit.kimono || "—"],
+    ["Obi", payload.outfit.obi || "—"],
+    ["Geta", payload.outfit.geta || "—"],
+  ];
+  recap.innerHTML = rows.map(r =>
+    '<div class="recap-line"><span class="r-cat">' + r[0] + "</span><strong>" + escapeHTML(r[1]) + "</strong></div>"
+  ).join("");
+
+  if (payload.email){
+    document.getElementById("thanks-lede").textContent =
+      "You're on the launch list — when the carpenter finishes the rest of the drawers, you'll be the first to know.";
+  }
+
+  const note = document.getElementById("demo-mode-note");
+  if (sent === null){
+    note.innerHTML = '<p class="demo-mode-note">Test build: this response was saved on this device only — the mailbox isn\'t wired to the workshop yet.</p>';
+  } else if (sent === false){
+    note.innerHTML = '<p class="demo-mode-note">Hm — the response couldn\'t reach the workshop just now, but it\'s saved safely on this device.</p>';
+  } else {
+    note.innerHTML = "";
+  }
+
+  goStage(4);
+}
+
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+}
+
+/* ---------- init ---------- */
+renderFlatmono();
+updateChecklist();
+goStage(0);
+</script>
+
 </body>
 </html>
