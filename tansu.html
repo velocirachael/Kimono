@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- Invite-only demo page: keep out of search engines -->
 <meta name="robots" content="noindex, nofollow">
-<title>Virtual Tansu — You're Invited</title>
+<title>Virtual Tansu - You're Invited</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -615,7 +615,7 @@
       <p class="jp-note">ようこそ</p>
       <h1>You're invited to open<br>the <em>Virtual Tansu</em>.</h1>
       <p class="lede">
-        A digital chest of drawers for your kimono life — catalog your closet,
+        A digital chest of drawers for your kimono life - catalog your closet,
         plan coordinates, export your look to your favorite social media, and
         stop wrestling stacks of tatoushi on the floor.
         You're one of the first people to try it.
@@ -638,7 +638,7 @@
         You're going to a <strong>summer festival</strong> this weekend and you need a
         <strong>yukata outfit</strong>. Open the drawers, pick a
         <strong>kimono</strong>, an <strong>obi</strong>, and your
-        <strong>geta</strong> — then see your coordinate come together below.
+        <strong>geta</strong> - then see your coordinate come together below.
       </p>
     </div>
 
@@ -808,7 +808,7 @@
       </div>
 
       <div class="finish-row" id="finish-row">
-        <input type="text" id="coordinate-name" maxlength="60" placeholder="Name your coordinate (optional) — e.g. Fireworks Night">
+        <input type="text" id="coordinate-name" maxlength="60" placeholder="Name your coordinate (optional) - e.g. Fireworks Night">
         <button class="btn btn-matcha" onclick="finishOutfit()">Finish my coordinate ✦</button>
       </div>
     </div>
@@ -818,9 +818,9 @@
 
   <!-- ========== STAGE 2 · SURVEY ========== -->
   <section class="stage" id="stage-survey">
-    <p class="eyebrow">Last drawer — feedback</p>
+    <p class="eyebrow">Last drawer - feedback</p>
     <h2>How did the tansu feel?</h2>
-    <p class="lede">Now that you've tried it — a few quick things, then you're done. This decides what gets built next.</p>
+    <p class="lede">Now that you've tried it - a few quick things, then you're done. This decides what gets built next.</p>
 
     <div class="q-block">
       <p class="q-title">How big is your closet?</p>
@@ -836,7 +836,7 @@
 
     <div class="q-block">
       <p class="q-title">What would this be worth to you?</p>
-      <p class="q-sub">If Virtual Tansu did everything you hoped — honestly, what would you pay?</p>
+      <p class="q-sub">If Virtual Tansu did everything you hoped - honestly, what would you pay?</p>
       <div class="chip-row" id="q-pay" role="group" aria-label="Willingness to pay">
         <button class="chip" data-value="Free only">Free only</button>
         <button class="chip" data-value="$1–4.99 / month">$1–4.99 / mo</button>
@@ -846,7 +846,7 @@
         <button class="chip" data-value="One-time purchase">One-time purchase</button>
       </div>
       <div class="otp-row" id="otp-row">
-        <input type="text" id="q-otp-price" inputmode="decimal" placeholder="Your price — e.g. $25">
+        <input type="text" id="q-otp-price" inputmode="decimal" placeholder="Your price - e.g. $25">
       </div>
     </div>
 
@@ -874,13 +874,13 @@
 
     <div class="q-block">
       <p class="q-title">What would make this a must-have for you?</p>
-      <p class="q-sub">Optional — one line is plenty.</p>
-      <textarea id="q-wish" rows="2" placeholder="e.g. “Let me upload photos of each piece” or “remind me what fits the season”"></textarea>
+      <p class="q-sub">Optional - one line is plenty.</p>
+      <textarea id="q-wish" rows="2" placeholder="e.g. 'Let me upload photos of each piece' or 'remind me what fits the season'"></textarea>
     </div>
 
     <div class="q-block email-block">
       <p class="q-title">Get first access when it launches 🏮</p>
-      <p class="q-sub">Leave your email and you're on the launch list. No spam, no sharing — just the launch invite.</p>
+      <p class="q-sub">Leave your email and you're on the launch list. No spam, no sharing - just the launch invite.</p>
       <input type="email" id="q-email" placeholder="you@example.com" autocomplete="email" inputmode="email">
     </div>
 
@@ -900,7 +900,7 @@
     <div class="outfit-recap" id="outfit-recap"></div>
 
     <p class="lede" style="font-size:.9rem;">
-      Know another kimono person who'd enjoy this? Send them this page —
+      Know another kimono person who'd enjoy this? Send them this page -
       it's invite-only, and you're the invitation.
     </p>
     <div id="demo-mode-note"></div>
@@ -928,11 +928,11 @@
 
 <script>
 /* =====================================================================
-   CONFIG — response collection endpoint.
+   CONFIG - response collection endpoint.
    Submissions go to the Command Center (kimono-admin Worker) under
    "Submissions". The Worker-side route is specced in
    docs/COMMAND-CENTER.md and must be deployed from the private
-   kimono-worker repo before outreach begins — until then, POSTs fail
+   kimono-worker repo before outreach begins - until then, POSTs fail
    gracefully and responses stay in the tester's browser (localStorage).
    Setting this to "" runs the page in pure test mode (no POST at all).
    ===================================================================== */
@@ -960,9 +960,9 @@ const ITEMS = {
 };
 
 const CAT_TITLES = {
-  kimono: "着物 · The kimono drawer — pick your yukata",
-  obi: "帯 · The obi drawer — pick a hanhaba obi",
-  accessories: "小物 · Accessories — pick your geta",
+  kimono: "着物 · The kimono drawer - pick your yukata",
+  obi: "帯 · The obi drawer - pick a hanhaba obi",
+  accessories: "小物 · Accessories - pick your geta",
 };
 
 const CARPENTER_MSG = "🪚 The carpenter is still building this drawer.";
@@ -1039,7 +1039,7 @@ function showToast(msg){
 }
 
 /* ---------- drawers & picker ---------- */
-/* Flatmono hints are tappable — they open the matching drawer. */
+/* Flatmono hints are tappable - they open the matching drawer. */
 [["fm-kimono-hint","kimono"],["fm-obi-hint","obi"],["fm-geta-hint","accessories"]].forEach(([id, cat]) => {
   document.getElementById(id).addEventListener("click", () => {
     openPicker(cat);
@@ -1197,14 +1197,14 @@ function pickName(cat){
 async function submitAll(){
   const btn = document.getElementById("btn-submit");
   if (!state.closetSize || !state.wouldPay){
-    showToast("Two quick taps first — closet size and what it'd be worth to you.");
+    showToast("Two quick taps first - closet size and what it'd be worth to you.");
     document.getElementById(state.closetSize ? "q-pay" : "q-closet")
       .scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
   const email = document.getElementById("q-email").value.trim();
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    showToast("That email doesn't look quite right — mind checking it?");
+    showToast("That email doesn't look quite right - mind checking it?");
     return;
   }
 
@@ -1254,9 +1254,9 @@ function showThanks(payload, sent){
   const recap = document.getElementById("outfit-recap");
   const rows = [
     ["Coordinate", payload.outfit.coordinateName || "Untitled festival look"],
-    ["Kimono", payload.outfit.kimono || "—"],
-    ["Obi", payload.outfit.obi || "—"],
-    ["Geta", payload.outfit.geta || "—"],
+    ["Kimono", payload.outfit.kimono || "-"],
+    ["Obi", payload.outfit.obi || "-"],
+    ["Geta", payload.outfit.geta || "-"],
   ];
   recap.innerHTML = rows.map(r =>
     '<div class="recap-line"><span class="r-cat">' + r[0] + "</span><strong>" + escapeHTML(r[1]) + "</strong></div>"
@@ -1264,7 +1264,7 @@ function showThanks(payload, sent){
 
   if (payload.email){
     document.getElementById("thanks-lede").textContent =
-      "You're on the launch list — when the carpenter finishes the rest of the drawers, you'll be the first to know.";
+      "You're on the launch list - when the carpenter finishes the rest of the drawers, you'll be the first to know.";
   }
 
   const note = document.getElementById("demo-mode-note");
