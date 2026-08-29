@@ -219,6 +219,19 @@
     border-color:var(--indigo);
     color:#fff;
   }
+  .otp-row{ display:none; margin-top:10px; }
+  .otp-row.on{ display:block; animation:stageIn .3s ease; }
+  .otp-row input{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-family:var(--body);
+    font-size:.92rem;
+    background:#fff;
+    color:var(--ink);
+  }
+  #flatmono .fm-hint{ cursor:pointer; }
 
   /* ---------- mission ---------- */
   .mission-card{
@@ -531,7 +544,8 @@
       <h1>You're invited to open<br>the <em>Virtual Tansu</em>.</h1>
       <p class="lede">
         A digital chest of drawers for your kimono life — catalog your closet,
-        plan coordinates, and stop wrestling stacks of tatoushi on the floor.
+        plan coordinates, export your look to your favorite social media, and
+        stop wrestling stacks of tatoushi on the floor.
         You're one of the first people to try it.
       </p>
       <ul class="invite-list">
@@ -549,7 +563,7 @@
       <p class="jp-note">お祭りへ行こう</p>
       <h2>Your mission</h2>
       <p>
-        You're going to a <strong>summer festival</strong> tonight and you need a
+        You're going to a <strong>summer festival</strong> this weekend and you need a
         <strong>yukata outfit</strong>. Open the drawers, pick a
         <strong>kimono</strong>, an <strong>obi</strong>, and your
         <strong>geta</strong> — then see your coordinate come together below.
@@ -683,14 +697,14 @@
             <path id="fm-body" d="M124,64 C124,58 130,54 136,54 L224,54 C230,54 236,58 236,64 L244,356 C244,362 240,366 234,366 L126,366 C120,366 116,362 116,356 Z"/>
             <path id="fm-collar" d="M141,56 L180,192 L219,56" fill="none" stroke="#F6F1E7" stroke-width="14" stroke-linecap="butt"/>
             <path d="M141,56 L180,192 L219,56" fill="none" stroke="#B8A88F" stroke-width="1" opacity=".7"/>
-            <text id="fm-kimono-hint" x="180" y="300" text-anchor="middle" font-size="12" fill="#A08F76" font-family="'Space Mono', monospace">open the kimono drawer</text>
+            <text id="fm-kimono-hint" class="fm-hint" x="180" y="300" text-anchor="middle" font-size="12" fill="#8a6a3c" text-decoration="underline" font-family="'Space Mono', monospace" role="button" aria-label="Open the kimono drawer">open the kimono drawer</text>
           </g>
 
           <!-- obi band -->
           <g id="fm-obi">
             <rect id="fm-obi-band" x="104" y="196" width="152" height="54" rx="4"/>
             <rect id="fm-obi-knot" x="242" y="188" width="46" height="52" rx="8" transform="rotate(8 265 214)"/>
-            <text id="fm-obi-hint" x="180" y="228" text-anchor="middle" font-size="11" fill="#A08F76" font-family="'Space Mono', monospace">+ obi</text>
+            <text id="fm-obi-hint" class="fm-hint" x="180" y="228" text-anchor="middle" font-size="11" fill="#8a6a3c" text-decoration="underline" font-family="'Space Mono', monospace" role="button" aria-label="Open the obi drawer">+ obi</text>
           </g>
 
           <!-- geta pair -->
@@ -705,7 +719,7 @@
               <path class="geta-strap" d="M214,383 L201,406 M214,383 L227,406" fill="none" stroke-width="4" stroke-linecap="round"/>
               <circle class="geta-thong" cx="214" cy="383" r="3"/>
             </g>
-            <text id="fm-geta-hint" x="290" y="408" text-anchor="middle" font-size="11" fill="#A08F76" font-family="'Space Mono', monospace">+ geta</text>
+            <text id="fm-geta-hint" class="fm-hint" x="290" y="408" text-anchor="middle" font-size="11" fill="#8a6a3c" text-decoration="underline" font-family="'Space Mono', monospace" role="button" aria-label="Open the geta drawer">+ geta</text>
           </g>
         </svg>
       </div>
@@ -731,7 +745,7 @@
 
     <div class="q-block">
       <p class="q-title">How big is your closet?</p>
-      <p class="q-sub">Pieces of kitsuke — kimono, obi, komono, everything.</p>
+      <p class="q-sub">Pieces of kitsuke - kimono, obi, accessories, everything.</p>
       <div class="chip-row" id="q-closet" role="group" aria-label="Closet size">
         <button class="chip" data-value="Just starting (1–9)">Just starting (1–9)</button>
         <button class="chip" data-value="10–24 pieces">10–24</button>
@@ -746,10 +760,14 @@
       <p class="q-sub">If Virtual Tansu did everything you hoped — honestly, what would you pay?</p>
       <div class="chip-row" id="q-pay" role="group" aria-label="Willingness to pay">
         <button class="chip" data-value="Free only">Free only</button>
-        <button class="chip" data-value="$1–3 / month">$1–3 / mo</button>
-        <button class="chip" data-value="$4–7 / month">$4–7 / mo</button>
-        <button class="chip" data-value="$8–12 / month">$8–12 / mo</button>
+        <button class="chip" data-value="$1–4.99 / month">$1–4.99 / mo</button>
+        <button class="chip" data-value="$5–9.99 / month">$5–9.99 / mo</button>
+        <button class="chip" data-value="$10–19.99 / month">$10–19.99 / mo</button>
+        <button class="chip" data-value="$20+ / month (business)">$20+ business / mo</button>
         <button class="chip" data-value="One-time purchase">One-time purchase</button>
+      </div>
+      <div class="otp-row" id="otp-row">
+        <input type="text" id="q-otp-price" inputmode="decimal" placeholder="Your price — e.g. $25">
       </div>
     </div>
 
@@ -896,7 +914,11 @@ function wireChips(groupId, key, onChange){
   });
 }
 wireChips("q-closet", "closetSize");
-wireChips("q-pay", "wouldPay");
+wireChips("q-pay", "wouldPay", () => {
+  const otp = state.wouldPay === "One-time purchase";
+  document.getElementById("otp-row").classList.toggle("on", otp);
+  if (otp) document.getElementById("q-otp-price").focus();
+});
 wireChips("q-track", "track");
 wireChips("q-feature", "feature");
 
@@ -911,6 +933,14 @@ function showToast(msg){
 }
 
 /* ---------- drawers & picker ---------- */
+/* Flatmono hints are tappable — they open the matching drawer. */
+[["fm-kimono-hint","kimono"],["fm-obi-hint","obi"],["fm-geta-hint","accessories"]].forEach(([id, cat]) => {
+  document.getElementById(id).addEventListener("click", () => {
+    openPicker(cat);
+    document.getElementById("chest").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+});
+
 document.querySelectorAll("#chest .drawer").forEach(drawer => {
   drawer.addEventListener("click", () => {
     const cat = drawer.dataset.cat;
@@ -1070,6 +1100,9 @@ async function submitAll(){
     submittedAt: new Date().toISOString(),
     closetSize: state.closetSize,
     wouldPay: state.wouldPay,
+    oneTimePrice: state.wouldPay === "One-time purchase"
+      ? (document.getElementById("q-otp-price").value.trim() || null)
+      : null,
     outfit: {
       kimono: pickName("kimono"),
       obi: pickName("obi"),
