@@ -773,7 +773,8 @@
 
     <div class="q-block">
       <p class="q-title">How do you track your collection today?</p>
-      <div class="chip-row" id="q-track" role="group" aria-label="Current tracking method">
+      <p class="q-sub">Pick all that apply.</p>
+      <div class="chip-row" id="q-track" role="group" aria-label="Current tracking methods">
         <button class="chip" data-value="Photos on my phone">Photos on my phone</button>
         <button class="chip" data-value="Spreadsheet">Spreadsheet</button>
         <button class="chip" data-value="Notebook">Notebook</button>
@@ -882,7 +883,7 @@ const state = {
   wouldPay: null,
   picks: { kimono: null, obi: null, accessories: null },
   coordinateName: "",
-  track: null,
+  track: [],
   feature: null,
 };
 let activeCat = null;
@@ -919,7 +920,22 @@ wireChips("q-pay", "wouldPay", () => {
   document.getElementById("otp-row").classList.toggle("on", otp);
   if (otp) document.getElementById("q-otp-price").focus();
 });
-wireChips("q-track", "track");
+/* Multi-select: tracking methods stack (photo roll AND a spreadsheet). */
+function wireMultiChips(groupId, key){
+  const group = document.getElementById(groupId);
+  if (!group) return;
+  group.querySelectorAll(".chip").forEach(chip => {
+    chip.setAttribute("aria-pressed", "false");
+    chip.addEventListener("click", () => {
+      const on = chip.getAttribute("aria-pressed") === "true";
+      chip.setAttribute("aria-pressed", on ? "false" : "true");
+      const v = chip.dataset.value;
+      if (on) state[key] = state[key].filter(x => x !== v);
+      else state[key].push(v);
+    });
+  });
+}
+wireMultiChips("q-track", "track");
 wireChips("q-feature", "feature");
 
 /* ---------- toast ---------- */
@@ -1109,7 +1125,7 @@ async function submitAll(){
       geta: pickName("accessories"),
       coordinateName: state.coordinateName || null,
     },
-    trackingToday: state.track,
+    trackingToday: state.track.length ? state.track : null,
     mostWantedFeature: state.feature,
     mustHaveWish: document.getElementById("q-wish").value.trim() || null,
     email: email || null,
