@@ -841,12 +841,14 @@
 <script>
 /* =====================================================================
    CONFIG — response collection endpoint.
-   Create a free form at https://formspree.io (or similar), then paste
-   its endpoint here, e.g. "https://formspree.io/f/abcdwxyz".
-   While this is empty the page runs in test mode: responses are kept
-   in the tester's browser (localStorage) and NOT sent anywhere.
+   Submissions go to the Command Center (kimono-admin Worker) under
+   "Submissions". The Worker-side route is specced in
+   docs/COMMAND-CENTER.md and must be deployed from the private
+   kimono-worker repo before outreach begins — until then, POSTs fail
+   gracefully and responses stay in the tester's browser (localStorage).
+   Setting this to "" runs the page in pure test mode (no POST at all).
    ===================================================================== */
-const FORM_ENDPOINT = "";
+const FORM_ENDPOINT = "https://admin.floridakimono.com/api/submissions";
 
 /* ---------- demo closet data ---------- */
 const ITEMS = {

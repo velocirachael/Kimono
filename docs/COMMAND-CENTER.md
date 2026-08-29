@@ -93,7 +93,32 @@ device. Source, migration, and seed are in the `kimono-worker` repo
 `/admin` was deleted the same day — its data was seeded into D1
 first, and the old page remains in git history if ever needed.
 
-### 4. Later / nice-to-have
+### 4. Tansu demo → Command Center "Submissions" intake
+
+The invite-only demo at `/tansu` (tansu.html) collects survey responses
+— closet size, willingness to pay (the price data we're after),
+tracking habits, outfit picks, wish text, and an optional launch-list
+email. The page now POSTs to
+**`https://admin.floridakimono.com/api/submissions`**; until that route
+exists the POST fails gracefully and the response stays in the tester's
+localStorage, so **deploy the Worker route before outreach begins**.
+
+Worker-side spec (build in the private `kimono-worker` repo):
+
+- **`POST /api/submissions`** — accept JSON, no auth (public form),
+  CORS allow origin `https://floridakimono.com`. Payload shape:
+  `{ source: "virtual-tansu-demo", submittedAt, closetSize, wouldPay,
+  oneTimePrice, outfit: { kimono, obi, geta, coordinateName },
+  trackingToday: [..], mostWantedFeature, mustHaveWish, email }`.
+- Store in a D1 `submissions` table: `id, received_at, source,
+  payload` (JSON blob) — same privacy principle as signups: emails
+  live only in the Worker's private storage, never in this public repo.
+- Surface in the admin dashboard as a new **"Submissions"** section.
+  Which tab it lands in, and follow-up outreach emails to the
+  launch-list addresses, are decisions deferred to a later admin CM
+  work session — for now the intake just needs to capture everything.
+
+### 5. Later / nice-to-have
 
 - Delete the stale `events.js` and `index (2).html` from this repo
   once confirmed nothing references them.
