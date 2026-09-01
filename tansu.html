@@ -868,9 +868,11 @@
     </div>
 
     <div class="q-block">
-      <p class="q-title">Which part would you actually use most?</p>
-      <div class="chip-row" id="q-feature" role="group" aria-label="Most valuable feature">
-        <button class="chip" data-value="Closet catalog">Closet catalog</button>
+      <p class="q-title">Which parts would you actually use most?</p>
+      <p class="q-sub">Pick all that apply.</p>
+      <div class="chip-row" id="q-feature" role="group" aria-label="Most valuable features">
+        <button class="chip" data-value="Adding items to a closet catalog">Adding items to a closet catalog</button>
+        <button class="chip" data-value="Importing items from existing spreadsheet">Importing items from existing spreadsheet</button>
         <button class="chip" data-value="Outfit coordination">Outfit coordination</button>
         <button class="chip" data-value="Sharing looks">Sharing looks</button>
         <button class="chip" data-value="Buying & selling">Buying &amp; selling</button>
@@ -979,7 +981,7 @@ const state = {
   picks: { kimono: null, obi: null, accessories: null },
   coordinateName: "",
   track: [],
-  feature: null,
+  feature: [],
 };
 let activeCat = null;
 
@@ -1031,7 +1033,7 @@ function wireMultiChips(groupId, key){
   });
 }
 wireMultiChips("q-track", "track");
-wireChips("q-feature", "feature");
+wireMultiChips("q-feature", "feature");
 
 /* ---------- toast ---------- */
 let toastTimer = null;
@@ -1228,7 +1230,7 @@ async function submitAll(){
       coordinateName: state.coordinateName || null,
     },
     trackingToday: state.track.length ? state.track : null,
-    mostWantedFeature: state.feature,
+    mostWantedFeature: state.feature.length ? state.feature.join(", ") : null,
     mustHaveWish: document.getElementById("q-wish").value.trim() || null,
     email: email || null,
   };
