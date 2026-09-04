@@ -1,17 +1,25 @@
 name: Purge Cloudflare Cache
 
+# Runs AFTER GitHub Pages finishes publishing — not on push. A push-triggered
+# purge completes ~40s before the new page is live, so the first visitor
+# re-fills Cloudflare's cache with the old page and the change never shows.
 on:
-  push:
-    branches: [main]
+  deployment_status:
   workflow_dispatch:
 
 jobs:
   purge-cache:
+    # deployment_status fires for every state change; only act on a successful
+    # github-pages deploy.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'github-pages')
     runs-on: ubuntu-latest
     steps:
       - name: Purge Cloudflare Cache
         run: |
-          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+          curl --fail-with-body -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{"purge_everything":true}'
