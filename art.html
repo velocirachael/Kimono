@@ -610,6 +610,7 @@
 <script src="art.js"></script>
 <script>
   let GALLERY = (typeof ART !== 'undefined' && Array.isArray(ART)) ? ART.slice() : [];
+  let galleryFromApi = false; // API order is curated in the Command Center — don't re-sort it
 
   async function fetchGallery() {
     try {
@@ -617,6 +618,7 @@
       if (response.ok) {
         const data = await response.json();
         GALLERY = data.pieces || [];
+        galleryFromApi = true;
       }
     } catch (err) {
       // API error — the static art.js pieces stay showing
@@ -630,7 +632,7 @@
       grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">${t('empty-state')}</div>`;
       return;
     }
-    const sorted = [...GALLERY].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const sorted = galleryFromApi ? GALLERY : [...GALLERY].sort((a, b) => new Date(b.date) - new Date(a.date));
     grid.innerHTML = sorted.map(piece => {
       const visual = piece.image
         ? `<img class="art-image" src="${piece.image}" alt="${piece.title} — ${piece.artist}" loading="lazy">`
