@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Art — Florida Kimono</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -477,11 +480,13 @@
 <section class="share" id="share">
   <h2 data-i18n="share-h2">Share your art</h2>
   <p data-i18n="share-p">Made something kimono-inspired? Send us a link to your piece — a post, portfolio page, or shared photo — and we'll feature it in the gallery with credit to you.</p>
-  <form id="art-form">
-    <input type="hidden" name="_subject" value="Art submission — Florida Kimono">
-    <input type="text" id="artist-name" name="name" placeholder="Your name" data-i18n-placeholder="placeholder-name" required>
-    <input type="email" id="artist-email" name="email" placeholder="Your email" data-i18n-placeholder="placeholder-email" required>
-    <input type="url" id="art-link" name="artwork_link" placeholder="Link to your artwork" data-i18n-placeholder="placeholder-link" required>
+  <form id="art-form" enctype="multipart/form-data">
+    <input type="text" id="artist-name" name="artist_name" placeholder="Your name" data-i18n-placeholder="placeholder-name" required>
+    <input type="email" id="artist-email" name="artist_email" placeholder="Your email" data-i18n-placeholder="placeholder-email" required>
+    <input type="text" id="art-title" name="title" placeholder="Title of your work" required>
+    <input type="text" id="art-medium" name="medium" placeholder="Medium (e.g. Digital, Watercolor)" required>
+    <textarea id="art-description" name="description" placeholder="Brief description (optional)" style="flex: 1 1 100%; resize: vertical; min-height: 80px; padding: 14px 18px; border: 1px solid rgba(247, 242, 231, 0.35); background: rgba(247, 242, 231, 0.06); color: var(--ivory); font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.95rem; border-radius: 2px; outline: none; transition: border-color 0.2s ease, background 0.2s ease;"></textarea>
+    <input type="file" id="art-image" name="image" accept="image/jpeg,image/png,image/webp" placeholder="Your artwork" required>
     <button type="submit" id="art-submit" data-i18n="share-submit">Submit art</button>
   </form>
   <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
@@ -599,13 +604,26 @@
   });
 </script>
 
-<!-- Gallery pieces live in art.js — that's the only file you need to
-     touch to add, edit, or remove artwork. This tag just loads it. -->
-<script src="art.js"></script>
+<!-- Fetch approved gallery pieces from the API, or fall back to static art.js -->
 <script>
+  let ART = [];
+
+  async function fetchGallery() {
+    try {
+      const response = await fetch('https://admin.floridakimono.com/api/art');
+      if (response.ok) {
+        const data = await response.json();
+        ART = data.pieces || [];
+      }
+    } catch (err) {
+      // API error — if static art.js exists, it will have set ART already
+    }
+    renderGallery();
+  }
+
   function renderGallery() {
     const grid = document.getElementById('gallery-grid');
-    if (typeof ART === 'undefined' || ART.length === 0) {
+    if (!ART || ART.length === 0) {
       grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">${t('empty-state')}</div>`;
       return;
     }
@@ -630,12 +648,13 @@
     }).join('');
   }
 
-  renderGallery();
+  fetchGallery();
 </script>
+<script src="art.js"></script>
 
-<!-- ---------- Art submission form (Formspree) ---------- -->
+<!-- ---------- Art submission form (admin.floridakimono.com API) ---------- -->
 <script>
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqrlzeb';
+  const API_ENDPOINT = 'https://admin.floridakimono.com/api/art-submissions';
 
   const artForm = document.getElementById('art-form');
   const formMessage = document.getElementById('form-message');
@@ -649,9 +668,8 @@
     formMessage.textContent = '';
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(API_ENDPOINT, {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
         body: new FormData(artForm)
       });
 
@@ -659,7 +677,8 @@
         formMessage.textContent = t('share-thanks');
         artForm.reset();
       } else {
-        formMessage.textContent = t('share-error-generic');
+        const data = await response.json();
+        formMessage.textContent = data.error || t('share-error-generic');
       }
     } catch (err) {
       formMessage.textContent = t('share-error-network');
