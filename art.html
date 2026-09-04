@@ -476,12 +476,13 @@
 
 <section class="share" id="share">
   <h2 data-i18n="share-h2">Share your art</h2>
-  <p data-i18n="share-p">Made something kimono-inspired? Send us a link to your piece — a post, portfolio page, or shared photo — and we'll feature it in the gallery with credit to you.</p>
+  <p data-i18n="share-p">Made something kimono-inspired? Upload a photo of your piece and we'll feature it in the gallery with credit to you. Big photos are fine — we shrink them before uploading. Have a portfolio or website? Add the link and we'll show that too.</p>
   <form id="art-form" enctype="multipart/form-data">
     <input type="text" id="artist-name" name="artist_name" placeholder="Your name" data-i18n-placeholder="placeholder-name" required>
     <input type="email" id="artist-email" name="artist_email" placeholder="Your email" data-i18n-placeholder="placeholder-email" required>
     <input type="text" id="art-title" name="title" placeholder="Title of your work" required>
     <input type="text" id="art-medium" name="medium" placeholder="Medium (e.g. Digital, Watercolor)" required>
+    <input type="url" id="art-portfolio" name="portfolio" placeholder="Portfolio or website (optional)" data-i18n-placeholder="placeholder-portfolio">
     <textarea id="art-description" name="description" placeholder="Brief description (optional)" style="flex: 1 1 100%; resize: vertical; min-height: 80px; padding: 14px 18px; border: 1px solid rgba(247, 242, 231, 0.35); background: rgba(247, 242, 231, 0.06); color: var(--ivory); font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 0.95rem; border-radius: 2px; outline: none; transition: border-color 0.2s ease, background 0.2s ease;"></textarea>
     <input type="file" id="art-image" name="image" accept="image/jpeg,image/png,image/webp" placeholder="Your artwork" required>
     <button type="submit" id="art-submit" data-i18n="share-submit">Submit art</button>
@@ -519,7 +520,8 @@
     'art-by': { en: 'by', ja: '作' },
     'view-piece': { en: 'View the piece →', ja: '作品を見る →' },
     'share-h2': { en: 'Share your art', ja: '作品をシェアする' },
-    'share-p': { en: "Made something kimono-inspired? Send us a link to your piece — a post, portfolio page, or shared photo — and we'll feature it in the gallery with credit to you.", ja: '着物にインスパイアされた作品を作りましたか？投稿、ポートフォリオ、写真へのリンクをお送りください。クレジット付きでギャラリーに掲載します。' },
+    'share-p': { en: "Made something kimono-inspired? Upload a photo of your piece and we'll feature it in the gallery with credit to you. Big photos are fine — we shrink them before uploading. Have a portfolio or website? Add the link and we'll show that too.", ja: '着物にインスパイアされた作品を作りましたか？作品の写真をアップロードしてください。クレジット付きでギャラリーに掲載します。大きな写真でも大丈夫 — 送信前に自動で縮小します。ポートフォリオやウェブサイトをお持ちの方は、リンクもご紹介します。' },
+    'placeholder-portfolio': { en: 'Portfolio or website (optional)', ja: 'ポートフォリオ・ウェブサイト（任意）' },
     'placeholder-name': { en: 'Your name', ja: 'お名前' },
     'placeholder-email': { en: 'Your email', ja: 'メールアドレス' },
     'placeholder-link': { en: 'Link to your artwork', ja: '作品へのリンク' },
@@ -601,30 +603,34 @@
   });
 </script>
 
-<!-- Fetch approved gallery pieces from the API, or fall back to static art.js -->
+<!-- Static fallback pieces load first (art.js declares ART); the API then
+     replaces them with the approved submissions. Loading art.js before this
+     script also fixes the "ART has already been declared" SyntaxError that
+     killed the fallback when both files declared the same name. -->
+<script src="art.js"></script>
 <script>
-  let ART = [];
+  let GALLERY = (typeof ART !== 'undefined' && Array.isArray(ART)) ? ART.slice() : [];
 
   async function fetchGallery() {
     try {
       const response = await fetch('https://admin.floridakimono.com/api/art');
       if (response.ok) {
         const data = await response.json();
-        ART = data.pieces || [];
+        GALLERY = data.pieces || [];
       }
     } catch (err) {
-      // API error — if static art.js exists, it will have set ART already
+      // API error — the static art.js pieces stay showing
     }
     renderGallery();
   }
 
   function renderGallery() {
     const grid = document.getElementById('gallery-grid');
-    if (!ART || ART.length === 0) {
+    if (!GALLERY || GALLERY.length === 0) {
       grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">${t('empty-state')}</div>`;
       return;
     }
-    const sorted = [...ART].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const sorted = [...GALLERY].sort((a, b) => new Date(b.date) - new Date(a.date));
     grid.innerHTML = sorted.map(piece => {
       const visual = piece.image
         ? `<img class="art-image" src="${piece.image}" alt="${piece.title} — ${piece.artist}" loading="lazy">`
@@ -647,7 +653,6 @@
 
   fetchGallery();
 </script>
-<script src="art.js"></script>
 
 <!-- ---------- Art submission form (admin.floridakimono.com API) ---------- -->
 <script>
@@ -657,6 +662,34 @@
   const formMessage = document.getElementById('form-message');
   const artSubmitBtn = document.getElementById('art-submit');
 
+  // Shrink big photos in the browser before uploading: phone and camera
+  // shots are often 5-15 MB, which uploads slowly and can trip the server's
+  // 10 MB cap. Anything over ~1.5 MB is redrawn at max 2048px and re-encoded
+  // as JPEG (~85%), typically well under 1 MB. If resizing fails for any
+  // reason, the original file is sent unchanged.
+  const RESIZE_OVER_BYTES = 1.5 * 1024 * 1024;
+  const MAX_DIMENSION = 2048;
+
+  async function prepareImage(file) {
+    if (!file || file.size <= RESIZE_OVER_BYTES) return file;
+    try {
+      const bitmap = await createImageBitmap(file);
+      const scale = Math.min(1, MAX_DIMENSION / Math.max(bitmap.width, bitmap.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+      canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+      canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise((res) => canvas.toBlob(res, 'image/jpeg', 0.85));
+      if (blob && blob.size < file.size) {
+        const name = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+        return new File([blob], name, { type: 'image/jpeg' });
+      }
+    } catch (err) {
+      // fall through — send the original
+    }
+    return file;
+  }
+
   artForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -664,22 +697,33 @@
     artSubmitBtn.textContent = t('share-sending');
     formMessage.textContent = '';
 
+    // Never leave the button stuck on "Sending…": abort after 60s and show
+    // the network-error message instead.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 60000);
+
     try {
+      const formData = new FormData(artForm);
+      const original = document.getElementById('art-image').files[0];
+      if (original) formData.set('image', await prepareImage(original));
+
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
-        body: new FormData(artForm)
+        body: formData,
+        signal: controller.signal
       });
 
       if (response.ok) {
         formMessage.textContent = t('share-thanks');
         artForm.reset();
       } else {
-        const data = await response.json();
-        formMessage.textContent = data.error || t('share-error-generic');
+        const data = await response.json().catch(() => null);
+        formMessage.textContent = (data && data.error) || t('share-error-generic');
       }
     } catch (err) {
       formMessage.textContent = t('share-error-network');
     } finally {
+      clearTimeout(timer);
       artSubmitBtn.disabled = false;
       artSubmitBtn.textContent = t('share-submit');
     }
