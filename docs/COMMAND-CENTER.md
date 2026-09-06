@@ -1,6 +1,6 @@
 # Florida Kimono — Command Center & Outreach System
 
-*Status notes and to-do list. Last updated: August 22, 2026.*
+*Status notes and to-do list. Last updated: September 6, 2026.*
 
 This is the living reference for how the club's systems fit together:
 the public website, the Command Center backend, and the outreach
@@ -107,7 +107,17 @@ Built because JAPAN Fes Florida — Miami (Nov 6) appeared cancelled (or
 its page moved) and there was no GUI way to remove it. That event was
 deleted from the live calendar and from `seed.sql` the same day.
 
-### 5. Build "Sources" into the Command Center — ⏳ built Aug 22, 2026, awaiting deploy
+### 4b. Subscribers, Newsletter & Submissions — ✅ built in a parallel session (merged Sep 6, 2026)
+
+Another session built these directly in `kimono-worker` (see its
+`CLAUDE.md` and README): the Subscribers mailing list (purple), the
+Newsletter sender (teal) with signed one-click unsubscribe, the Virtual
+Tansu demo Submissions page (orange), outreach compose-and-send with
+D1-backed templates, and real Welcome Letter copy. The site's signup
+form now posts straight to `/api/signup` — Formspree is out of the flow.
+That work and the Sources section below were merged Sep 6, 2026.
+
+### 5. Build "Sources" into the Command Center — ⏳ built Sep 6, 2026, awaiting deploy
 
 The event-source vetting list (safe / pending_review / rejected), now in
 D1 as the single source of truth per the Aug 2026 scout-integration
