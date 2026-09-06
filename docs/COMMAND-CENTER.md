@@ -107,7 +107,33 @@ Built because JAPAN Fes Florida — Miami (Nov 6) appeared cancelled (or
 its page moved) and there was no GUI way to remove it. That event was
 deleted from the live calendar and from `seed.sql` the same day.
 
-### 5. Later / nice-to-have
+### 5. Build "Sources" into the Command Center — ⏳ built Aug 22, 2026, awaiting deploy
+
+The event-source vetting list (safe / pending_review / rejected), now in
+D1 as the single source of truth per the Aug 2026 scout-integration
+handoff. GUI at **admin.floridakimono.com/admin/sources.html** (green in
+the sidebar): approve/reject pending candidates, edit in place, CSV
+import/export as the bridge to both scouts. Seeded with parity data
+(7 safe + 2 pending_review sources from Humano Event Scout). A
+secret-locked `/api/sources/inbox` is ready for the Category Gap Scout
+artifact to POST candidates into — everything it submits is forced to
+pending_review; only the Access-locked admin can approve. Deploy steps
+and the one Access bypass rule needed are in the `kimono-worker` README.
+
+Remaining integration phases (not built yet, by design — each needs a
+decision or user-side config):
+
+- **Phase 2:** point the Category Gap Scout artifact at
+  `/api/sources/inbox` (replaces its hardcoded dedup copy and the CSV
+  hand-off in that direction).
+- **Phase 3:** move the weekly Monday event scan out of Cowork into this
+  Worker's cron — scan safe sources, write candidates into the existing
+  `pending_events` Approvals queue. Needs an `ANTHROPIC_API_KEY` secret
+  in the Worker; everything stays on Anthropic/Claude (no other
+  providers). Category taxonomy stays two-layered on purpose: narrow
+  discovery categories on sources, broad display categories on events.
+
+### 6. Later / nice-to-have
 
 - Delete the stale `events.js` and `index (2).html` from this repo
   once confirmed nothing references them.
