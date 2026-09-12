@@ -1,6 +1,6 @@
 # Florida Kimono — Command Center & Outreach System
 
-*Status notes and to-do list. Last updated: September 6, 2026.*
+*Status notes and to-do list. Last updated: September 12, 2026.*
 
 This is the living reference for how the club's systems fit together:
 the public website, the Command Center backend, and the outreach
@@ -117,25 +117,39 @@ D1-backed templates, and real Welcome Letter copy. The site's signup
 form now posts straight to `/api/signup` — Formspree is out of the flow.
 That work and the Sources section below were merged Sep 6, 2026.
 
-### 5. Build "Sources" into the Command Center — ⏳ built Sep 6, 2026, awaiting deploy
+### 5. Build "Sources" into the Command Center — ✅ DONE Sep 6, 2026 (deployed Sep 12)
 
 The event-source vetting list (safe / pending_review / rejected), now in
 D1 as the single source of truth per the Aug 2026 scout-integration
 handoff. GUI at **admin.floridakimono.com/admin/sources.html** (green in
 the sidebar): approve/reject pending candidates, edit in place, CSV
 import/export as the bridge to both scouts. Seeded with parity data
-(7 safe + 2 pending_review sources from Humano Event Scout). A
-secret-locked `/api/sources/inbox` is ready for the Category Gap Scout
-artifact to POST candidates into — everything it submits is forced to
-pending_review; only the Access-locked admin can approve. Deploy steps
-and the one Access bypass rule needed are in the `kimono-worker` README.
+(7 safe + 2 pending_review from Humano Event Scout, plus 16 Gap Scout
+candidates in thin categories — Taiko, Martial Arts, Language,
+Film/Cultural, Family). A secret-locked `/api/sources/inbox` is ready
+for the Category Gap Scout artifact to POST candidates into — everything
+it submits is forced to pending_review; only the Access-locked admin can
+approve.
 
-Remaining integration phases (not built yet, by design — each needs a
-decision or user-side config):
+### 6. Connect both scouts to the Command Center — ✅ DONE Sep 12, 2026
 
-- **Phase 2:** point the Category Gap Scout artifact at
-  `/api/sources/inbox` (replaces its hardcoded dedup copy and the CSV
-  hand-off in that direction).
+**Humano Event Scout → Approvals queue:** `/api/events/inbox` accepts
+scraped events (1-50 per POST, secret-locked). Events are forced to
+pending status, deduped by a stable ID from date+host+title, and land in
+the Pending events section of the Approvals dashboard alongside Tally
+form submissions. Source is tagged `humano-scout` on the event card.
+
+**Category Gap Scout → Sources queue:** 16 candidates in thin categories
+(3 Taiko, 5 Martial Arts, 3 Language, 3 Film/Cultural, 1 Family) seeded
+into D1 via `seed-sources.sql` and `bootstrap.ts`. All pending_review,
+origin `gap-scout`. Future batches POST to `/api/sources/inbox`.
+
+**Cloudflare Access:** App 3 (`/api/events` bypass) already covers
+`/api/events/inbox`. App 7 (`/api/sources/inbox` bypass) needs to be
+added — see the `kimono-worker` README step 7 table.
+
+**Remaining integration phase:**
+
 - **Phase 3:** move the weekly Monday event scan out of Cowork into this
   Worker's cron — scan safe sources, write candidates into the existing
   `pending_events` Approvals queue. Needs an `ANTHROPIC_API_KEY` secret
@@ -143,7 +157,7 @@ decision or user-side config):
   providers). Category taxonomy stays two-layered on purpose: narrow
   discovery categories on sources, broad display categories on events.
 
-### 6. Later / nice-to-have
+### 7. Later / nice-to-have
 
 - Delete the stale `events.js` and `index (2).html` from this repo
   once confirmed nothing references them.
