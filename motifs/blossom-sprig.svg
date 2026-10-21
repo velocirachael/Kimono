@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 44">
+  <!-- Florida Kimono orange blossom motif: hero sprig -->
+  <defs>
+    <g id="b">
+      <g fill="#FBF7EF" stroke="#DCCDBE" stroke-width="0.8">
+        <ellipse cx="0" cy="-7.5" rx="4" ry="6.5"/>
+        <ellipse cx="0" cy="-7.5" rx="4" ry="6.5" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-7.5" rx="4" ry="6.5" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-7.5" rx="4" ry="6.5" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-7.5" rx="4" ry="6.5" transform="rotate(288)"/>
+      </g>
+      <circle r="2.4" fill="#E89E11"/>
+      <circle cx="0" cy="-3.4" r="0.9" fill="#E89E11"/>
+      <circle cx="3.2" cy="-1" r="0.9" fill="#E89E11"/>
+      <circle cx="2" cy="2.8" r="0.9" fill="#E89E11"/>
+      <circle cx="-2" cy="2.8" r="0.9" fill="#E89E11"/>
+      <circle cx="-3.2" cy="-1" r="0.9" fill="#E89E11"/>
+    </g>
+    <path id="l" d="M0 0 Q6 -7 14 -3 Q8 4 0 0 Z"/>
+  </defs>
+  <path d="M8 30 Q40 24 64 22 T112 16" fill="none" stroke="#577462" stroke-width="1.6"/>
+  <use xlink:href="#l" transform="translate(30,27) rotate(-25)" fill="#6E8A72"/>
+  <use xlink:href="#l" transform="translate(88,19) rotate(160) scale(-1,1)" fill="#577462"/>
+  <use xlink:href="#b" transform="translate(54,21) scale(1.25)"/>
+  <use xlink:href="#b" transform="translate(74,24) scale(0.85)"/>
+</svg>

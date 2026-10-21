@@ -1,0 +1,60 @@
+/* ============================================================
+   FLORIDA KIMONO — ORANGE BLOSSOM MOTIFS (motifs.css)
+   Ported from the "FKC Indigo Header Mock" artifact.
+   Purely decorative: every motif is aria-hidden or a CSS
+   background, so removing this file's <link> hides them all.
+   ============================================================ */
+
+/* Small sprig above the hero eyebrow */
+.blossom-sprig {
+  display: block;
+  width: 120px;
+  height: 44px;
+  margin: 0 auto 14px;
+  background: url('motifs/blossom-sprig.svg') center / contain no-repeat;
+}
+
+/* Horizontal leaf-and-blossom divider between sections */
+.vine-divider {
+  height: 44px;
+  margin: 26px auto;
+  width: min(520px, 80vw);
+  background: url('motifs/vine-divider.svg') center / contain no-repeat;
+}
+
+/* Blossom at the midpoint of the gold Purpose / Mission divider */
+.mission .divider { position: relative; overflow: visible; }
+.mission .divider::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 30px; height: 30px;
+  transform: translate(-50%, -50%);
+  background: url('motifs/orange-blossom.svg') center / contain no-repeat;
+}
+
+/* Leaf tucked into the top-right corner of event cards */
+.event-card { position: relative; }
+.event-card::after {
+  content: '';
+  position: absolute;
+  top: 10px; right: 12px;
+  width: 30px; height: 20px;
+  opacity: 0.8;
+  background: url('motifs/corner-leaf.svg') center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Blossom above headings on dark indigo panels (signup, share, vision card) */
+.blossom-mark {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 14px;
+  background: url('motifs/orange-blossom.svg') center / contain no-repeat;
+}
+
+@media (max-width: 720px) {
+  /* The mission columns stack and the divider is hidden on mobile */
+  .mission .divider::after { display: none; }
+}
