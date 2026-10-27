@@ -14,6 +14,31 @@ export function toISODate(dateStr: string): string | null {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
 }
 
+function normalizeTitle(title: string): string {
+  return title.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+// Catches the same event arriving twice (re-scanned, re-submitted) before it
+// ever reaches the review queue — often with worse data the second time.
+// Matches on title + date; dates are compared ISO-normalized since the same
+// event can arrive as "Sep 3, 2026" one time and "2026-09-03" another.
+export async function isDuplicateEvent(db: D1Database, date: string, title: string): Promise<boolean> {
+  const wantTitle = normalizeTitle(title);
+  if (!wantTitle) return false;
+  const wantDate = toISODate(date) ?? date;
+
+  const { results } = await db
+    .prepare(
+      `SELECT date FROM events WHERE published = 1 AND lower(trim(title)) = ?
+       UNION ALL
+       SELECT date FROM pending_events WHERE status = 'pending' AND lower(trim(title)) = ?`
+    )
+    .bind(wantTitle, wantTitle)
+    .all<{ date: string }>();
+
+  return results.some((r) => (toISODate(r.date) ?? r.date) === wantDate);
+}
+
 export async function listEvents(db: D1Database): Promise<EventEntry[]> {
   const { results } = await db
     .prepare("SELECT date, title, host, location, description, link FROM events WHERE published = 1 ORDER BY date ASC")

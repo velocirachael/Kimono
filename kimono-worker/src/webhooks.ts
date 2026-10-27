@@ -3,7 +3,7 @@
 // only the storage call at the end is different (D1 insert instead of a
 // GitHub commit).
 
-import { insertPendingEvent, insertPendingSignup } from "./db";
+import { insertPendingEvent, insertPendingSignup, isDuplicateEvent } from "./db";
 import type { Env, PendingEvent, PendingSignup, SignupType } from "./types";
 
 export function checkWebhookSecret(url: URL, env: Env): boolean {
@@ -48,6 +48,12 @@ export async function handleTallyWebhook(req: Request, env: Env): Promise<Respon
     link: extractField(fields, FIELD_MATCHERS.link),
     raw: body,
   };
+
+  // Already queued or already live — drop it quietly rather than making it
+  // reappear in the review queue. Still 200s so Tally doesn't flag/retry it.
+  if (await isDuplicateEvent(env.DB, event.date, event.title)) {
+    return Response.json({ ok: true });
+  }
 
   await insertPendingEvent(env.DB, event);
   return Response.json({ ok: true });
